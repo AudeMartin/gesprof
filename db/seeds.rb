@@ -28,6 +28,8 @@ puts "deleting previous schools"
 School.destroy_all
 puts "ended destroying schools"
 
+#DAILY SEEDING
+
 puts "deleting previous teachers"
 Teacher.destroy_all
 puts "ended destroying teachers"
@@ -35,6 +37,8 @@ puts "ended destroying teachers"
 puts "deleting previous assignments"
 Assignment.destroy_all
 puts "ended destroying assignments"
+
+#INITIAL SEEDING
 
 puts "start seeding users"
 @schools.each do |school|
@@ -86,6 +90,8 @@ puts "start seeding schools"
   puts "seeding #{new_school.name}"
 end
 puts "finished seeding schools"
+
+#DAILY SEEDING
 
 puts "start seeding teachers"
 @areas = Area.all
