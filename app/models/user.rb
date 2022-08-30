@@ -4,9 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :area
-  has_one :school
+  has_one :area, dependent: :destroy
+  has_one :school, dependent: :destroy
   has_many :schools, through: :areas
 
   validates :role, presence: true
+
+  enum role: {
+    gestionnaire: 1,
+    directeur: 2,
+    teacher: 3
+  }
 end

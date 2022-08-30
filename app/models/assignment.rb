@@ -5,6 +5,13 @@ class Assignment < ApplicationRecord
   validates :date, presence: true
   validates :progress, presence: true
 
+  enum progress: {
+    pending: 1,
+    validated: 2,
+    refused: 3,
+    archived: 4
+  }
+
   scope :daily, -> { where(date: Date.today) }
   scope :daily_availables, -> { where(teacher_id: nil, date: Date.today) }
   scope :not_availables, -> { where.not(teacher_id: nil) }

@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_123921) do
 
   create_table "assignments", force: :cascade do |t|
     t.bigint "school_id", null: false
-    t.bigint "teacher_id", null: false
+    t.bigint "teacher_id"
     t.date "date"
     t.integer "progress"
     t.text "teacher_message"

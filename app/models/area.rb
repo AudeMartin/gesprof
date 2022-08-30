@@ -1,6 +1,6 @@
 class Area < ApplicationRecord
   belongs_to :user
-  has_many :schools
+  has_many :schools, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end
