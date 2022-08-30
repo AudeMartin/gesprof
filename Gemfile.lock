@@ -3,8 +3,6 @@ GIT
   revision: d113aabf335ca0bbea2223a8136c2161b7f43659
   branch: master
   specs:
-    faker (2.22.0)
-      i18n (>= 1.8.11, < 2)
 
 GIT
   remote: https://github.com/heartcombo/simple_form.git
@@ -274,8 +272,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  faker
-
+  faker!
   font-awesome-sass (~> 6.1)
   geocoder
   jbuilder
