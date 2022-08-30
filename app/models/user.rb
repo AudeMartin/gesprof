@@ -9,4 +9,10 @@ class User < ApplicationRecord
   has_many :schools, through: :areas
 
   validates :role, presence: true
+
+  enum role: {
+    gestionnaire: 1,
+    directeur: 2,
+    teacher: 3
+  }
 end
