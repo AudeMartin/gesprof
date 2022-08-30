@@ -7,4 +7,12 @@ class School < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
   validates :classes_number, presence: true
+
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
+  def ratio
+    Assignments.daily_availables.count / classes_number
+  end
+
 end
