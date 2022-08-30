@@ -1,0 +1,18 @@
+<h2 class="text-center">Je fais une demande de remplaçant pour aujourd'hui</h2>
+<%# <div class="row">
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Message au remplaçant" aria-label="Message au remplaçant">
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Message au gestionnaire" aria-label="Message au gestionnaire">
+  </div>
+</div> %>
+<div class="row">
+  <div class="col">
+    <%= simple_form_for @user do |f| %>
+      <%= f.input :teacher_message %>
+      <%= f.input :area_message %>
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>
