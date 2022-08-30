@@ -1,7 +1,6 @@
 class School < ApplicationRecord
   belongs_to :area
   belongs_to :user
-  belongs_to :user, through: :areas
   has_many :teachers
   has_many :assignments
 
