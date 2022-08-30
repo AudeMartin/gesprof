@@ -16,13 +16,13 @@ list2 = JSON.parse(schools_serialized2)
 
 #INITIAL SEEDING
 
-# puts "deleting previous users"
-# User.destroy_all
-# puts "ended destroying users"
+puts "deleting previous users"
+User.destroy_all
+puts "ended destroying users"
 
-# puts "deleting previous areas"
-# Area.destroy_all
-# puts "ended destroying areas"
+puts "deleting previous areas"
+Area.destroy_all
+puts "ended destroying areas"
 
 puts "deleting previous schools"
 School.destroy_all
@@ -36,31 +36,31 @@ puts "deleting previous assignments"
 Assignment.destroy_all
 puts "ended destroying assignments"
 
-# puts "start seeding users"
-# @schools.each do |school|
-#   email = school["fields"]["mail"]
-#   user = User.new(email: email, password: "secret", role: 2)
-#   if user.valid?
-#     user.save
-#     puts "Seeding #{user.email}"
-#   end
-# end
-# puts "finished seeding users"
+puts "start seeding users"
+@schools.each do |school|
+  email = school["fields"]["mail"]
+  user = User.new(email: email, password: "secret", role: 2)
+  if user.valid?
+    user.save
+    puts "Seeding #{user.email}"
+  end
+end
+puts "finished seeding users"
 
-# puts "start seeding areas"
-# @schools.each do |school|
-#   name = school["fields"]["nom_circonscription"]
-#   user = User.create!(email: Faker::Internet.email, password: "secret", role: 1)
-#   area = Area.new(name: name, user: user)
-#   if area.valid?
-#     area.save
-#     puts "seeding #{area.name}"
-#   else
-#     user.destroy
-#     area.destroy
-#   end
-# end
-# puts "finished seeding areas"
+puts "start seeding areas"
+@schools.each do |school|
+  name = school["fields"]["nom_circonscription"]
+  user = User.create!(email: Faker::Internet.email, password: "secret", role: 1)
+  area = Area.new(name: name, user: user)
+  if area.valid?
+    area.save
+    puts "seeding #{area.name}"
+  else
+    user.destroy
+    area.destroy
+  end
+end
+puts "finished seeding areas"
 
 puts "start seeding schools"
 @schools.each do |school|
