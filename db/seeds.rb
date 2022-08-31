@@ -30,9 +30,9 @@ list2 = JSON.parse(schools_serialized2)
 
 #DAILY SEEDING
 
-puts "deleting previous teachers"
-Teacher.destroy_all
-puts "ended destroying teachers"
+# puts "deleting previous teachers"
+# Teacher.destroy_all
+# puts "ended destroying teachers"
 
 puts "deleting previous assignments"
 Assignment.destroy_all
@@ -93,18 +93,17 @@ puts "ended destroying assignments"
 
 #DAILY SEEDING
 
-puts "start seeding teachers"
 @areas = Area.all
 @areas.each do |area|
-  puts "Start seeding teachers for #{area.name}"
-  20.times do
-    name = Faker::Name.name
-    school = School.where(area: area).sample
-    email = Faker::Internet.email
-    phone_number = Faker::PhoneNumber.cell_phone_in_e164
-    Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
-  end
-  puts "Ended seeding teachers for #{area.name}"
+  # puts "Start seeding teachers for #{area.name}"
+  # 20.times do
+  #   name = Faker::Name.name
+  #   school = School.where(area: area).sample
+  #   email = Faker::Internet.email
+  #   phone_number = Faker::PhoneNumber.cell_phone_in_e164
+  #   Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
+  # end
+  # puts "Ended seeding teachers for #{area.name}"
 
   puts "Start seeding assignments for #{area.name}"
   rand(15..25).times do

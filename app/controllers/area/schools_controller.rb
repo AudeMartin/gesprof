@@ -1,6 +1,7 @@
 class Area::SchoolsController < ApplicationController
 
   def index
+    @schools = School.where(area: current_user.area)
   end
 
   def show
