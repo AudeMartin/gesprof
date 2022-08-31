@@ -3,9 +3,36 @@
     text-decoration: none;
     color: var(--bs-table-color);
     font-weight: normal;
+  };
+
+  background-color: $mylightblue;
+
+  thead {
+    background-color: $mydarkblue;
+    color: white
+  };
+
+  thead>tr>th:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
-  // --bs-table-bg:
+  tbody>tr {
+    &:hover {
+      background-color: #60b2f023;
 
-  // --bs-table-striped-bg:
+      th {
+        text-decoration: underline;
+      }
+     }
+  }
+}
+
+
+.table-striped>tbody>tr:nth-child(odd) {
+ background-color: #60b2f071;
+
+ &:hover {
+  background-color: #60b2f023;
+ }
 }
