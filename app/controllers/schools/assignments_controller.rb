@@ -4,6 +4,8 @@ class Schools::AssignmentsController < ApplicationController
   end
 
   def new
+    # @school = current_user.school
+    @assignment = Assignment.new
   end
 
   def create

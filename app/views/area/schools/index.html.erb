@@ -1,38 +1,40 @@
-<table class="table table-striped table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Ecole</th>
-      <th scope="col">Absences</th>
-      <th scope="col">Taux abs. initial</th>
-      <th scope="col">Affectation</th>
-      <th scope="col">Taux abs. actuel</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @schools.each_with_index do |school|%>
-    <tr>
-      <th scope="row"><%= link_to school.name, area_school_path(school) %></th>
-      <% absences = school.assignments.where(date: Date.today).count %>
-      <td><%= absences %></td>
-      <td><%= number_to_percentage(absences.fdiv(school.classes_number)*100, precision: 2) %></td>
-      <% accept = school.assignments.where(date: Date.today, progress: 2).size %>
-      <% non_accept = school.assignments.where(date: Date.today, progress: [1,3]).size %>
-      <td>
-        <% accept.times do %>
-        <i class="fa-solid fa-user"></i>
+<div class="container">
+  <table class="table table-striped table-hover text-center" data-toggle="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Ecole</th>
+        <th scope="col">Absences</th>
+        <th scope="col">Taux abs. initial</th>
+        <th scope="col">Affectation</th>
+        <th scope="col">Taux abs. actuel</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @schools.each_with_index do |school|%>
+      <tr>
+        <th scope="row" class="text-start"><%= link_to school.name, area_school_path(school) %></th>
+        <% absences = school.assignments.where(date: Date.today).count %>
+        <td><%= absences %></td>
+        <td><%= number_to_percentage(absences.fdiv(school.classes_number)*100, precision: 2) %></td>
+        <% accept = school.assignments.where(date: Date.today, progress: 2).size %>
+        <% non_accept = school.assignments.where(date: Date.today, progress: [1,3]).size %>
+        <td>
+          <% accept.times do %>
+          <i class="fa-solid fa-user"></i>
+          <% end %>
+          <% non_accept.times do %>
+          <i class="fa-regular fa-user"></i>
+          <% end %>
+        </td>
+        <td><%= number_to_percentage(non_accept.fdiv(school.classes_number)*100, precision: 2) %></td>
+        <td>
+        <%= link_to area_school_path(school) do %>
+          <i class="fa-solid fa-magnifying-glass"></i>
         <% end %>
-        <% non_accept.times do %>
-        <i class="fa-regular fa-user"></i>
-        <% end %>
-      </td>
-      <td><%= number_to_percentage(non_accept.fdiv(school.classes_number)*100, precision: 2) %></td>
-      <td>
-      <%= link_to area_school_path(school) do %>
-        <i class="fa-solid fa-magnifying-glass"></i>
+        </td>
+      </tr>
       <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
