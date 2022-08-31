@@ -12,7 +12,6 @@ class School < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   def ratio
-    Assignments.daily_availables.count / classes_number
+    Assignment.daily_availables_for(self).count.fdiv(classes_number)
   end
-
 end
