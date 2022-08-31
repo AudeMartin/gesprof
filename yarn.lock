@@ -284,6 +284,11 @@ ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+bootstrap-table@^1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-table/-/bootstrap-table-1.21.0.tgz#f29bbd22f89506e3be7f78ecea247b9408604154"
+  integrity sha512-lQlqfxg7PujDpfVPn2FFjvYI2xARZ1lnTjwLDvi9kzCvznNR+lw3OJvBcTOiGT/TsckGSpZCnGZVZH8mRNT1xw==
+
 bootstrap@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.0.tgz#838727fb60f1630db370fe57c63cbcf2962bb3d3"
