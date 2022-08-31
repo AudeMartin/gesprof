@@ -23,17 +23,16 @@ class Assignment < ApplicationRecord
 
   def self.assign_one_teacher
     to_assign = ordered_by_priority.first
-    schools_near = School.near(to_assign.school.address).where.not(teachers: nil)
-    school_ref = schools_near.where(:teachers includes(Teacher.daily_availables).first
+    school_ref = School.near(to_assign.school.address, 100, units: :km).where.not(teachers: nil)
+                       .joins(:teachers).where(teachers: { id: Teacher.daily_availables }).first
+    binding.break
     to_assign.teacher = school_ref.teachers.sample
     to_assign.progress = 2
     to_assign.save
-    puts to_assign
+    puts "#{to_assign.teacher.name} assigné à #{to_assign.school.name}"
   end
 
   def self.assign_all
-    while (daily_availables.present?) && (Teacher.daily_availables.present?)
-      assign_one_teacher
-    end
+    assign_one_teacher while daily_availables.present? && Teacher.daily_availables.present?
   end
 end
