@@ -1,11 +1,10 @@
-<div class="container" data-controller="hello">
+<div class="container" data-controller="assignments">
   <h2 class="text-center">Demande de remplacement pour aujourd'hui</h2>
 
-<div data-assignments-target="list">
-   <%= render "form", assignment: @assignment %>
-</div>
-<%= link_to "add", data:{action:"click->assignments#append"}, class: "btn btn-success" %>
-
+  <div data-assignments-target="list">
+    <%= render "form", assignment: @assignment %>
+  </div>
+  <button data-action="click->assignments#append">ADD</button>
 
   <ul class="d-flex justify-content-evenly align-items-center">
     <li class="">
