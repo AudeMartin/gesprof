@@ -32,4 +32,8 @@ class Assignment < ApplicationRecord
       assign_one_teacher
     end
   end
+
+  def name
+    teacher.name
+  end
 end

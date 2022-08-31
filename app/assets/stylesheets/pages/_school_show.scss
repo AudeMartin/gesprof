@@ -1,0 +1,32 @@
+.school{
+
+  .card{
+      border-radius: 10px!important;
+      -webkit-border-radius: 10px!important;
+      -moz-border-radius: 10px!important;
+      -ms-border-radius: 10px!important;
+      -o-border-radius: 10px!important;
+      box-shadow: 10px;
+
+        .list-group-flush{
+          border-radius: 10px!important;
+          -webkit-border-radius: 10px!important;
+          -moz-border-radius: 10px!important;
+          -ms-border-radius: 10px!important;
+          -o-border-radius: 10px!important;
+        }
+
+  }
+
+  .text-red{
+    color:red
+  }
+
+  .text-green{
+    color:green;
+  }
+
+  .text-orange{
+    color:orange;
+  }
+}
