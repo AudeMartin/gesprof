@@ -7,13 +7,13 @@ class Area::SchoolsController < ApplicationController
     when "name"
       @schools = selected_schools.order(params[:sort])
     when "absences"
-      @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today).size}.reverse
+      @schools = selected_schools.sort_by(&:absences).reverse
     # when "initial_rate"
     #   @schools = selected_schools.sort_by{|school| school.ratio}.reverse
     when "assignments"
       @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today, progress: 2).size}.reverse
     else
-      @schools = selected_schools.sort_by{|school| school.ratio}.reverse
+      @schools = selected_schools.sort_by(&:ratio).reverse
     # when "current_rate"
     #   @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today).size}.reverse
     end
