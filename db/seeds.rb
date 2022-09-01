@@ -24,19 +24,21 @@ list2 = JSON.parse(schools_serialized2)
 # Area.destroy_all
 # puts "ended destroying areas"
 
+
+#DAILY SEEDING
+puts "deleting previous assignments"
+Assignment.destroy_all
+puts "ended destroying assignments"
+
 puts "deleting previous schools"
 School.destroy_all
 puts "ended destroying schools"
-
-#DAILY SEEDING
 
 puts "deleting previous teachers"
 Teacher.destroy_all
 puts "ended destroying teachers"
 
-puts "deleting previous assignments"
-Assignment.destroy_all
-puts "ended destroying assignments"
+
 
 #INITIAL SEEDING
 

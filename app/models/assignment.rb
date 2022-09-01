@@ -33,8 +33,4 @@ class Assignment < ApplicationRecord
   def self.assign_all
     assign_one_teacher while daily_availables.present? && Teacher.daily_availables.present?
   end
-
-  def name
-    teacher.name
-  end
 end

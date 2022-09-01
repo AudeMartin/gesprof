@@ -7,6 +7,9 @@ import { application } from "./application"
 import AssignmentsController from "./assignments_controller"
 application.register("assignments", AssignmentsController)
 
+import FetchAssignmentsController from "./fetch_assignments_controller"
+application.register("fetch-assignments", FetchAssignmentsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
