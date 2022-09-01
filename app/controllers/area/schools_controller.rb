@@ -36,8 +36,4 @@ class Area::SchoolsController < ApplicationController
   def set_school
     @school = School.find(params[:id])
   end
-
-  def query_params
-
-  end
 end
