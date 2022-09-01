@@ -9,7 +9,7 @@ export default class extends Controller {
 
   search() {
 
-    const searchInput = this.inputTarget.value
+    let searchInput = this.inputTarget.value
     const schools = JSON.parse(this.formTarget.dataset.schools)
     const suggestions = this.suggestionsTarget
 
@@ -21,13 +21,14 @@ export default class extends Controller {
     }
 
     const displayMatches = () => {
-      const matchArray = findMatches(searchInput, schools)
+      const matchArray = findMatches(searchInput, schools).slice(0,4)
+     // console.log(matchArray)
       const html = matchArray.map(school => {
         const regex = new RegExp(searchInput, 'gi')
         const schoolName = school.replace(regex, `<span class="hl">${searchInput}</span>`)
         return `
         <li>
-          <span class="name">${schoolName}</span>
+          <span class="name" data-action="click->autocomplete#swap">${schoolName}</span>
         </li>
       `
       }).join('')
@@ -35,8 +36,10 @@ export default class extends Controller {
     }
 
     displayMatches()
-
   }
 
+  swap (event) {
+    this.inputTarget.value = event.target.innerText
+  }
 
 }
