@@ -22,13 +22,15 @@ class Area::SchoolsController < ApplicationController
   def show
     @assignments_confirmed = @school.assignments.where(date: Date.today, progress: "validated")
     @assignments_requests = @school.assignments.where(date: Date.today)
-    @schools_area_requests = School.where(id: Assignment.where(
-      school: current_user.area.schools,
-      progress: ['pending'],
-      date: Date.today
-    ))
     @initial_ratio = (@assignments_requests.size.fdiv(@school.classes_number) * 100).round(2)
     @new_ratio = (@assignments_confirmed.size.fdiv(@school.classes_number) * 100).round(2)
+
+    # @schools_ids = Assignment.includes(:school).where(
+    #   school: current_user.area.schools,
+    #   progress: 1,
+    #   date: Date.today
+    # ).map(&:school_id)
+    # @schools_area_requests = School.where(id: @schools_ids)
   end
 
   private
@@ -38,6 +40,5 @@ class Area::SchoolsController < ApplicationController
   end
 
   def query_params
-
   end
 end

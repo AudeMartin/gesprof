@@ -37,17 +37,17 @@
   </div>
   <div class="row text-center py-5">
   <div class="col-10 offset-1" data-controller="fetch-assignments" data-action="submit->fetch-assignments#new_assignment">
-      <% if @assignments_confirmed.size.positive? %>
-          <% @assignments_confirmed.each do |assignment| %>
+      <% if @assignments_requests.size.positive? %>
+          <% @assignments_requests.each do |assignment| %>
               <%= simple_form_for([:area, @school, assignment],
               wrapper: :horizontal_form,
-              html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center" },
+              html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
               wrapper_mappings: {
                 boolean: :inline_boolean,
                 select: :horizontal_select
               }) do |f| %>
-              <%= f.association :teacher,label:'Enseignant', collection: current_user.area.teachers, input_html:{default_value:assignment.teacher.name}%>
-              <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name}%>
+              <%= f.association :teacher,label:'Enseignant', label_html:{class:'font-weight-bold'}, collection: @school.area.teachers, input_html:{default_value:assignment.teacher&.name, data: {fetch_assignments_target:'teacher'}, class:'s-style'}%>
+              <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name, data: {fetch_assignments_target:'school'}}%>
               <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100" %>
           <% end %>
         <% end %>
@@ -56,9 +56,8 @@
         <h4>
           Aucun remplaçant n'a pu être affecté à cette école
         </h4>
-        <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary" %>
       </div>
     <% end %>
-  </div>
+      <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
 </div>
