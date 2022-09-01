@@ -10,7 +10,7 @@
   <%# <button data-action="click->assignments#append">ADD</button> %>
 
  <%= simple_form_for [:schools, @school], data: { controller: 'my-nested-form' } do |f| %>
-
+    <div data-my-nested-form-target="assId"><%= @school.assignments.map(&:id).compact.last.to_i + 2 %></div>
     <div class="card">
       <div class="row">
           <%= f.simple_fields_for :assignments do |a| %>
@@ -33,12 +33,13 @@
       </div>
     </div>
 
-    <div class='<%= @school.assignments.count.zero? ? "" : "d-none" %>'>
-      <%= render "schools/schools/assignment_form", f: f %>
-    </div>
 
-<%= render "schools/schools/assignment_form", f: f %>
-<%= render "schools/schools/assignment_form", f: f %>
+    <% if @school.assignments.count.zero? %>
+      <%= render "schools/schools/assignment_form", f: f %>
+    <% end %>
+
+<%#= render "schools/schools/assignment_form", f: f %>
+<%#= render "schools/schools/assignment_form", f: f %>
   <div data-my-nested-form-target="list"></div>
     <button type="button" data-action="click->my-nested-form#add">Autre demande</button>
       <%# <div> %>
