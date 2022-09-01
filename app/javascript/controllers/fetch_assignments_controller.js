@@ -3,7 +3,7 @@ import Swal from "sweetalert2"
 
 // Connects to data-controller="fetch-assignments"
 export default class extends Controller {
-  static targets = ['form', 'teacher', 'school']
+  static targets = ['form']
   connect() {
   }
 
@@ -24,20 +24,24 @@ export default class extends Controller {
         showCancelButton:true,
         cancelButtonText:'Annuler',
         confirmButtonText: 'Valider',
-        preConfirm: () =>  {
-          return fetch(url, {
+        preConfirm: async() =>  {
+          return await fetch(url, {
                   method: "PATCH",
                   headers: { "Accept": "application/json" },
                   body:new FormData(this.formTarget)
                 })
                 .then(response =>{
                   if(!response.ok) throw new Error(response.statusText)
-                  response.json()
+                  return response.json()
                 })
-                .then(() => {
+                .then((data) => {
                   Swal.fire({
                     title: `Affectation modifié !`,
                     icon: 'success',
+                    text:`
+                    ${data.name} se rendra à cette école ce jour\n
+                    ${data.email} | ${data.phone_number}
+                    `,
                     confirmButtonText: 'Fermer',
                   })
                 }).catch(error => {

@@ -20,11 +20,10 @@ class Area::SchoolsController < ApplicationController
   end
 
   def show
-    @assignments_confirmed = @school.assignments.where(date: Date.today, progress: "validated")
+    @assignments_refused = @school.assignments.where(date: Date.today, progress: "pending")
     @assignments_requests = @school.assignments.where(date: Date.today)
     @initial_ratio = (@assignments_requests.size.fdiv(@school.classes_number) * 100).round(2)
-    @new_ratio = (@assignments_confirmed.size.fdiv(@school.classes_number) * 100).round(2)
-
+    @new_ratio = (@assignments_refused.size.fdiv(@school.classes_number) * 100).round(2)
     # @schools_ids = Assignment.includes(:school).where(
     #   school: current_user.area.schools,
     #   progress: 1,

@@ -18,11 +18,7 @@
           <li class="list-group-item">
             <h5>
               <b>Taux actuel =>&nbsp;</b>
-              <%if @new_ratio === 0  %>
-                <span class="<%= @initial_ratio <= 10 ? 'text-green': @initial_ratio > 10 && @initial_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @initial_ratio %>%</span>
-              <% else %>
                 <span class="<%= @new_ratio <= 10 ? 'text-green': @new_ratio > 10 && @new_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @new_ratio %>%</span>
-              <% end %>
             </h5>
           </li>
         </ul>
@@ -36,9 +32,10 @@
     </div>
   </div>
   <div class="row text-center py-5">
-  <div class="col-10 offset-1" data-controller="fetch-assignments" data-action="submit->fetch-assignments#new_assignment">
+  <div class="col-10 offset-1">
       <% if @assignments_requests.size.positive? %>
           <% @assignments_requests.each do |assignment| %>
+          <div data-controller="fetch-assignments" data-action='submit->fetch-assignments#new_assignment'>
               <%= simple_form_for([:area, @school, assignment],
               wrapper: :horizontal_form,
               html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
@@ -46,10 +43,11 @@
                 boolean: :inline_boolean,
                 select: :horizontal_select
               }) do |f| %>
-              <%= f.association :teacher,label:'Enseignant', label_html:{class:'font-weight-bold'}, collection: @school.area.teachers, input_html:{default_value:assignment.teacher&.name, data: {fetch_assignments_target:'teacher'}, class:'s-style'}%>
-              <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name, data: {fetch_assignments_target:'school'}}%>
-              <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100" %>
-          <% end %>
+                <%= f.association :teacher,label:'Enseignant', label_html:{class:'font-weight-bold'}, collection: @school.area.teachers, input_html:{default_value:assignment.teacher&.name, class:'s-style'}%>
+                <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
+                <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
+              <% end %>
+          </div>
         <% end %>
       <% else %>
       <div class="bg-light border p-2">
