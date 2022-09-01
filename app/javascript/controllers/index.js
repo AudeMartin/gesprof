@@ -4,12 +4,14 @@
 
 import { application } from "./application"
 
+import AssignmentsController from "./assignments_controller"
+application.register("assignments", AssignmentsController)
+
+import FetchAssignmentsController from "./fetch_assignments_controller"
+application.register("fetch-assignments", FetchAssignmentsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-// fonctions pour le formulaire du assignment#new, formulaire nesté
-// import { Application } from '@hotwired/stimulus'
-// import NestedForm from 'stimulus-rails-nested-form'
-
-// const application = Application.start()
-// application.register('nested-form', NestedForm)
+import SortDashboardController from "./sort_dashboard_controller"
+application.register("sort-dashboard", SortDashboardController)

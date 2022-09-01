@@ -14,7 +14,7 @@ schools_serialized2 = URI.open(url2).read
 list2 = JSON.parse(schools_serialized2)
 @schools_classes = list2["records"]
 
-#INITIAL SEEDING
+# INITIAL SEEDING
 
 # puts "deleting previous users"
 # User.destroy_all
@@ -24,21 +24,21 @@ list2 = JSON.parse(schools_serialized2)
 # Area.destroy_all
 # puts "ended destroying areas"
 
-# puts "deleting previous schools"
-# School.destroy_all
-# puts "ended destroying schools"
-
-#DAILY SEEDING
-
-# puts "deleting previous teachers"
-# Teacher.destroy_all
-# puts "ended destroying teachers"
+# DAILY SEEDING
 
 puts "deleting previous assignments"
 Assignment.destroy_all
 puts "ended destroying assignments"
 
-#INITIAL SEEDING
+# INITIAL SEEDING
+
+# puts "deleting previous teachers"
+# Teacher.destroy_all
+# puts "ended destroying teachers"
+
+# puts "deleting previous schools"
+# School.destroy_all
+# puts "ended destroying schools"
 
 # puts "start seeding users"
 # @schools.each do |school|
@@ -70,6 +70,8 @@ puts "ended destroying assignments"
 # @schools.each do |school|
 #   name = school["fields"]["nom_etablissement"]
 #   address = "#{school['fields']['adresse_1']}, #{school['fields']['code_postal']} #{school['fields']['nom_commune']}"
+#   lat = school["fields"]["latitude"]
+#   long = school["fields"]["longitude"]
 #   # retrive area
 #   area_name = school["fields"]["nom_circonscription"]
 #   area = Area.find_by(name: area_name)
@@ -86,12 +88,12 @@ puts "ended destroying assignments"
 #     @classes_nb = el["fields"]["nombre_total_classes"].to_i if el["fields"]["numero_ecole"] == reference
 #   end
 #   class_nb = @classes_nb || (school["fields"]["nombre_d_eleves"].to_f / 27).round
-#   new_school = School.create!(name: name, address: address, area: area, user: user, classes_number: class_nb)
+#   new_school = School.create!(name: name, address: address, area: area, user: user, classes_number: class_nb, latitude: lat, longitude: long)
 #   puts "seeding #{new_school.name}"
 # end
 # puts "finished seeding schools"
 
-#DAILY SEEDING
+# DAILY SEEDING
 
 @areas = Area.all
 @areas.each do |area|

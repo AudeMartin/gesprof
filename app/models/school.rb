@@ -9,9 +9,12 @@ class School < ApplicationRecord
   validates :classes_number, presence: true
 
   geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
 
   def ratio
     Assignment.daily_availables_for(self).count.fdiv(classes_number)
+  end
+
+  def absences
+    Assignment.daily_availables_for(self).count
   end
 end
