@@ -9,7 +9,11 @@
 
   thead {
     background-color: $mydarkblue;
-    color: white
+    color: white;
+
+    a {
+      color: white;
+    }
   };
 
   thead>tr>th:hover {

@@ -16,13 +16,13 @@ list2 = JSON.parse(schools_serialized2)
 
 #INITIAL SEEDING
 
-# puts "deleting previous users"
-# User.destroy_all
-# puts "ended destroying users"
+puts "deleting previous users"
+User.destroy_all
+puts "ended destroying users"
 
-# puts "deleting previous areas"
-# Area.destroy_all
-# puts "ended destroying areas"
+puts "deleting previous areas"
+Area.destroy_all
+puts "ended destroying areas"
 
 # DAILY SEEDING
 
@@ -32,84 +32,84 @@ puts "ended destroying teachers"
 
 # INITIAL SEEDING
 
-# puts "deleting previous schools"
-# School.destroy_all
-# puts "ended destroying schools"
+puts "deleting previous schools"
+School.destroy_all
+puts "ended destroying schools"
 
-# DAILY SEEDING
+DAILY SEEDING
 
-# puts "deleting previous assignments"
-# Assignment.destroy_all
-# puts "ended destroying assignments"
+puts "deleting previous assignments"
+Assignment.destroy_all
+puts "ended destroying assignments"
 
 # INITIAL SEEDING
 
-# puts "start seeding users"
-# @schools.each do |school|
-#   email = school["fields"]["mail"]
-#   user = User.new(email: email, password: "secret", role: 2)
-#   if user.valid?
-#     user.save
-#     puts "Seeding #{user.email}"
-#   end
-# end
-# puts "finished seeding users"
+puts "start seeding users"
+@schools.each do |school|
+  email = school["fields"]["mail"]
+  user = User.new(email: email, password: "secret", role: 2)
+  if user.valid?
+    user.save
+    puts "Seeding #{user.email}"
+  end
+end
+puts "finished seeding users"
 
-# puts "start seeding areas"
-# @schools.each do |school|
-#   name = school["fields"]["nom_circonscription"]
-#   user = User.create!(email: Faker::Internet.email, password: "secret", role: 1)
-#   area = Area.new(name: name, user: user)
-#   if area.valid?
-#     area.save
-#     puts "seeding #{area.name}"
-#   else
-#     user.destroy
-#     area.destroy
-#   end
-# end
-# puts "finished seeding areas"
+puts "start seeding areas"
+@schools.each do |school|
+  name = school["fields"]["nom_circonscription"]
+  user = User.create!(email: Faker::Internet.email, password: "secret", role: 1)
+  area = Area.new(name: name, user: user)
+  if area.valid?
+    area.save
+    puts "seeding #{area.name}"
+  else
+    user.destroy
+    area.destroy
+  end
+end
+puts "finished seeding areas"
 
-# puts "start seeding schools"
-# @schools.each do |school|
-#   name = school["fields"]["nom_etablissement"]
-#   address = "#{school['fields']['adresse_1']}, #{school['fields']['code_postal']} #{school['fields']['nom_commune']}"
-#   lat = school["fields"]["latitude"]
-#   long = school["fields"]["longitude"]
-#   # retrive area
-#   area_name = school["fields"]["nom_circonscription"]
-#   area = Area.find_by(name: area_name)
-#   # retrive user
-#   email = school["fields"]["mail"]
-#   if email
-#     user = User.find_by(email: email.downcase)
-#   else
-#     user = User.create!(email: Faker::Internet.email, password: "secret", role: 2)
-#   end
-#   # retrieve nb_classes
-#   reference = school["fields"]["identifiant_de_l_etablissement"]
-#   @schools_classes.each do |el|
-#     @classes_nb = el["fields"]["nombre_total_classes"].to_i if el["fields"]["numero_ecole"] == reference
-#   end
-#   class_nb = @classes_nb || (school["fields"]["nombre_d_eleves"].to_f / 27).round
-#   new_school = School.create!(name: name, address: address, area: area, user: user, classes_number: class_nb, latitude: lat, longitude: long)
-#   puts "seeding #{new_school.name}"
-# end
-# puts "finished seeding schools"
+puts "start seeding schools"
+@schools.each do |school|
+  name = school["fields"]["nom_etablissement"]
+  address = "#{school['fields']['adresse_1']}, #{school['fields']['code_postal']} #{school['fields']['nom_commune']}"
+  lat = school["fields"]["latitude"]
+  long = school["fields"]["longitude"]
+  # retrive area
+  area_name = school["fields"]["nom_circonscription"]
+  area = Area.find_by(name: area_name)
+  # retrive user
+  email = school["fields"]["mail"]
+  if email
+    user = User.find_by(email: email.downcase)
+  else
+    user = User.create!(email: Faker::Internet.email, password: "secret", role: 2)
+  end
+  # retrieve nb_classes
+  reference = school["fields"]["identifiant_de_l_etablissement"]
+  @schools_classes.each do |el|
+    @classes_nb = el["fields"]["nombre_total_classes"].to_i if el["fields"]["numero_ecole"] == reference
+  end
+  class_nb = @classes_nb || (school["fields"]["nombre_d_eleves"].to_f / 27).round
+  new_school = School.create!(name: name, address: address, area: area, user: user, classes_number: class_nb, latitude: lat, longitude: long)
+  puts "seeding #{new_school.name}"
+end
+puts "finished seeding schools"
 
 # DAILY SEEDING
 
 @areas = Area.all
 @areas.each do |area|
-  # puts "Start seeding teachers for #{area.name}"
-  # 20.times do
-  #   name = Faker::Name.name
-  #   school = School.where(area: area).sample
-  #   email = Faker::Internet.email
-  #   phone_number = Faker::PhoneNumber.cell_phone_in_e164
-  #   Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
-  # end
-  # puts "Ended seeding teachers for #{area.name}"
+  puts "Start seeding teachers for #{area.name}"
+  20.times do
+    name = Faker::Name.name
+    school = School.where(area: area).sample
+    email = Faker::Internet.email
+    phone_number = Faker::PhoneNumber.cell_phone_in_e164
+    Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
+  end
+  puts "Ended seeding teachers for #{area.name}"
 
   puts "Start seeding assignments for #{area.name}"
   rand(15..25).times do
