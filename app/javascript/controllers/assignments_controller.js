@@ -1,10 +1,10 @@
-import { Controller } from "@hotwired/stimulus"
+// import { Controller } from "@hotwired/stimulus"
 
-export default class extends Controller {
-  static targets = ["list"]
+// export default class extends Controller {
+//   static targets = ["list"]
 
 
-  append() {
-    console.log("click")
-  }
-}
+//   append() {
+//     console.log("click")
+//   }
+// }

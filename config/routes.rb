@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   end
 
   namespace :schools do
-    resources :assignments, only: [:index, :new, :create, :show]
+    resources :assignments, only: [:index, :show]
+    resources :schools, only: [:edit, :update]
   end
 
   namespace :teachers do
