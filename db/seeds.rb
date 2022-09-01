@@ -30,43 +30,41 @@ puts "deleting previous assignments"
 Assignment.destroy_all
 puts "ended destroying assignments"
 
-puts "deleting previous schools"
-School.destroy_all
-puts "ended destroying schools"
+# puts "deleting previous schools"
+# School.destroy_all
+# puts "ended destroying schools"
 
-puts "deleting previous teachers"
-Teacher.destroy_all
-puts "ended destroying teachers"
+# # DAILY SEEDING
 
+# puts "deleting previous teachers"
+# Teacher.destroy_all
+# puts "ended destroying teachers"
 
+puts "start seeding users"
+@schools.each do |school|
+  email = school["fields"]["mail"]
+  user = User.new(email: email, password: "secret", role: 2)
+  if user.valid?
+    user.save
+    puts "Seeding #{user.email}"
+  end
+end
+puts "finished seeding users"
 
-#INITIAL SEEDING
-
-# puts "start seeding users"
-# @schools.each do |school|
-#   email = school["fields"]["mail"]
-#   user = User.new(email: email, password: "secret", role: 2)
-#   if user.valid?
-#     user.save
-#     puts "Seeding #{user.email}"
-#   end
-# end
-# puts "finished seeding users"
-
-# puts "start seeding areas"
-# @schools.each do |school|
-#   name = school["fields"]["nom_circonscription"]
-#   user = User.create!(email: Faker::Internet.email, password: "secret", role: 1)
-#   area = Area.new(name: name, user: user)
-#   if area.valid?
-#     area.save
-#     puts "seeding #{area.name}"
-#   else
-#     user.destroy
-#     area.destroy
-#   end
-# end
-# puts "finished seeding areas"
+puts "start seeding areas"
+@schools.each do |school|
+  name = school["fields"]["nom_circonscription"]
+  user = User.create!(email: Faker::Internet.email, password: "secret", role: 1)
+  area = Area.new(name: name, user: user)
+  if area.valid?
+    area.save
+    puts "seeding #{area.name}"
+  else
+    user.destroy
+    area.destroy
+  end
+end
+puts "finished seeding areas"
 
 puts "start seeding schools"
 @schools.each do |school|
@@ -95,7 +93,7 @@ puts "start seeding schools"
 end
 puts "finished seeding schools"
 
-#DAILY SEEDING
+# DAILY SEEDING
 
 @areas = Area.all
 @areas.each do |area|

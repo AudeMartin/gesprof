@@ -2,11 +2,11 @@
   <table class="table table-striped table-hover text-center" data-toggle="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Ecole</th>
-        <th scope="col">Absences</th>
-        <th scope="col">Taux abs. initial</th>
-        <th scope="col">Affectation</th>
-        <th scope="col">Taux abs. actuel</th>
+        <th scope="col"><%= link_to "Ecole", :sort => "name" %></th>
+        <th scope="col"><%= link_to "Absences", :sort => "absences" %></th>
+        <th scope="col"><%= link_to "Taux abs. initial", :sort => "initial_rate" %></th>
+        <th scope="col"><%= link_to "Affectation", :sort => "assignments" %></th>
+        <th scope="col"><%= link_to "Taux abs. actuel", :sort => "current_rate" %></th>
         <th scope="col"></th>
       </tr>
     </thead>

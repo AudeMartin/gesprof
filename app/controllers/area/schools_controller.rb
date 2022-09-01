@@ -2,7 +2,21 @@ class Area::SchoolsController < ApplicationController
   before_action :set_school, if: :user_signed_in?, only: %i[show]
 
   def index
-    @schools = School.where(area: current_user.area)
+    selected_schools = School.where(area: current_user.area)
+    case params[:sort]
+    when "name"
+      @schools = selected_schools.order(params[:sort])
+    when "absences"
+      @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today).size}.reverse
+    # when "initial_rate"
+    #   @schools = selected_schools.sort_by{|school| school.ratio}.reverse
+    when "assignments"
+      @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today, progress: 2).size}.reverse
+    else
+      @schools = selected_schools.sort_by{|school| school.ratio}.reverse
+    # when "current_rate"
+    #   @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today).size}.reverse
+    end
   end
 
   def show
@@ -21,5 +35,9 @@ class Area::SchoolsController < ApplicationController
 
   def set_school
     @school = School.find(params[:id])
+  end
+
+  def query_params
+
   end
 end
