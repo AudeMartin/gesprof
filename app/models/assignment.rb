@@ -18,7 +18,7 @@ class Assignment < ApplicationRecord
   scope :not_availables, -> { where.not(teacher_id: nil) }
 
   def self.ordered_by_priority
-    (daily_availables.sort_by { |ass| ass.school.classes_number }).sort_by { |ass| (1.0/ass.school.ratio) }
+    (daily_availables.sort_by { |ass| ass.school.classes_number }).sort_by { |ass| (1.0 / ass.school.ratio) }
   end
 
   def self.assign_one_teacher
