@@ -36,7 +36,7 @@ puts "deleting previous schools"
 School.destroy_all
 puts "ended destroying schools"
 
-DAILY SEEDING
+# DAILY SEEDING
 
 puts "deleting previous assignments"
 Assignment.destroy_all
