@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-light mb-3">
+<div class="navbar navbar-expand-sm navbar-light mb-3 d-block">
   <div class="container-fluid">
     <%  if current_user.role = 1
           homepage = area_schools_path(current_user.area.schools)
@@ -36,4 +36,13 @@
       </ul>
     </div>
   </div>
+
+  <% if current_user.role = 1 %>
+    <div class="container-fluid d-flex justify-content-center">
+      <%= form_tag(area_schools_path, method: :get) do %>
+      <%= text_field_tag(:search, params[:search]) %>
+      <%= submit_tag ("Search"), class: "btn" %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
