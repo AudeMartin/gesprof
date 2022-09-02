@@ -18,11 +18,7 @@
           <li class="list-group-item">
             <h5>
               <b>Taux actuel =>&nbsp;</b>
-              <%if @new_ratio === 0  %>
-                <span class="<%= @initial_ratio <= 10 ? 'text-green': @initial_ratio > 10 && @initial_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @initial_ratio %>%</span>
-              <% else %>
                 <span class="<%= @new_ratio <= 10 ? 'text-green': @new_ratio > 10 && @new_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @new_ratio %>%</span>
-              <% end %>
             </h5>
           </li>
         </ul>
@@ -36,29 +32,30 @@
     </div>
   </div>
   <div class="row text-center py-5">
-  <div class="col-10 offset-1" data-controller="fetch-assignments" data-action="submit->fetch-assignments#new_assignment">
-      <% if @assignments_confirmed.size.positive? %>
-          <% @assignments_confirmed.each do |assignment| %>
+  <div class="col-10 offset-1">
+      <% if @assignments_requests.size.positive? %>
+          <% @assignments_requests.each do |assignment| %>
+          <div data-controller="fetch-assignments" data-action='submit->fetch-assignments#new_assignment' data-fetch-assignments-teachers-assigned-ids-value="<%=@teachers_assigned_ids%>">
               <%= simple_form_for([:area, @school, assignment],
               wrapper: :horizontal_form,
-              html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center" },
+              html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
               wrapper_mappings: {
                 boolean: :inline_boolean,
                 select: :horizontal_select
               }) do |f| %>
-              <%= f.association :teacher,label:'Enseignant', collection: current_user.area.teachers, input_html:{default_value:assignment.teacher.name}%>
-              <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name}%>
-              <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100" %>
-          <% end %>
+                <%= f.association :teacher,label:'Enseignant', label_html:{class:'font-weight-bold'}, collection: @school.area.teachers, input_html:{default_value:assignment.teacher&.name, class:'s-style', data:{fetch_assignments_target:'teacher'}}%>
+                <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
+                <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
+              <% end %>
+          </div>
         <% end %>
       <% else %>
       <div class="bg-light border p-2">
         <h4>
           Aucun remplaçant n'a pu être affecté à cette école
         </h4>
-        <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary" %>
       </div>
     <% end %>
-  </div>
+      <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
 </div>
