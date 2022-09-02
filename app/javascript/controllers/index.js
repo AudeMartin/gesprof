@@ -10,8 +10,5 @@ application.register("assignments", AssignmentsController)
 import FetchAssignmentsController from "./fetch_assignments_controller"
 application.register("fetch-assignments", FetchAssignmentsController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
-
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)
