@@ -1,11 +1,11 @@
 <div class="navbar navbar-expand-sm navbar-light mb-3 d-block">
     <%  if current_user %>
       <%  if current_user.role.downcase == "gestionnaire" %>
-      <%= render "shared/navgest" %>
+        <%= render "shared/navgest" %>
       <%  else %>
-      <%= render "shared/navdir" %>
+        <%= render "shared/navdir" %>
       <%  end %>
     <%  else %>
-    <%= render "shared/navhome" %>
+      <%= render "shared/navhome" %>
     <%  end %>
 </div>
