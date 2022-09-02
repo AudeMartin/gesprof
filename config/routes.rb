@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   namespace :teachers do
     resources :assignments, only: :show
   end
+
+  get '/assign', to: 'algo#assign'
 end

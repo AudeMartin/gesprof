@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AlgoController from "./algo_controller"
+application.register("algo", AlgoController)
+
 import AssignmentsController from "./assignments_controller"
 application.register("assignments", AssignmentsController)
 
