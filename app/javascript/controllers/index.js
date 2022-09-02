@@ -15,3 +15,6 @@ application.register("fetch-assignments", FetchAssignmentsController)
 
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)
+
+import MyNestedFormController from "./my_nested_form_controller"
+application.register("my-nested-form", MyNestedFormController)
