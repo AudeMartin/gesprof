@@ -7,6 +7,9 @@ import { application } from "./application"
 import AssignmentsController from "./assignments_controller"
 application.register("assignments", AssignmentsController)
 
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
+
 import FetchAssignmentsController from "./fetch_assignments_controller"
 application.register("fetch-assignments", FetchAssignmentsController)
 
