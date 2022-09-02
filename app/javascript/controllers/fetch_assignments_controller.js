@@ -11,9 +11,9 @@ export default class extends Controller {
       //TODO:Dynamic Popup values wip
       // const school = this.schoolTarget.selectedOptions[0].textContent;
       const url = this.formTarget.action
-      if(!this.#isAssigned()) return
-      console.log('passed');
-      return
+      // if(!this.#isAssigned()) return
+      // console.log('passed');
+
       Swal.fire({
         title: 'Confirmation',
         text: `Modifier l'affectation ?`,
