@@ -35,7 +35,7 @@
   <div class="col-10 offset-1">
       <% if @assignments_requests.size.positive? %>
           <% @assignments_requests.each do |assignment| %>
-          <div data-controller="fetch-assignments" data-action='submit->fetch-assignments#new_assignment'>
+          <div data-controller="fetch-assignments" data-action='submit->fetch-assignments#new_assignment' data-fetch-assignments-teachers-assigned-ids-value="<%=@teachers_assigned_ids%>">
               <%= simple_form_for([:area, @school, assignment],
               wrapper: :horizontal_form,
               html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
@@ -43,7 +43,7 @@
                 boolean: :inline_boolean,
                 select: :horizontal_select
               }) do |f| %>
-                <%= f.association :teacher,label:'Enseignant', label_html:{class:'font-weight-bold'}, collection: @school.area.teachers, input_html:{default_value:assignment.teacher&.name, class:'s-style'}%>
+                <%= f.association :teacher,label:'Enseignant', label_html:{class:'font-weight-bold'}, collection: @school.area.teachers, input_html:{default_value:assignment.teacher&.name, class:'s-style', data:{fetch_assignments_target:'teacher'}}%>
                 <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
                 <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
               <% end %>

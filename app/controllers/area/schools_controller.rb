@@ -1,3 +1,5 @@
+require 'json'
+
 class Area::SchoolsController < ApplicationController
   before_action :set_school, if: :user_signed_in?, only: %i[show]
 
@@ -24,12 +26,12 @@ class Area::SchoolsController < ApplicationController
     @assignments_requests = @school.assignments.where(date: Date.today)
     @initial_ratio = (@assignments_requests.size.fdiv(@school.classes_number) * 100).round(2)
     @new_ratio = (@assignments_refused.size.fdiv(@school.classes_number) * 100).round(2)
-    # @schools_ids = Assignment.includes(:school).where(
-    #   school: current_user.area.schools,
-    #   progress: 1,
-    #   date: Date.today
-    # ).map(&:school_id)
-    # @schools_area_requests = School.where(id: @schools_ids)
+    @teachers_assigned_ids = Assignment.includes(:school).where(
+      school: current_user.area.schools,
+      progress: 2,
+      date: Date.today
+    ).map(&:teacher_id)
+    @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
   end
 
   private

@@ -3,18 +3,17 @@ import Swal from "sweetalert2"
 
 // Connects to data-controller="fetch-assignments"
 export default class extends Controller {
-  static targets = ['form']
-  connect() {
-  }
+  static targets = ['form','teacher']
+  static values = { teachersAssignedIds: Array }
 
   new_assignment(e){
       e.preventDefault()
       //TODO:Dynamic Popup values wip
       // const school = this.schoolTarget.selectedOptions[0].textContent;
-      // const teacher = this.teacherTarget.selectedOptions[0].textContent;
-      // const formData = new FormData(this.formTarget)
       const url = this.formTarget.action
-
+      if(!this.#isAssigned()) return
+      console.log('passed');
+      return
       Swal.fire({
         title: 'Confirmation',
         text: `Modifier l'affectation ?`,
@@ -52,5 +51,23 @@ export default class extends Controller {
         },
         allowOutsideClick: () => !Swal.isLoading()
       })
+    }
+
+    #isAssigned(){
+      if(this.teachersAssignedIdsValue.includes(parseInt(this.teacherTarget.value, 10))){
+        Swal.fire({
+          title: 'Déjà affecté !',
+          text: `L'enseignant actuel a déjà une affectation.`,
+          icon: 'warning',
+          backdrop: true,
+          showCancelButton:true,
+          cancelButtonText:'Annuler',
+          confirmButtonText: 'Poursuivre',
+        }).then((result)=>{
+          if(!result.isDenied) return false
+        });
+      }else{
+        return true
+      }
     }
 }
