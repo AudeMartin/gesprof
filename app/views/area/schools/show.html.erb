@@ -6,18 +6,18 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <h5>
-              <b>Demandé =>&nbsp;</b><%= @assignments_requests.size %>
+              <b>Absences =>&nbsp;</b><%= @assignments_requests.size %>
             </h5>
           </li>
           <li class="list-group-item">
              <h5>
-              <b>Taux initial =>&nbsp;</b>
+              <b>Taux abs.initial =>&nbsp;</b>
               <span class="<%= @initial_ratio <= 10 ? 'text-green': @initial_ratio > 10 && @initial_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @initial_ratio %>%</span>
             </h5>
           </li>
           <li class="list-group-item">
             <h5>
-              <b>Taux actuel =>&nbsp;</b>
+              <b>Taux abs.actuel =>&nbsp;</b>
                 <span class="<%= @new_ratio <= 10 ? 'text-green': @new_ratio > 10 && @new_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @new_ratio %>%</span>
             </h5>
           </li>
@@ -54,12 +54,12 @@
           </div>
         <% end %>
       <% else %>
-      <div class="bg-light border p-2">
-        <h4>
-          Aucun remplaçant n'a pu être affecté à cette école
-        </h4>
-      </div>
-    <% end %>
+        <div class="bg-light border p-2">
+          <h4>
+            Aucun remplaçant n'a pu être affecté à cette école
+          </h4>
+        </div>
+      <% end %>
       <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
 </div>
