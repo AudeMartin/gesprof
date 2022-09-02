@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AlgoController from "./algo_controller"
+application.register("algo", AlgoController)
+
 import AssignmentsController from "./assignments_controller"
 application.register("assignments", AssignmentsController)
 
@@ -12,9 +15,6 @@ application.register("autocomplete", AutocompleteController)
 
 import FetchAssignmentsController from "./fetch_assignments_controller"
 application.register("fetch-assignments", FetchAssignmentsController)
-
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
 
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)
