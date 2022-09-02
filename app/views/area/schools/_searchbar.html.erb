@@ -1,0 +1,11 @@
+
+<div class="container-fluid d-flex justify-content-center" data-controller="autocomplete">
+  <% @schools = School.where(area: current_user.area).pluck(:name,).sort %>
+  <%= form_tag(area_schools_path(@schools), method: :get, class: "form-inline") do %>
+    <div class="form-search"  data-autocomplete-target="form" data-schools="<%= @schools.to_json %>", data-action = "keyup->autocomplete#search">
+    <%= text_field_tag :name, nil, autocomplete: :off, class: "form-control search-input", placeholder: "Cherchez une école...", data: {autocomplete_target: "input"}%>
+    <%= submit_tag "Recherche", class: "btn btn-primary button-home" %>
+ <% end %>
+ <ul class="suggestions" data-autocomplete-target="suggestions">
+ </ul>
+</div>

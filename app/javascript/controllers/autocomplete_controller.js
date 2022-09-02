@@ -9,6 +9,7 @@ export default class extends Controller {
     let searchInput = this.inputTarget.value
     const schools = JSON.parse(this.formTarget.dataset.schools)
     const suggestions = this.suggestionsTarget
+    const schoolNames = schools.map(school => school[0])
 
     const findMatches = (wordToMatch, array) => {
       return array.filter(school => {
@@ -18,7 +19,7 @@ export default class extends Controller {
     }
 
     const displayMatches = () => {
-      const matchArray = findMatches(searchInput, schools).slice(0,4)
+      const matchArray = findMatches(searchInput, schoolNames).slice(0,4)
       const html = matchArray.map(school => {
         const regex = new RegExp(searchInput, 'gi')
         const schoolName = school.replace(regex, `<span class="hl">${searchInput}</span>`)
