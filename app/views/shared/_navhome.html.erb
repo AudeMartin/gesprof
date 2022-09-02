@@ -12,7 +12,7 @@
     <ul class="navbar-nav me-auto">
       <% if user_signed_in? %>
           <div class="btn me-4">
-          <%= link_to "Se déconnecter", destroy_user_session_path %>
+          <%= button_to("Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-primary") %>
         </div>
       <% else %>
         <div class="btn me-4">
