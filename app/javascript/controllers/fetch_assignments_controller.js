@@ -50,6 +50,8 @@ export default class extends Controller {
                 })
         },
         allowOutsideClick: () => !Swal.isLoading()
+      }).then((result)=>{
+        if(!result.isConfirmed) this.formTarget.reset()
       })
     }
 
