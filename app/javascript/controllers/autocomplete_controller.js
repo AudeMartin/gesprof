@@ -8,7 +8,6 @@ export default class extends Controller {
   static targets = ["form", "input", "suggestions"]
 
   search() {
-
     let searchInput = this.inputTarget.value
     const schools = JSON.parse(this.formTarget.dataset.schools)
     const suggestions = this.suggestionsTarget
