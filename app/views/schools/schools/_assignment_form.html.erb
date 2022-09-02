@@ -1,0 +1,21 @@
+
+<div class="card" data-my-nested-form-target="card">
+  <div class="row">
+      <%= f.simple_fields_for :assignments do |a| %>
+        <% if a.object.new_record? %>
+          <div class="col">
+            <%= a.input :teacher_message, label:"Message au remplaçant" %>
+          </div>
+          <div class="col">
+            <%= a.input :area_message, label:"Message au gestionnaire" %>
+          </div>
+            <%# <div class="col"> %>
+            <%= a.input :date, as: :date, as: :hidden, input_html: {value: Date.today} %>
+          <%# </div> %>
+            <button type="button" data-action="nested-form#remove">Supprimer</button>
+
+            <%= a.hidden_field :_destroy %>
+        <% end %>
+      <% end %>
+  </div>
+</div>
