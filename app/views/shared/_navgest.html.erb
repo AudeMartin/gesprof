@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <% homepage = area_schools_path() %>
+  <%= link_to homepage, class: "navbar-brand" do %>
+    <%= image_tag "GPLogo SansBack" %>
+  <% end %>
+
+  <div class="text-center">
+  <h2>Zone - <%= current_user.area.name %></h2>
+  </div>
+
+
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto">
+      <% if user_signed_in? %>
+          <div class="btn me-4">
+          <%= button_to("Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-primary") %>
+        </div>
+      <% else %>
+        <div class="btn me-4">
+          <%= link_to "Login", new_user_session_path %>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="container-fluid d-flex justify-content-center" data-controller="autocomplete">
+  <% @schools = School.where(area: current_user.area).pluck(:name).sort %>
+  <%= form_tag(area_school_path(@schools), method: :get, class: "form-inline") do %>
+    <div class="form-search"  data-autocomplete-target="form" data-schools="<%= @schools.to_json %>", data-action = "keyup->autocomplete#search">
+      <%= text_field_tag :name, nil, autocomplete: :off, class: "form-control search-input", placeholder: "Cherchez une école...", data: {autocomplete_target: "input"}%>
+      <%= submit_tag "Search", class: "btn btn-primary button-home" %>
+    </div>
+ <% end %>
+ <ul class="suggestions" data-autocomplete-target="suggestions">
+ </ul>
+</div>

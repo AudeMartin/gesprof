@@ -1,13 +1,14 @@
 <div class="container">
+<%= render "algo" %>
   <table class="table table-striped table-hover text-center" data-toggle="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col"><%= link_to "Ecole", :sort => "name" %></th>
+        <th scope="col" class="bdr-tl-5"><%= link_to "Ecole", :sort => "name" %></th>
         <th scope="col"><%= link_to "Absences", :sort => "absences" %></th>
         <th scope="col"><%= link_to "Taux abs. initial", :sort => "initial_rate" %></th>
         <th scope="col"><%= link_to "Affectation", :sort => "assignments" %></th>
         <th scope="col"><%= link_to "Taux abs. actuel", :sort => "current_rate" %></th>
-        <th scope="col"></th>
+        <th scope="col" class="bdr-tr-5"></th>
       </tr>
     </thead>
     <tbody>
