@@ -5,7 +5,6 @@ class Area::SchoolsController < ApplicationController
 
   def index
     selected_schools = School.where(area: current_user.area)
-    search_school if params[:name]
     case params[:sort]
     when "name"
       @schools = selected_schools.order(params[:sort])
@@ -39,11 +38,5 @@ class Area::SchoolsController < ApplicationController
 
   def set_school
     @school = School.find(params[:id])
-  end
-
-  def search_school
-    raise
-    @school = School.all.find{|school| school.name.include?(params[:name])}
-    redirect_to area_school_path(@school) if @school
   end
 end

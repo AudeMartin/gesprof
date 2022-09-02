@@ -30,13 +30,14 @@ export default class extends Controller {
       `
       }).join('')
       suggestions.innerHTML = html
+
     }
 
     displayMatches()
   }
 
-  swap (event) {
-    this.inputTarget.value = event.target.innerText
+  link () {
+    console.log(this.inputTarget.value)
   }
 
 }
