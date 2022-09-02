@@ -13,6 +13,7 @@ class Assignment < ApplicationRecord
   }
 
   scope :daily, -> { where(date: Date.today) }
+  scope :daily_for, ->(school) { where(date: Date.today, school: school) }
   scope :daily_availables, -> { where(teacher_id: nil, date: Date.today) }
   scope :daily_availables_for, ->(school) { where(teacher_id: nil, date: Date.today, school: school) }
   scope :not_availables, -> { where.not(teacher_id: nil) }

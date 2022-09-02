@@ -13,5 +13,11 @@ application.register("autocomplete", AutocompleteController)
 import FetchAssignmentsController from "./fetch_assignments_controller"
 application.register("fetch-assignments", FetchAssignmentsController)
 
+import FilterDashboardController from "./filter_dashboard_controller"
+application.register("filter-dashboard", FilterDashboardController)
+
+import MyNestedFormController from "./my_nested_form_controller"
+application.register("my-nested-form", MyNestedFormController)
+
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)

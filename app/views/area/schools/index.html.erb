@@ -1,6 +1,18 @@
-<div class="container">
+<div class="container" data-controller="filter-dashboard">
   <div class="d-flex justify-content-around">
-    <div class="d-inline"><%= render "searchbar" %></div>
+    <div class="d-inline">
+      <div class="searcher">
+        <% @parsed_schools = School.where(area: current_user.area).pluck(:name, :id).sort %>
+        <%= form_tag(area_schools_path(@parsed_schools), method: :get, class: "form-inline") do %>
+          <div class="form-search"  data-filter-dashboard-target="form" data-schools="<%= @parsed_schools.to_json %>", data-action = "keyup->filter-dashboard#searchIndex">
+          <%= text_field_tag :name, nil, autocomplete: :off, class: "form-control search-input", placeholder: "Cherchez une école...", data: {filter_dashboard_target: "input"}%>
+          <%# <%= submit_tag "Recherche", class: "btn btn-primary button-home" %>
+          </div>
+        <% end %>
+        <ul class="suggestions" data-filter-dashboard-target="suggestions">
+        </ul>
+      </div>
+    </div>
     <div class="d-inline"><%= render "algo"%></div>
   </div>
   <br>
@@ -16,30 +28,9 @@
         <th scope="col" class="bdr-tr-5"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-filter-dashboard-target="table">
       <% @schools.each_with_index do |school|%>
-      <tr>
-        <th scope="row" class="text-start"><%= link_to school.name, area_school_path(school) %></th>
-        <% absences = school.assignments.where(date: Date.today).count %>
-        <td><%= absences %></td>
-        <td><%= number_to_percentage(absences.fdiv(school.classes_number)*100, precision: 2) %></td>
-        <% accept = school.assignments.where(date: Date.today, progress: 2).size %>
-        <% non_accept = school.assignments.where(date: Date.today, progress: [1,3]).size %>
-        <td>
-          <% accept.times do %>
-          <i class="fa-solid fa-user"></i>
-          <% end %>
-          <% non_accept.times do %>
-          <i class="fa-regular fa-user"></i>
-          <% end %>
-        </td>
-        <td><%= number_to_percentage(non_accept.fdiv(school.classes_number)*100, precision: 2) %></td>
-        <td>
-        <%= link_to area_school_path(school) do %>
-          <i class="fa-solid fa-magnifying-glass"></i>
-        <% end %>
-        </td>
-      </tr>
+      <%= render "table", school: school %>
       <% end %>
     </tbody>
   </table>
