@@ -1,39 +1,11 @@
-<div class="navbar navbar-expand-sm navbar-light mb-3">
-  <div class="container-fluid">
-    <%  if current_user.role = 1
-          homepage = area_schools_path(current_user.area.schools)
-        else
-          homepage = new_schools_assignment_path(current_user.school)
-        end %>
-    <%= link_to homepage, class: "navbar-brand" do %>
-      <%= image_tag "GPLogo SansBack" %>
-    <% end %>
-
-    <div class="text-center">
-    <% if current_user.role = 1 %>
-    <h2>Zone - <%= current_user.area.name %></h2>
-    <% else %>
-    <h2>Ecole - <%= current_user.school.name %></h2>
-    <% end %>
-    </div>
-
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-           <div class="btn me-4">
-            <%= link_to "Se déconnecter", destroy_user_session_path %>
-          </div>
-        <% else %>
-          <div class="btn me-4">
-            <%= link_to "Login", new_user_session_path %>
-          </div>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+<div class="navbar navbar-expand-sm navbar-light mb-3 d-block">
+    <%  if current_user %>
+      <%  if current_user.role = 1 %>
+      <%= render "shared/navgest" %>
+      <%  else %>
+      <%= render "shared/navdir" %>
+      <%  end %>
+    <%  else %>
+    <%= render "shared/navhome" %>
+    <%  end %>
 </div>
