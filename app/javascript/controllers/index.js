@@ -19,8 +19,10 @@ application.register("filter-dashboard", FilterDashboardController)
 import MyNestedFormController from "./my_nested_form_controller"
 application.register("my-nested-form", MyNestedFormController)
 
+
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)
 
 import TableRowController from "./table_row_controller"
 application.register("table-row", TableRowController)
+
