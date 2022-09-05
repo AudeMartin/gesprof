@@ -144,6 +144,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.0.3)
       railties (>= 6.0.0)
+    json (2.6.2)
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.8.1)
@@ -184,6 +185,11 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.4.3)
+    postmark (1.22.1)
+      json
+    postmark-rails (0.22.1)
+      actionmailer (>= 3.0.0)
+      postmark (>= 1.21.3, < 2.0)
     public_suffix (5.0.0)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -305,6 +311,7 @@ DEPENDENCIES
   jsbundling-rails
   letter_opener
   pg (~> 1.1)
+  postmark-rails
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)
   sassc-rails
