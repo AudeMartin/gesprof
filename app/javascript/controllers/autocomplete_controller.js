@@ -9,8 +9,7 @@ export default class extends Controller {
     let searchInput = this.inputTarget.value
     const schools = JSON.parse(this.formTarget.dataset.schools)
     const suggestions = this.suggestionsTarget
-    const schoolNames = schools.map(school => school[0])
-    const schoolIds = schools.map(school => school[1])
+
 
     const findMatches = (wordToMatch, array) => {
       return array.filter(school => {
@@ -35,7 +34,12 @@ export default class extends Controller {
 
     }
 
-    displayMatches()
+    if (searchInput === "") {
+      suggestions.innerHTML = "" ;
+    } else {
+      displayMatches() ;
+    }
+
   }
 
 }
