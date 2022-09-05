@@ -108,7 +108,7 @@ puts "ended destroying assignments"
   # puts "Ended seeding teachers for #{area.name}"
 
   puts "Start seeding assignments for #{area.name}"
-  rand(15..25).times do
+  rand(15..35).times do
     school = School.where(area: area).sample
     teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
     Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)

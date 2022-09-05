@@ -42,6 +42,6 @@ export default class extends Controller {
 
     const filteredSchool = event.target.innerText
     console.log(this.tableTarget.innerHTML)
-   // this.tableTarget.innerHTML = `<%= render "table", school: School.find_by(name: "${filteredSchool}" %>`
+    this.tableTarget.innerHTML = `<%= render "table", school: School.find_by(name: "${filteredSchool}" %>`
   }
 }

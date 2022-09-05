@@ -21,3 +21,6 @@ application.register("my-nested-form", MyNestedFormController)
 
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)
+
+import TableRowController from "./table_row_controller"
+application.register("table-row", TableRowController)
