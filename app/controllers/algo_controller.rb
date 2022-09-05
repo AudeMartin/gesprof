@@ -11,6 +11,7 @@ class AlgoController < ApplicationController
     end
     assignment_ids = to_assign.map(&:id)
     Assignment.where(id: assignment_ids).assign_all if to_assign.present?
+    Assignment.archive_old
     redirect_back_or_to root_path
   end
 end

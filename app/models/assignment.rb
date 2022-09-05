@@ -34,4 +34,10 @@ class Assignment < ApplicationRecord
   def self.assign_all
     assign_one_teacher while daily_availables.present? && first.school.area.teachers.daily_availables.present?
   end
+
+  def self.archive_old
+    Assignment.where("date < ?", Date.today).each do |assignment|
+      assignment.progress = 4
+    end
+  end
 end
