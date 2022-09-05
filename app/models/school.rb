@@ -15,7 +15,11 @@ class School < ApplicationRecord
     Assignment.daily_availables_for(self).count.fdiv(classes_number)
   end
 
+  def init_ratio
+    Assignment.daily_for(self).count.fdiv(classes_number)
+  end
+
   def absences
-    Assignment.daily_availables_for(self).count
+    Assignment.daily_for(self).count
   end
 end
