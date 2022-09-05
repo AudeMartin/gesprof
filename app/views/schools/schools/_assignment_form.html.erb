@@ -1,5 +1,5 @@
 
-<div class="card" data-my-nested-form-target="card" id="nestedform">
+<div class="card nestedform" data-my-nested-form-target="card">
   <div class="row">
       <%= f.simple_fields_for :assignments do |a| %>
         <% if a.object.new_record? %>
