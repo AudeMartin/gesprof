@@ -1,0 +1,21 @@
+<tr data-controller="table-row" data-action="click->table-row#redirect">
+  <th scope="row" class="text-start"><%= school.name %></th>
+  <td><%= school.absences %></td>
+  <td><%= number_to_percentage(school.init_ratio*100, precision: 2) %></td>
+  <% accept = school.assignments.where(date: Date.today, progress: 2).size %>
+  <% non_accept = school.assignments.where(date: Date.today, progress: [1,3,4]).size %>
+  <td>
+    <% accept.times do %>
+    <i class="fa-solid fa-user"></i>
+    <% end %>
+    <% non_accept.times do %>
+    <i class="fa-regular fa-user"></i>
+    <% end %>
+  </td>
+  <td><%= number_to_percentage(school.ratio*100, precision: 2) %></td>
+  <td data-table-row-target="link">
+    <%= link_to area_school_path(school) do %>
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <% end %>
+  </td>
+</tr>

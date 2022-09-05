@@ -5,7 +5,8 @@
     font-weight: normal;
   };
   border-radius: 5px;
-  background-color: $mylightblueHalfOp;
+  background-color: whitesmoke;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   thead {
     background-color: $mydarkblue;
@@ -17,7 +18,7 @@
   };
 
   thead>tr>th>a:hover {
-    color: $mylightblueHalfOp !important;
+    color: whitesmoke !important;
     cursor: pointer;
   }
 
@@ -26,7 +27,7 @@
       background-color: #60b2f023;
 
       th > a {
-        color: $mydarkblueHalfOp !important;
+        color: whitesmoke !important;
       }
      }
   }

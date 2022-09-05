@@ -1,15 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="autocomplete"
+// Connects to data-controller="filter-dashboard"
 export default class extends Controller {
 
-  static targets = ["form", "input", "suggestions"]
+  static targets = ["form", "input", "suggestions", "table"]
 
-  search() {
+  searchIndex() {
     let searchInput = this.inputTarget.value
     const schools = JSON.parse(this.formTarget.dataset.schools)
     const suggestions = this.suggestionsTarget
-
 
     const findMatches = (wordToMatch, array) => {
       return array.filter(school => {
@@ -26,7 +25,7 @@ export default class extends Controller {
         const schoolID = school[1]
         return `
         <li>
-          <span class="name"><a href="./${schoolID}">${schoolName}</a></span>
+          <span class="name" data-action="click->filter-dashboard#filter">${schoolName}</span>
         </li>
       `
       }).join('')
@@ -42,4 +41,10 @@ export default class extends Controller {
 
   }
 
+  filter(event) {
+
+    const filteredSchool = event.target.innerText
+    console.log(this.tableTarget.innerHTML)
+    this.tableTarget.innerHTML = `<%= render "table", school: School.find_by(name: "${filteredSchool}" %>`
+  }
 }

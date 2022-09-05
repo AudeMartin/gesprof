@@ -1,4 +1,7 @@
 <div class="container school">
+  <div class="d-flex justify-content-around">
+    <div class="d-inline"><%= render "searchbar" %></div>
+  </div>
   <div class="row justify-content-evenly">
     <h1 class="text-center my-5"><%= @school.name %></h1>
     <div class="col-5">
@@ -11,13 +14,13 @@
           </li>
           <li class="list-group-item">
              <h5>
-              <b>Taux abs.initial =>&nbsp;</b>
+              <b>Taux d'absence initial =>&nbsp;</b>
               <span class="<%= @initial_ratio <= 10 ? 'text-green': @initial_ratio > 10 && @initial_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @initial_ratio %>%</span>
             </h5>
           </li>
           <li class="list-group-item">
             <h5>
-              <b>Taux abs.actuel =>&nbsp;</b>
+              <b>Taux d'absence actuel =>&nbsp;</b>
                 <span class="<%= @new_ratio <= 10 ? 'text-green': @new_ratio > 10 && @new_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @new_ratio %>%</span>
             </h5>
           </li>
