@@ -9,15 +9,13 @@ class Area::SchoolsController < ApplicationController
     when "name"
       @schools = selected_schools.order(params[:sort])
     when "absences"
-      @schools = selected_schools.sort_by(&:absences).reverse
-    # when "initial_rate"
-    #   @schools = selected_schools.sort_by{|school| school.ratio}.reverse
+      @schools = selected_schools.sort_by { |school| [-school.absences, -school.ratio, -school.init_ratio] }
+    when "initial_rate"
+      @schools = selected_schools.sort_by { |school| [-school.init_ratio, -school.ratio] }
     when "assignments"
-      @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today, progress: 2).size}.reverse
+      @schools = selected_schools.sort_by { |school| [-school.assignments.where(date: Date.today, progress: 2).size, -school.ratio, -school.init_ratio] }
     else
-      @schools = selected_schools.sort_by(&:ratio).reverse
-    # when "current_rate"
-    #   @schools = selected_schools.sort_by{|school| school.assignments.where(date: Date.today).size}.reverse
+      @schools = selected_schools.sort_by { |school| [-school.ratio, -school.init_ratio] }
     end
   end
 
