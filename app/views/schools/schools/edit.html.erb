@@ -5,7 +5,7 @@
  <%= simple_form_for [:schools, @school], data: { controller: 'my-nested-form' } do |f| %>
 
     <div class="d-none" data-my-nested-form-target="assId"><%= @school.assignments.map(&:id).compact.last.to_i + 2 %></div>
-    <div class="card" id="nestedform">
+    <div class="card nestedform">
       <div class="row">
           <%= f.simple_fields_for :assignments do |a| %>
             <%# if (new && a.object.new_record?) || (new == false && a.object.new_record? == false)%>
@@ -18,7 +18,7 @@
               </div>
               <div class="col">
 
-                <%= a.input :date, as: :date, :order => [:day, :month, :year], input_html: {value: Date.today} %>
+                <%= a.input :date, as: :date, :order => [:day, :month, :year], input_html: {value: Date.today}, label:"Date du remplacement" %>
               </div>
 <%#                 <button type="button" data-action="nested-form#remove">Supprimer</button>  %>
                 <%#= a.hidden_field :_destroy %>
@@ -42,7 +42,7 @@
       <%# </div> %>
   <% end %>
 
-
+<div class="choicelist">
   <ul class="d-flex justify-content-evenly align-items-center" id="bullet">
     <li class="">
       <%= link_to "Statut", class: "btn btn-success" %>
@@ -57,3 +57,4 @@
       <%# <%= link_to "Demande anticipée", class: "btn btn-success" %>
     <%# </li> %>
   </ul>
+</div>
