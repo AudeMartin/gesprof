@@ -3,27 +3,40 @@ import Swal from "sweetalert2"
 
 // Connects to data-controller="fetch-assignments"
 export default class extends Controller {
-  static targets = ['form','teacher']
-  static values = { teachersAssignedIds: Array }
+  static targets = ['form','teacher','data' ];
 
   new_assignment(e){
         e.preventDefault()
         //TODO:Dynamic Popup values wip
         // const school = this.schoolTarget.selectedOptions[0].textContent;
+        const teachersAssigned = JSON.parse(this.dataTarget.dataset.teachersAssigned)
+        const schoolsFilled = JSON.parse(this.dataTarget.dataset.schoolsFilled)
+        const validatedAssign = JSON.parse(this.dataTarget.dataset.validatedAssign)
+
         const url = this.formTarget.action
 
-        if(this.teachersAssignedIdsValue.includes(parseInt(this.teacherTarget.value, 10))){
+        const isUnavailable = this.#isAssigned(this.teacherTarget.value, validatedAssign)
+
+        if(isUnavailable.isAssigned){
+
+        const school = this.#getSchool(schoolsFilled, isUnavailable.schoolID)
+        const teacherSelected = this.teacherTarget.selectedOptions[0].textContent;
 
         Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          title: 'Êtes-vous sûr ?',
+          text: `
+          ${teacherSelected} est déjà affecté\n
+          à ${school.name}\n
+          situé ${school.address}\n
+          `,
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, delete it!',
-          cancelButtonText: 'No, cancel!',
+          confirmButtonText: 'Je confirme',
+          cancelButtonText: 'J\'annule',
+          backdrop:true,
           reverseButtons: true,
-          preConfirm: (updateAssignment) => {
-              fetch(url, {
+          preConfirm: async () => {
+              return await fetch(url, {
                 method: "PATCH",
                 headers: { "Accept": "application/json" },
                 body:new FormData(this.formTarget)
@@ -40,20 +53,21 @@ export default class extends Controller {
           },
           allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-          if (result.isConfirmed) {
-            console.log(result.value.updateAssignment)
+
+          if(result.isConfirmed) {
             Swal.fire({
-              title:'Réaffecter !',
+              title:'Modifier !',
               text:`
-               ${result.value.updateAssignment.name} se rendra à cette école ce jour\n
-               ${result.value.updateAssignment.email} | ${result.value.updateAssignment.phone_number}
-               `,
+              ${result.value.name} se rendra à cette école ce jour\n
+              ${result.value.email} | ${result.value.phone_number}
+              `,
               icon: 'success'
             })
           } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
           ) {
+            this.formTarget.reset()
             Swal.fire({
              title: 'Annulé',
              text: 'L\'affectation n\a pas était modifié.',
@@ -71,8 +85,8 @@ export default class extends Controller {
               showCancelButton:true,
               cancelButtonText:'Annuler',
               confirmButtonText: 'Valider',
-              preConfirm: (updateAssignment) => {
-                fetch(url, {
+              preConfirm: async () => {
+                return await fetch(url, {
                   method: "PATCH",
                   headers: { "Accept": "application/json" },
                   body:new FormData(this.formTarget)
@@ -89,87 +103,52 @@ export default class extends Controller {
             },
             allowOutsideClick: () => !Swal.isLoading()
             }).then((result)=>{
-              if(!result.isConfirmed) this.formTarget.reset()
+              let content = ''
+
+              if(result.value){
+                content =`
+                ${result.value.name} se rendra à cette école ce jour\n
+                ${result.value.email} | ${result.value.phone_number}
+                `
+              }else{
+                content ='Affectation annulé'
+              }
+
+              if(result.isConfirmed){
+                Swal.fire({
+                  title:'Modifier',
+                  text: content,
+                  icon:'success',
+                  timer:3000
+                })
+              }else{
+                this.formTarget.reset()
+              }
             })
           }
     }
 
+    #isAssigned(teacher, assignments){
+      let result = {
+        isAssigned : false,
+        schoolID: null,
+      }
 
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Test up$$$$$$$$$$$$$$$$$$
-  // new_assignment(e){
-  //     e.preventDefault()
-  //     //TODO:Dynamic Popup values wip
-  //     // const school = this.schoolTarget.selectedOptions[0].textContent;
-  //     const url = this.formTarget.action
+      assignments.forEach((assignment)=>{
+       if(assignment.teacher_id === parseInt(teacher))
+          result.isAssigned = true
+          result.schoolID = assignment.school_id
+      })
+      return result
+    }
 
-  //     // if(!this.#isAssigned())
-
-  //     Swal.fire({
-  //       title: 'Confirmation',
-  //       text: `Modifier l'affectation ?`,
-  //       icon: 'question',
-  //       backdrop: true,
-  //       showLoaderOnConfirm: true,
-  //       showCancelButton:true,
-  //       cancelButtonText:'Annuler',
-  //       confirmButtonText: 'Valider',
-  //       preConfirm: async() =>  {
-  //         return await fetch(url, {
-  //                 method: "PATCH",
-  //                 headers: { "Accept": "application/json" },
-  //                 body:new FormData(this.formTarget)
-  //               })
-  //               .then(response =>{
-  //                 if(!response.ok) throw new Error(response.statusText)
-  //                 return response.json()
-  //               })
-  //               .then((data) => {
-  //                 let content = ''
-
-  //                 if (data)
-  //                   content = `
-  //                   ${data.name} se rendra à cette école ce jour\n
-  //                   ${data.email} | ${data.phone_number}
-  //                   `
-  //                 else
-  //                   content = `Annulé`
-
-  //                 Swal.fire({
-  //                   title: `Affectation modifié !`,
-  //                   icon: 'success',
-  //                   text: content,
-  //                   confirmButtonText: 'Fermer',
-  //                 })
-  //               }).catch(error => {
-  //                 Swal.showValidationMessage(
-  //                   `Request failed: ${error}`
-  //                 )
-  //               })
-  //       },
-  //       allowOutsideClick: () => !Swal.isLoading()
-  //     }).then((result)=>{
-  //       if(!result.isConfirmed) this.formTarget.reset()
-  //     })
-  //   }
-
-  //   #isAssigned(){
-  //     if(this.teachersAssignedIdsValue.includes(parseInt(this.teacherTarget.value, 10))){
-  //       Swal.fire({
-  //         title: 'Déjà affecté !',
-  //         text: `L'enseignant actuel a déjà une affectation.`,
-  //         icon: 'warning',
-  //         backdrop: true,
-  //         showCancelButton:true,
-  //         cancelButtonText:'Annuler',
-  //         confirmButtonText: 'Poursuivre',
-  //       }).then((result)=>{
-  //         if(result.isConfirmed)
-  //          return true
-  //         else
-  //          return false
-  //       });
-  //     }else{
-  //       return true
-  //     }
-  //   }
+    #getSchool(schools, id){
+      let result = {}
+      schools.forEach((school)=>{
+          if(school.id === id){
+            result = school
+          }
+      })
+      return result;
+    }
 }

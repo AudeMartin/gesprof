@@ -32,34 +32,40 @@
     </div>
   </div>
   <div class="row text-center py-5">
-  <div class="col-10 offset-1">
-      <% if @assignments_requests.size.positive? %>
-          <% @assignments_requests.each do |assignment| %>
-          <div data-controller="fetch-assignments" data-action='submit->fetch-assignments#new_assignment' data-fetch-assignments-teachers-assigned-ids-value="<%=@teachers_assigned_ids%>">
-              <%= simple_form_for([:area, @school, assignment],
-              wrapper: :horizontal_form,
-              html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
-              wrapper_mappings: {
-                boolean: :inline_boolean,
-                select: :horizontal_select
-              }) do |f| %>
-                <%= f.association :teacher,label:'Enseignant',
-                label_html:{class:'font-weight-bold'},
-                collection: @school.area.teachers,
-                input_html:{default_value:assignment.teacher&.name, class:'s-style',
-                data:{fetch_assignments_target:'teacher'}}%>
-                <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
-                <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
-              <% end %>
+    <div class="col-10 offset-1">
+        <% if @assignments_requests.size.positive? %>
+            <% @assignments_requests.each do |assignment| %>
+            <div data-controller="fetch-assignments"
+            data-action="submit->fetch-assignments#new_assignment"
+            data-fetch-assignments-target="data"
+            data-teachers-assigned="<%=@teachers_assigned.to_json%>"
+            data-validated-assign="<%=@assignments_validated.to_json%>"
+            data-schools-filled="<%=@schools_filled.to_json%>">
+                <%= simple_form_for([:area, @school, assignment],
+                wrapper: :horizontal_form,
+                html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
+                wrapper_mappings: {
+                  boolean: :inline_boolean,
+                  select: :horizontal_select
+                }) do |f| %>
+                  <%= f.association :teacher,label:'Enseignant',
+                  label_html:{class:'font-weight-bold'},
+                  collection: @school.area.teachers,
+                  input_html:{default_value:assignment.teacher&.name, class:'s-style',
+                  data:{fetch_assignments_target:'teacher'}}%>
+                  <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
+                  <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
+                <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="bg-light border p-2">
+            <h4>
+              Aucun remplaçant n'a pu être affecté à cette école
+            </h4>
           </div>
         <% end %>
-      <% else %>
-        <div class="bg-light border p-2">
-          <h4>
-            Aucun remplaçant n'a pu être affecté à cette école
-          </h4>
-        </div>
-      <% end %>
-      <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
+        <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
+</div>
 </div>
