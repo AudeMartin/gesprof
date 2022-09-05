@@ -1,6 +1,6 @@
 class Schools::SchoolsController < ApplicationController
   def edit
-    @school = School.find(params[:id])
+    @school = current_user.school
     # @assignments_of_the_day = @school.assignments.where(date: Date.today)
     @assignment = @school.assignments.new
   end
