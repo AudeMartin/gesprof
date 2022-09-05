@@ -39,17 +39,17 @@ class Assignment < ApplicationRecord
     end
   end
 
-<<<<<<< HEAD
+  def self.archive_old
+    Assignment.where("date < ?", Date.today).each do |assignment|
+      assignment.progress = 4
+    end
+  end
+
   private
 
   def send_token
     if self.token.blank?
       self.token = SecureRandom.urlsafe_base64.to_s
-=======
-  def self.archive_old
-    Assignment.where("date < ?", Date.today).each do |assignment|
-      assignment.progress = 4
->>>>>>> 0dd869c0ed984e2383efb6455350768748fc2869
     end
   end
 end
