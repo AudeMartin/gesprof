@@ -1,25 +1,31 @@
-<div class="container" data-controller="assignments">
+<%# <div class="container" data-controller="assignments">
   <h2 class="text-center">Demande de remplacement pour aujourd'hui</h2>
+
+
+
 
   <div data-assignments-target="list">
     <%= render "form", assignment: @assignment %>
-  </div>
-  <button data-action="click->assignments#append">ADD</button>
+  <%# </div> %>
+  <%# <button data-action="click->assignments#append">ADD</button> %>
 
-  <ul class="d-flex justify-content-evenly align-items-center">
-    <li class="">
-      <%= link_to "Statut", class: "btn btn-success" %>
-    </li>
-    <li class="">
-      <%= link_to"Statistiques", class: "btn btn-success" %>
-    </li>
-    <li class="">
-      <%= link_to "Historique", class: "btn btn-success" %>
-    </li>
-    <li class="">
-      <%= link_to "Demande anticipée", class: "btn btn-success" %>
-    </li>
-  </ul>
+
+
+
+  <%# <ul class="d-flex justify-content-evenly align-items-center"> %>
+    <%# <li class=""> %>
+      <%# <%= link_to "Statut", class: "btn btn-success" %> %>
+    <%# </li> %>
+    <%# <li class=""> %>
+      <%# <%= link_to"Statistiques", class: "btn btn-success" %> %>
+    <%# </li> %>
+    <%# <li class=""> %>
+      <%# <%= link_to "Historique", class: "btn btn-success" %> %>
+    <%# </li> %>
+    <%# <li class=""> %>
+      <%# <%= link_to "Demande anticipée", class: "btn btn-success" %> %>
+    <%# </li> %>
+  <%# </ul> %> %>
 
 
 </div>

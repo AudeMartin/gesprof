@@ -6,4 +6,17 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  position:relative;
+  }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-top : auto ;
+  padding: 0 5vh 0 5vh;
+  background-color: #093557d8 ;
+  color: $mylightblue;
 }
