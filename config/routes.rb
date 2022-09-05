@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :assignments, only: [:edit, :update]
     end
     resources :assignments do
-      resources :teachers, only: :index
+      resources :teachers, only: [:index, :show]
     end
   end
 

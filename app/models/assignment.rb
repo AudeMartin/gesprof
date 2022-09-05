@@ -27,6 +27,7 @@ class Assignment < ApplicationRecord
                        .joins(:teachers).where(teachers: { id: Teacher.daily_availables }).first
     self.teacher = school_ref.teachers.sample
     self.progress = 2
+    self.send_token
     save
   end
 
@@ -34,6 +35,14 @@ class Assignment < ApplicationRecord
     while daily_availables.present? && first.school.area.teachers.daily_availables.present?
       to_assign = ordered_by_priority.first
       to_assign.assign_one_teacher
+    end
+  end
+
+  private
+
+  def send_token
+    if self.token.blank?
+      self.token = SecureRandom.urlsafe_base64.to_s
     end
   end
 end
