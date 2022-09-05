@@ -13,6 +13,7 @@ class Assignment < ApplicationRecord
   }
 
   scope :daily, -> { where(date: Date.today) }
+  scope :daily_for, ->(school) { where(date: Date.today, school: school) }
   scope :daily_availables, -> { where(teacher_id: nil, date: Date.today) }
   scope :daily_availables_for, ->(school) { where(teacher_id: nil, date: Date.today, school: school) }
   scope :not_availables, -> { where.not(teacher_id: nil) }
@@ -34,6 +35,12 @@ class Assignment < ApplicationRecord
     while daily_availables.present? && first.school.area.teachers.daily_availables.present?
       to_assign = ordered_by_priority.first
       to_assign.assign_one_teacher
+    end
+  end
+
+  def self.archive_old
+    Assignment.where("date < ?", Date.today).each do |assignment|
+      assignment.progress = 4
     end
   end
 end

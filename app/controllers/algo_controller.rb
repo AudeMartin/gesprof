@@ -15,6 +15,7 @@ class AlgoController < ApplicationController
     assignments.each do |assignment|
       TeacherMailer.with(teacher: assignment.teacher).teacher_email.deliver_later
     end
+    Assignment.archive_old
     redirect_back_or_to root_path
   end
 end
