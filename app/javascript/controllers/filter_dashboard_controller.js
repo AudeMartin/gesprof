@@ -3,12 +3,11 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="filter-dashboard"
 export default class extends Controller {
 
-  static targets = ["form", "input", "suggestions", "table"]
+  static targets = ["form", "input", "table"]
 
   searchIndex() {
     let searchInput = this.inputTarget.value
     const schools = JSON.parse(this.formTarget.dataset.schools)
-    const suggestions = this.suggestionsTarget
 
     const findMatches = (wordToMatch, array) => {
       return array.filter(school => {
@@ -18,33 +17,33 @@ export default class extends Controller {
     }
 
     const displayMatches = () => {
-      const matchArray = findMatches(searchInput, schools).slice(0,4)
-      const html = matchArray.map(school => {
-        const regex = new RegExp(searchInput, 'gi')
-        const schoolName = school[0].replace(regex, `<span class="hl">${searchInput}</span>`)
-        const schoolID = school[1]
-        return `
-        <li>
-          <span class="name" data-action="click->filter-dashboard#filter">${schoolName}</span>
-        </li>
-      `
-      }).join('')
-      suggestions.innerHTML = html
-
+      const allMatches = findMatches(searchInput, schools)
+      const ids = allMatches.map(school => {
+        return school[1]
+      })
+      if (ids.length === 0) {
+        return
+        } else {
+        this.filter(ids)
+      }
     }
 
-    if (searchInput === "") {
-      suggestions.innerHTML = "" ;
-    } else {
-      displayMatches() ;
-    }
+
+    displayMatches()
 
   }
 
-  filter(event) {
+  filter(schools) {
 
-    const filteredSchool = event.target.innerText
-    console.log(this.tableTarget.innerHTML)
-    this.tableTarget.innerHTML = `<%= render "table", school: School.find_by(name: "${filteredSchool}" %>`
+    const url = `./schools/?search=${schools}`
+    console.log(url)
+    fetch(url, {
+      method: "GET",
+      headers: { "Accept": "text/plain","Content-Type": "application/json" }})
+      .then(response => response.text())
+      .then((data) => {
+        this.tableTarget.innerHTML = data
+      })
+
   }
 }
