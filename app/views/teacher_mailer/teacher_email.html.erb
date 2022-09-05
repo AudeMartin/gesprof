@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bonjour, <%= @teacher.name %></h1>
+    <p>
+      Votre affectation du jour est : <%= @teacher.assignment.school.name %>.<br>
+    </p>
+    <p>
+      Adresse : <%= @teacher.assignment.school.address %>
+    </p>
+    <p>Message du directeur : <%= @teacher.assignment.teacher_message %> </p><br>
+    <p>Bonne journée !</p>
+  </body>
+</html>
