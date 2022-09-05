@@ -21,17 +21,19 @@ class Assignment < ApplicationRecord
     (daily_availables.sort_by { |ass| ass.school.classes_number }).sort_by { |ass| (1.0/ass.school.ratio) }
   end
 
-  def self.assign_one_teacher
-    to_assign = ordered_by_priority.first
-    school_ref = School.near([to_assign.school.latitude, to_assign.school.longitude], 100, units: :km)
-                       .where(area: to_assign.school.area).where.not(teachers: nil)
+  def assign_one_teacher
+    school_ref = School.near([self.school.latitude, self.school.longitude], 100, units: :km)
+                       .where(area: self.school.area).where.not(teachers: nil)
                        .joins(:teachers).where(teachers: { id: Teacher.daily_availables }).first
-    to_assign.teacher = school_ref.teachers.sample
-    to_assign.progress = 2
-    to_assign.save
+    self.teacher = school_ref.teachers.sample
+    self.progress = 2
+    save
   end
 
   def self.assign_all
-    assign_one_teacher while daily_availables.present? && first.school.area.teachers.daily_availables.present?
+    while daily_availables.present? && first.school.area.teachers.daily_availables.present?
+      to_assign = ordered_by_priority.first
+      to_assign.assign_one_teacher
+    end
   end
 end

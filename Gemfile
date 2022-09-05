@@ -55,6 +55,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem "devise"
 gem "geocoder"
 gem "cloudinary"
+gem 'letter_opener', group: :development
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
