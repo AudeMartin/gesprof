@@ -3,67 +3,90 @@ import Swal from "sweetalert2"
 
 // Connects to data-controller="fetch-assignments"
 export default class extends Controller {
-  static targets = ['form','teacher']
-  static values = { teachersAssignedIds: Array }
-  // new_assignment(e){
-  //       e.preventDefault()
-  //       //TODO:Dynamic Popup values wip
-  //       // const school = this.schoolTarget.selectedOptions[0].textContent;
-  //       const url = this.formTarget.action
+  static targets = ['form','teacher','data' ];
 
-  //       if(this.teachersAssignedIdsValue.includes(parseInt(this.teacherTarget.value, 10))){
-
-  //       Swal.fire({
-  //         title: 'Are you sure?',
-  //         text: "You won't be able to revert this!",
-  //         icon: 'warning',
-  //         showCancelButton: true,
-  //         confirmButtonText: 'Yes, delete it!',
-  //         cancelButtonText: 'No, cancel!',
-  //         reverseButtons: true,
-  //         preConfirm: (updateAssignment)
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           Swal.fire(
-  //             'Deleted!',
-  //             'Your file has been deleted.',
-  //             'success'
-  //           )
-  //         } else if (
-  //           /* Read more about handling dismissals below */
-  //           result.dismiss === Swal.DismissReason.cancel
-  //         ) {
-  //           Swal.fire(
-  //             'Cancelled',
-  //             'Your imaginary file is safe :)',
-  //             'error'
-  //           )
-  //         }
-  //       })
-  //       } else {
-
-  //       }
-  //     }
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Test up$$$$$$$$$$$$$$$$$$
   new_assignment(e){
-      e.preventDefault()
-      //TODO:Dynamic Popup values wip
-      // const school = this.schoolTarget.selectedOptions[0].textContent;
-      const url = this.formTarget.action
+        e.preventDefault()
+        //TODO:Dynamic Popup values wip
+        // const school = this.schoolTarget.selectedOptions[0].textContent;
+        const teachersAssigned = JSON.parse(this.dataTarget.dataset.teachersAssigned)
+        const schoolsFilled = JSON.parse(this.dataTarget.dataset.schoolsFilled)
+        const validatedAssign = JSON.parse(this.dataTarget.dataset.validatedAssign)
 
-      // if(!this.#isAssigned())
+        const url = this.formTarget.action
 
-      Swal.fire({
-        title: 'Confirmation',
-        text: `Modifier l'affectation ?`,
-        icon: 'question',
-        backdrop: true,
-        showLoaderOnConfirm: true,
-        showCancelButton:true,
-        cancelButtonText:'Annuler',
-        confirmButtonText: 'Valider',
-        preConfirm: async() =>  {
-          return await fetch(url, {
+        const isUnavailable = this.#isAssigned(this.teacherTarget.value, validatedAssign)
+
+        if(isUnavailable.isAssigned){
+
+        const school = this.#getSchool(schoolsFilled, isUnavailable.schoolID)
+        const teacherSelected = this.teacherTarget.selectedOptions[0].textContent;
+
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          text: `
+          ${teacherSelected} est déjà affecté\n
+          à ${school.name}\n
+          situé ${school.address}\n
+          `,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Je confirme',
+          cancelButtonText: 'J\'annule',
+          backdrop:true,
+          reverseButtons: true,
+          preConfirm: async () => {
+              return await fetch(url, {
+                method: "PATCH",
+                headers: { "Accept": "application/json" },
+                body:new FormData(this.formTarget)
+              })
+              .then(response =>{
+                if(!response.ok) throw new Error(response.statusText)
+                return response.json()
+              })
+             .catch(error => {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`
+                )
+              })
+          },
+          allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+
+          if(result.isConfirmed) {
+            Swal.fire({
+              title:'Modifier !',
+              text:`
+              ${result.value.name} se rendra à cette école ce jour\n
+              ${result.value.email} | ${result.value.phone_number}
+              `,
+              icon: 'success'
+            })
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            this.formTarget.reset()
+            Swal.fire({
+             title: 'Annulé',
+             text: 'L\'affectation n\a pas était modifié.',
+             icon: 'error',
+            })
+          }
+        })
+        } else {
+            Swal.fire({
+              title: 'Confirmation',
+              text: `Modifier l'affectation ?`,
+              icon: 'question',
+              backdrop: true,
+              showLoaderOnConfirm: true,
+              showCancelButton:true,
+              cancelButtonText:'Annuler',
+              confirmButtonText: 'Valider',
+              preConfirm: async () => {
+                return await fetch(url, {
                   method: "PATCH",
                   headers: { "Accept": "application/json" },
                   body:new FormData(this.formTarget)
@@ -72,53 +95,60 @@ export default class extends Controller {
                   if(!response.ok) throw new Error(response.statusText)
                   return response.json()
                 })
-                .then((data) => {
-                  let content = ''
-
-                  if (data)
-                    content = `
-                    ${data.name} se rendra à cette école ce jour\n
-                    ${data.email} | ${data.phone_number}
-                    `
-                  else
-                    content = `Annulé`
-
-                  Swal.fire({
-                    title: `Affectation modifié !`,
-                    icon: 'success',
-                    text: content,
-                    confirmButtonText: 'Fermer',
-                  })
-                }).catch(error => {
+              .catch(error => {
                   Swal.showValidationMessage(
                     `Request failed: ${error}`
                   )
                 })
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-      }).then((result)=>{
-        if(!result.isConfirmed) this.formTarget.reset()
-      })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+            }).then((result)=>{
+              let content = ''
+
+              if(result.value){
+                content =`
+                ${result.value.name} se rendra à cette école ce jour\n
+                ${result.value.email} | ${result.value.phone_number}
+                `
+              }else{
+                content ='Affectation annulé'
+              }
+
+              if(result.isConfirmed){
+                Swal.fire({
+                  title:'Modifier',
+                  text: content,
+                  icon:'success',
+                  timer:3000
+                })
+              }else{
+                this.formTarget.reset()
+              }
+            })
+          }
     }
 
-  //   #isAssigned(){
-  //     if(this.teachersAssignedIdsValue.includes(parseInt(this.teacherTarget.value, 10))){
-  //       Swal.fire({
-  //         title: 'Déjà affecté !',
-  //         text: `L'enseignant actuel a déjà une affectation.`,
-  //         icon: 'warning',
-  //         backdrop: true,
-  //         showCancelButton:true,
-  //         cancelButtonText:'Annuler',
-  //         confirmButtonText: 'Poursuivre',
-  //       }).then((result)=>{
-  //         if(result.isConfirmed)
-  //          return true
-  //         else
-  //          return false
-  //       });
-  //     }else{
-  //       return true
-  //     }
-  //   }
+    #isAssigned(teacher, assignments){
+      let result = {
+        isAssigned : false,
+        schoolID: null,
+      }
+
+      assignments.forEach((assignment)=>{
+       if(assignment.teacher_id === parseInt(teacher))
+          result.isAssigned = true
+          result.schoolID = assignment.school_id
+      })
+      return result
+    }
+
+    #getSchool(schools, id){
+      let result = {}
+      schools.forEach((school)=>{
+          if(school.id === id){
+            result = school
+          }
+      })
+      return result;
+    }
 }
