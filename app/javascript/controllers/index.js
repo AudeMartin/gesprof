@@ -16,6 +16,9 @@ application.register("fetch-assignments", FetchAssignmentsController)
 import FilterDashboardController from "./filter_dashboard_controller"
 application.register("filter-dashboard", FilterDashboardController)
 
+import MapController from "./map_controller"
+application.register("map", MapController)
+
 import MyNestedFormController from "./my_nested_form_controller"
 application.register("my-nested-form", MyNestedFormController)
 
