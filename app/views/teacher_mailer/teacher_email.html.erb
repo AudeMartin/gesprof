@@ -12,6 +12,9 @@
       Adresse : <%= @teacher.assignment.school.address %>
     </p>
     <p>Message du directeur : <%= @teacher.assignment.teacher_message %> </p><br>
+
+    Voir le détail : <%= area_assignment_teacher_url(id: @teacher.id, @teacher.token) %>
+
     <p>Bonne journée !</p>
   </body>
 </html>

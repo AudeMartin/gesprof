@@ -28,6 +28,7 @@ class Assignment < ApplicationRecord
                        .joins(:teachers).where(teachers: { id: Teacher.daily_availables }).first
     self.teacher = school_ref.teachers.sample
     self.progress = 2
+    self.send_token
     save
   end
 
@@ -38,9 +39,17 @@ class Assignment < ApplicationRecord
     end
   end
 
+<<<<<<< HEAD
+  private
+
+  def send_token
+    if self.token.blank?
+      self.token = SecureRandom.urlsafe_base64.to_s
+=======
   def self.archive_old
     Assignment.where("date < ?", Date.today).each do |assignment|
       assignment.progress = 4
+>>>>>>> 0dd869c0ed984e2383efb6455350768748fc2869
     end
   end
 end
