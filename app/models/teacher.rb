@@ -9,4 +9,8 @@ class Teacher < ApplicationRecord
     assigned_ids = Assignment.daily.not_availables.map(&:teacher_id)
     where.not(id: assigned_ids)
   end
+
+  def input_format
+    content_tag(:i, class: 'fa-solid fa-check')
+  end
 end

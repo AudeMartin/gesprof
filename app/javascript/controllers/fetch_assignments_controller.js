@@ -6,6 +6,7 @@ export default class extends Controller {
   static targets = ['form','teacher','data' ];
 
   new_assignment(e){
+
         e.preventDefault()
         //TODO:Dynamic Popup values wip
         // const school = this.schoolTarget.selectedOptions[0].textContent;
@@ -150,5 +151,20 @@ export default class extends Controller {
           }
       })
       return result;
+    }
+
+    styleForm(e){
+      const selected = parseInt(e.currentTarget.value)
+      const teachersIds = JSON.parse(this.dataTarget.dataset.teachersAssigned).map(teacher => teacher.id)
+      const teacher = this.teacherTarget
+
+      if(teachersIds.includes(selected)){
+        teacher.classList.remove('is-valid', 'is-invalid')
+        teacher.classList.add('is-invalid')
+      }else{
+        teacher.classList.remove('is-invalid','is-valid')
+        teacher.classList.add('is-valid')
+      }
+
     }
 }

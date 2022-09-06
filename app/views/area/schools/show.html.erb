@@ -54,9 +54,9 @@
                   <%= f.association :teacher,label:'Enseignant',
                   label_html:{class:'font-weight-bold'},
                   collection: @school.area.teachers,
-                  input_html:{default_value:assignment.teacher&.name, class:'s-style',
-                  data:{fetch_assignments_target:'teacher'}}%>
-                  <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
+                  input_html:{default_value:assignment.teacher&.name,
+                  class:"s-style",
+                  data:{fetch_assignments_target:'teacher', action: 'change->fetch-assignments#styleForm'}}%>
                   <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
                 <% end %>
             </div>
