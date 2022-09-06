@@ -1,4 +1,5 @@
 class Assignment < ApplicationRecord
+  after_create :define_pending
   belongs_to :school
   belongs_to :teacher, optional: true
 
@@ -6,7 +7,7 @@ class Assignment < ApplicationRecord
   # validates :progress, presence: true
 
   enum progress: {
-    créé: 1,
+    pending: 1,
     validé: 2,
     refusé: 3,
     archivé: 4
@@ -51,5 +52,9 @@ class Assignment < ApplicationRecord
     if self.token.blank?
       self.token = SecureRandom.urlsafe_base64.to_s
     end
+  end
+
+  def define_pending
+    pending!
   end
 end
