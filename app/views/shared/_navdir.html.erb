@@ -4,9 +4,10 @@
     <%= image_tag "GPLogoSansBack.png" %>
   <% end %>
 
-  <div class="text-center">
+  <div class="text-center mgnbtm">
   <h2><%= current_user.school.name %></h2>
-  </div>
+  <p><%= current_user.school.area.name %></p>
+    </div>
 
 
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +22,7 @@
         </div>
       <% else %>
         <div class="btn me-4">
-          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "S'identifier", new_user_session_path %>
         </div>
       <% end %>
     </ul>

@@ -4,8 +4,8 @@
     <%= image_tag "GPLogoSansBack.png" %>
   <% end %>
 
-  <div class="text-center">
-  <h2>Zone - <%= current_user.area.name %></h2>
+  <div class="text-center mgnbtm">
+  <h2><%= current_user.area.name %></h2>
   </div>
 
 
@@ -21,7 +21,7 @@
         </div>
       <% else %>
         <div class="btn me-4">
-          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "S'identifier", new_user_session_path %>
         </div>
       <% end %>
     </ul>

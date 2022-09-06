@@ -1,13 +1,11 @@
-<div class="container">
-<h1>Assignation pour M.me <%= @assignment.teacher.name %></h1>
+<div class="container prof-card">
+<h1>Assignation pour M./Mme <strong><%= @assignment.teacher.name %></strong></h1>
 
-<h2><%= @assignment.school.name %>
-<br>
-<p><%= @assignment.school.address %></p>
-<br>
-<p>Message du directeur : <%= @teacher.assignment.teacher_message %> </p>
+<h4><%= @assignment.school.name %>
+<p><em><%= @assignment.school.address %></p></em>
+<p style="font-size:80%">Message de la direction : <%= @assignment.teacher_message %> </p>
 
-<div style="width: 100%; height: 600px;"
+<div style="width: 100%; height: 350px;"
   data-controller="map"
   data-map-marker-value="<%= @marker.to_json %>"
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
