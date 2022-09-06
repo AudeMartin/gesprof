@@ -7,7 +7,7 @@ export default class extends Controller {
   add() {
     // console.log(this.cardTarget)
     const assId = this.assIdTarget.innerText
-    const cardHTML = `<div class="card" id="card-${assId}" data-my-nested-form-target="card">
+    const cardHTML = `<div class="card nestedform" id="card-${assId}" data-my-nested-form-target="card">
       <div class="row">
         <div class="col">
           <div class="mb-3 text optional school_assignments_teacher_message"><label class="form-label text optional" for="school_assignments_attributes_${assId}_teacher_message">Message au remplaçant</label><textarea class="form-control text optional" name="school[assignments_attributes][${assId}][teacher_message]" id="school_assignments_attributes_${assId}_teacher_message"></textarea></div>
@@ -18,7 +18,7 @@ export default class extends Controller {
 
         <div class="col">
 
-        <div class="mb-3 date optional school_assignments_date"><label class="form-label date optional" for="school_assignments_attributes_${assId}_date_3i">Date</label><div class="d-flex flex-row justify-content-between align-items-center"><select id="school_assignments_attributes_${assId}_date_3i" name="school[assignments_attributes][${assId}][date(3i)]" class="form-select mx-1 is-valid date optional" value="2022-09-01">
+        <div class="mb-3 date optional school_assignments_date"><label class="form-label date optional" for="school_assignments_attributes_${assId}_date_3i">Date du remplacement</label><div class="d-flex flex-row justify-content-between align-items-center"><select id="school_assignments_attributes_${assId}_date_3i" name="school[assignments_attributes][${assId}][date(3i)]" class="form-select mx-1 is-valid date optional" value="2022-09-01">
 <option value="1" selected="selected">1</option>
 <option value="2">2</option>
 <option value="3">3</option>
@@ -52,18 +52,18 @@ export default class extends Controller {
 <option value="31">31</option>
 </select>
 <select id="school_assignments_attributes_${assId}_date_2i" name="school[assignments_attributes][${assId}][date(2i)]" class="form-select mx-1 is-valid date optional" value="2022-09-05">
-<option value="1">January</option>
-<option value="2">February</option>
-<option value="3">March</option>
-<option value="4">April</option>
-<option value="5">May</option>
-<option value="6">June</option>
-<option value="7">July</option>
-<option value="8">August</option>
-<option value="9" selected="selected">September</option>
-<option value="10">October</option>
-<option value="11">November</option>
-<option value="12">December</option>
+<option value="1">Janvier</option>
+<option value="2">Février</option>
+<option value="3">Mars</option>
+<option value="4">Avril</option>
+<option value="5">Mai</option>
+<option value="6">Juin</option>
+<option value="7">Juillet</option>
+<option value="8">Août</option>
+<option value="9" selected="selected">Septembre</option>
+<option value="10">Octobre</option>
+<option value="11">Novembre</option>
+<option value="12">Décembre</option>
 </select>
 <select id="school_assignments_attributes_${assId}_date_1i" name="school[assignments_attributes][${assId}][date(1i)]" class="form-select mx-1 is-valid date optional" value="2022-09-05">
 <option value="2017">2017</option>
@@ -89,7 +89,7 @@ export default class extends Controller {
 
 
 
-        <div>
+        <div class="w-100 d-flex justify-content-end">
           <button type="button" class="btn btn-outline-primary !important"  id="btn-${assId}">Supprimer</button>
 
         </div>

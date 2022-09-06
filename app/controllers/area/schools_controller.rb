@@ -22,14 +22,24 @@ class Area::SchoolsController < ApplicationController
   def show
     @assignments_refused = @school.assignments.where(date: Date.today, progress: "pending")
     @assignments_requests = @school.assignments.where(date: Date.today)
+
     @initial_ratio = (@assignments_requests.size.fdiv(@school.classes_number) * 100).round(2)
     @new_ratio = (@assignments_refused.size.fdiv(@school.classes_number) * 100).round(2)
+
     @teachers_assigned_ids = Assignment.includes(:school).where(
       school: current_user.area.schools,
       progress: 2,
       date: Date.today
     ).map(&:teacher_id)
     @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
+
+    @assignments_validated = Assignment.includes(:school).where(
+      date: Date.today,
+      progress: "validated",
+      school: current_user.area.schools
+    )
+    @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
+    @schools_filled = School.where(id: @assignments_confirmed_schools_ids)
   end
 
   private

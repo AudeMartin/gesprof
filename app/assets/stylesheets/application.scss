@@ -12,9 +12,21 @@
 @import "pages/index";
 
 // @import "flatpickr/dist/flatpickr";
-#nestedform {
+.nestedform {
   background: none;
   border-width: 0px;
+}
+
+.choicelist ul {
+  list-style: none;
+}
+
+.choicelist a {
+  text-decoration: none;
+}
+
+.btn-outline-primary {
+  background-color: white;
 }
 
 
