@@ -26,9 +26,9 @@ list2 = JSON.parse(schools_serialized2)
 
 # DAILY SEEDING
 
-puts "deleting previous assignments"
-Assignment.destroy_all
-puts "ended destroying assignments"
+# puts "deleting previous assignments"
+# Assignment.destroy_all
+# puts "ended destroying assignments"
 
 # INITIAL SEEDING
 
@@ -115,3 +115,18 @@ puts "ended destroying assignments"
   end
   puts "Ended seeding assignments for #{area.name}"
 end
+
+
+area = Area.find(31)
+start_date = Date.parse("05-09-2021")
+end_date = Date.parse("30-06-2022")
+puts "Start seeding assignments for #{area.name}"
+(start_date..end_date).each_with_index do |date, index|
+  if (index % 7 != 0) && (index % 6 != 0)
+    rand(15..35).times do
+      school = School.where(area: area).sample
+      Assignment.create!(school: school, date: date, progress: 1)
+    end
+  end
+end
+puts "Ended seeding assignments for #{area.name}"
