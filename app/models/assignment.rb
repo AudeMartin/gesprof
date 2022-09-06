@@ -42,6 +42,7 @@ class Assignment < ApplicationRecord
   def self.archive_old
     Assignment.where("date < ?", Date.today).each do |assignment|
       assignment.progress = 4
+      assignment.save
     end
   end
 

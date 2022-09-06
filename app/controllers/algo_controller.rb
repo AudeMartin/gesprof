@@ -18,4 +18,9 @@ class AlgoController < ApplicationController
     Assignment.archive_old
     redirect_back_or_to root_path
   end
+
+  def anim
+    render :layout => false
+
+  end
 end
