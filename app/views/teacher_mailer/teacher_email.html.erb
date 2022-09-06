@@ -6,14 +6,14 @@
   <body>
     <h1>Bonjour, <%= @teacher.name %></h1>
     <p>
-      Votre affectation du jour est : <%= @teacher.assignment.school.name %>.<br>
+      Votre affectation du jour est : <%= @teacher.assignments.last.school.name %>.<br>
     </p>
     <p>
-      Adresse : <%= @teacher.assignment.school.address %>
+      Adresse : <%= @teacher.assignments.last.school.address %>
     </p>
-    <p>Message du directeur : <%= @teacher.assignment.teacher_message %> </p><br>
+    <p>Message de la direction : <%= @teacher.assignments.last.teacher_message %> </p><br>
 
-    Voir le détail : <%= area_assignment_teacher_url(id: @teacher.id, @teacher.token) %>
+    Voir le détail : <%= area_assignment_teacher_url(@teacher.assignments.last, @teacher, token: @teacher.assignments.last.token) %>
 
     <p>Bonne journée !</p>
   </body>

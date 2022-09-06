@@ -1,6 +1,6 @@
-class Teachers::AssignmentsController < ApplicationController
+class Area::TeachersController < ApplicationController
   def show
-    @assignment = Assignment.find_by_token(params[:id])
+    @assignment = Assignment.find_by_token(params[:token])
     if @assignment
       @marker = {
         lat: @assignment.school.latitude,

@@ -8,6 +8,7 @@
     "bootstrap": "^5.2.0",
     "bootstrap-table": "^1.21.0",
     "flatpickr": "^4.6.13",
+    "mapbox-gl": "^2.10.0",
     "stimulus": "^3.1.0",
     "stimulus-flatpickr": "^1.4.0",
     "stimulus-rails-nested-form": "^4.0.0",
