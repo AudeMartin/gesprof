@@ -45,6 +45,22 @@ class Assignment < ApplicationRecord
     end
   end
 
+  def self.validated(current_user)
+    Assignment.includes(:school).where(
+      date: Date.today,
+      progress: "validated",
+      school: current_user.area.schools
+    )
+  end
+
+  def self.teachers_assigned(current_user)
+    Assignment.includes(:school).where(
+      school: current_user.area.schools,
+      progress: 2,
+      date: Date.today
+    )
+  end
+
   private
 
   def send_token

@@ -22,4 +22,16 @@ class School < ApplicationRecord
   def absences
     Assignment.daily_for(self).count
   end
+
+  def assigns_pending
+    assignments.where(
+      date: Date.today, progress: "pending"
+    )
+  end
+
+  def today_assigns
+    assignments.where(
+      date: Date.today
+    )
+  end
 end

@@ -54,16 +54,16 @@ export default class extends Controller {
           },
           allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-
           if(result.isConfirmed) {
             Swal.fire({
               title:'Modifier !',
               text:`
-              ${result.value.name} se rendra à cette école ce jour\n
-              ${result.value.email} | ${result.value.phone_number}
+              ${result.value.teacher.name} se rendra à cette école ce jour\n
+              ${result.value.teacher.email} | ${result.value.teacher.phone_number}
               `,
               icon: 'success'
             })
+            document.querySelector('ratio').innerText = `${Math.floor(result.value.ratio*100)}%`
           } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -104,12 +104,13 @@ export default class extends Controller {
             },
             allowOutsideClick: () => !Swal.isLoading()
             }).then((result)=>{
+              console.log(result)
               let content = ''
 
               if(result.value){
                 content =`
-                ${result.value.name} se rendra à cette école ce jour\n
-                ${result.value.email} | ${result.value.phone_number}
+                ${result.value.teacher.name} se rendra à cette école ce jour\n
+                ${result.value.teacher.email} | ${result.value.teacher.phone_number}
                 `
               }else{
                 content ='Affectation annulé'
