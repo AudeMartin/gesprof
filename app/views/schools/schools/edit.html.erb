@@ -9,7 +9,7 @@
       <div class="row">
           <%= f.simple_fields_for :assignments do |a| %>
             <%# if (new && a.object.new_record?) || (new == false && a.object.new_record? == false)%>
-            <% unless a.object.new_record? %>
+            <% unless a.object.new_record? || (a.object.date < Date.today) %>
               <div class="col">
                 <%= a.input :teacher_message, label:"Message au remplaçant" %>
               </div>
@@ -29,7 +29,7 @@
     </div>
 
 
-    <% if @school.assignments.count.zero? %>
+    <% if @school.assignments.where("date >= ?", Date.today).count.zero? %>
       <%= render "schools/schools/assignment_form", f: f %>
     <% end %>
 
@@ -43,7 +43,7 @@
   <div class="choicelist">
     <ul class="d-flex justify-content-evenly align-items-center" id="bullet">
       <li class="">
-        <%= link_to "Statut", class: "btn btn-success" %>
+        <%= link_to "Statut", schools_assignments_path(), class: "btn btn-success" %>
       </li>
       <li class="">
         <%= link_to"Statistiques", class: "btn btn-success" %>

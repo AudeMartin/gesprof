@@ -1,4 +1,5 @@
 class Assignment < ApplicationRecord
+  after_create :define_pending
   belongs_to :school
   belongs_to :teacher, optional: true
 
@@ -7,9 +8,9 @@ class Assignment < ApplicationRecord
 
   enum progress: {
     pending: 1,
-    validated: 2,
-    refused: 3,
-    archived: 4
+    validé: 2,
+    refusé: 3,
+    archivé: 4
   }
 
   scope :daily, -> { where(date: Date.today) }
@@ -52,5 +53,9 @@ class Assignment < ApplicationRecord
     if self.token.blank?
       self.token = SecureRandom.urlsafe_base64.to_s
     end
+  end
+
+  def define_pending
+    pending!
   end
 end
