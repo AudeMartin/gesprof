@@ -68,6 +68,17 @@
             </h4>
           </div>
         <% end %>
+        <%= column_chart [
+          {
+            name: "Total",
+            data: @school.assignments.where(progress: [1,2,4]).group_by_month(:date).count
+          },
+          {
+            name: "Non-assigned",
+            data: @school.assignments.where(progress: 3).group_by_month(:date).count
+          }
+        ], stacked: true
+        %>
         <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
 </div>
