@@ -8,9 +8,7 @@ export default class extends Controller {
   new_assignment(e){
 
         e.preventDefault()
-        //TODO:Dynamic Popup values wip
         // const school = this.schoolTarget.selectedOptions[0].textContent;
-        const teachersAssigned = JSON.parse(this.dataTarget.dataset.teachersAssigned)
         const schoolsFilled = JSON.parse(this.dataTarget.dataset.schoolsFilled)
         const validatedAssign = JSON.parse(this.dataTarget.dataset.validatedAssign)
 
@@ -63,7 +61,7 @@ export default class extends Controller {
               `,
               icon: 'success'
             })
-            document.querySelector('ratio').innerText = `${Math.floor(result.value.ratio*100)}%`
+            document.querySelector('#ratio').innerHTML = `${Math.floor(result.value.ratio*100)}%`
           } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -104,10 +102,9 @@ export default class extends Controller {
             },
             allowOutsideClick: () => !Swal.isLoading()
             }).then((result)=>{
-              console.log(result)
               let content = ''
 
-              if(result.value){
+              if(result.value.teacher){
                 content =`
                 ${result.value.teacher.name} se rendra à cette école ce jour\n
                 ${result.value.teacher.email} | ${result.value.teacher.phone_number}
@@ -123,6 +120,7 @@ export default class extends Controller {
                   icon:'success',
                   timer:3000
                 })
+                document.querySelector('#ratio').innerHTML = `${Math.floor(result.value.ratio*100)}%`
               }else{
                 this.formTarget.reset()
               }

@@ -15,13 +15,13 @@
           <li class="list-group-item">
              <h5>
               <b>Taux d'absence initial =>&nbsp;</b>
-              <span class="<%= to_percentage(@school, 'init') <= 10 ? 'text-green': to_percentage(@school,'init') > 10 && to_percentage(@school,'init') <= 20 ? 'text-orange': 'text-red' %>"><%= to_percentage(@school, 'init') %>%</span>
+              <span class="<%=@school.rank('init')%>"><%= to_percentage(@school, 'init') %>%</span>
             </h5>
           </li>
           <li class="list-group-item">
             <h5>
               <b>Taux d'absence actuel =>&nbsp;</b>
-                <span id="ratio"class="<%= to_percentage(@school) <= 10 ? 'text-green': to_percentage(@school) > 10 && to_percentage(@school) <= 20 ? 'text-orange': 'text-red' %>"><%= to_percentage(@school) %>%</span>
+                <span id="ratio"class="<%=@school.rank%>"><%=to_percentage(@school) %>%</span>
             </h5>
           </li>
         </ul>
