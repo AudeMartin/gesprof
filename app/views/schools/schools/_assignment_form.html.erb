@@ -1,5 +1,5 @@
 
-<div class="card" data-my-nested-form-target="card" id="nestedform">
+<div class="card nestedform" data-my-nested-form-target="card">
   <div class="row">
       <%= f.simple_fields_for :assignments do |a| %>
         <% if a.object.new_record? %>
@@ -13,12 +13,12 @@
             <%= a.input :date, as: :date, :order => [:day, :month, :year], input_html: {value: Date.today} %>
             <%#= a.input :date, as: :date %>
             <%# <%= a.input :date, as: :date, data:{ provide:'datepicker' } %>
-            <hr>
             </div>
-            <div>
+            <div class="w-100 d-flex justify-content-end">
             <button type="button" class="btn btn-outline-primary" data-action="nested-form#remove">Supprimer</button>
             <%= a.hidden_field :_destroy %>
             </div>
+            <hr>
         <% end %>
       <% end %>
   </div>

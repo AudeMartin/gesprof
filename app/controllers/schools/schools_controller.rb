@@ -14,6 +14,8 @@ class Schools::SchoolsController < ApplicationController
     end
   end
 
+
+
   private
 
   def school_params
