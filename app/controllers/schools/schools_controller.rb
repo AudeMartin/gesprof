@@ -6,6 +6,7 @@ class Schools::SchoolsController < ApplicationController
   end
 
   def update
+    raise
     @school = School.find(params[:id])
     if @school.update(school_params)
       redirect_to schools_school_path(@school)
