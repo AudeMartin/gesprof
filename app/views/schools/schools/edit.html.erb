@@ -33,27 +33,35 @@
       <%= render "schools/schools/assignment_form", f: f %>
     <% end %>
 
-    <div data-my-nested-form-target="list"></div>
-    <button type="button" data-action="click->my-nested-form#add" class="btn btn-primary">Autre demande</button>
-      <%# <div> %>
-    <%= f.button :submit, "Valider", class:"btn btn-primary" %>
-      <%# </div> %>
+    <div data-my-nested-form-target="list">
+    </div>
+    <div class="w-100 d-flex justify-content-between">
+
+      <button type="button" data-action="click->my-nested-form#add" class="btn btn-primary">Nouvelle demande</button>
+      <%= f.button :submit, "Valider", class:"btn btn-primary" %>
+      <%# <button type="button" data-action="click->my-nested-form#add" class="btn btn-primary">Autre demande</button> %>
+      <%= link_to "Statut des demandes", schools_assignments_path(), class: "btn btn-primary" %>
+
+    </div>
+    <br>
+    <br>
   <% end %>
 
-  <div class="choicelist">
-    <ul class="d-flex justify-content-evenly align-items-center" id="bullet">
-      <li class="">
-        <%= link_to "Statut", schools_assignments_path(), class: "btn btn-success" %>
-      </li>
-      <li class="">
-        <%= link_to"Statistiques", class: "btn btn-success" %>
-      </li>
+  <%# <div class="choicelist"> %>
+    <%# <ul class="d-flex justify-content-evenly align-items-center" id="bullet"> %>
+      <%# <li class=""> %>
+        <%# <%= link_to "Statut", schools_assignments_path(), class: "btn btn-success" %>
+      <%# </li> %>
+      <%# <li class=""> %>
+        <%# <%= link_to"Statistiques", class: "btn btn-success" %>
+      <%# </li> %>
       <%# <li class="">
         <%= link_to "Historique", class: "btn btn-success" %>
       <%# </li> %>
       <%# <li class=""> %>
         <%# <%= link_to "Demande anticipée", class: "btn btn-success" %>
       <%# </li> %>
-    </ul>
-  </div>
+    <%# </ul> %>
+
+  <%# </div> %>
 </div>
