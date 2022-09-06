@@ -6,10 +6,9 @@ export default class extends Controller {
   static targets = ['form','teacher','data' ];
 
   new_assignment(e){
+
         e.preventDefault()
-        //TODO:Dynamic Popup values wip
         // const school = this.schoolTarget.selectedOptions[0].textContent;
-        const teachersAssigned = JSON.parse(this.dataTarget.dataset.teachersAssigned)
         const schoolsFilled = JSON.parse(this.dataTarget.dataset.schoolsFilled)
         const validatedAssign = JSON.parse(this.dataTarget.dataset.validatedAssign)
 
@@ -53,16 +52,16 @@ export default class extends Controller {
           },
           allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-
           if(result.isConfirmed) {
             Swal.fire({
               title:'Modifier !',
               text:`
-              ${result.value.name} se rendra à cette école ce jour\n
-              ${result.value.email} | ${result.value.phone_number}
+              ${result.value.teacher.name} se rendra à cette école ce jour\n
+              ${result.value.teacher.email} | ${result.value.teacher.phone_number}
               `,
               icon: 'success'
             })
+            document.querySelector('#ratio').innerHTML = `${Math.floor(result.value.ratio*100)}%`
           } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -105,10 +104,10 @@ export default class extends Controller {
             }).then((result)=>{
               let content = ''
 
-              if(result.value){
+              if(result.value.teacher){
                 content =`
-                ${result.value.name} se rendra à cette école ce jour\n
-                ${result.value.email} | ${result.value.phone_number}
+                ${result.value.teacher.name} se rendra à cette école ce jour\n
+                ${result.value.teacher.email} | ${result.value.teacher.phone_number}
                 `
               }else{
                 content ='Affectation annulé'
@@ -121,6 +120,7 @@ export default class extends Controller {
                   icon:'success',
                   timer:3000
                 })
+                document.querySelector('#ratio').innerHTML = `${Math.floor(result.value.ratio*100)}%`
               }else{
                 this.formTarget.reset()
               }
@@ -150,5 +150,20 @@ export default class extends Controller {
           }
       })
       return result;
+    }
+
+    styleForm(e){
+      const selected = parseInt(e.currentTarget.value)
+      const teachersIds = JSON.parse(this.dataTarget.dataset.teachersAssigned).map(teacher => teacher.id)
+      const teacher = this.teacherTarget
+
+      if(teachersIds.includes(selected)){
+        teacher.classList.remove('is-valid', 'is-invalid')
+        teacher.classList.add('is-invalid')
+      }else{
+        teacher.classList.remove('is-invalid','is-valid')
+        teacher.classList.add('is-valid')
+      }
+
     }
 }
