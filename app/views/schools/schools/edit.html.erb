@@ -29,7 +29,7 @@
     </div>
 
 
-    <% if @school.assignments.count.zero? %>
+    <% if @school.assignments.where("date >= ?", Date.today).count.zero? %>
       <%= render "schools/schools/assignment_form", f: f %>
     <% end %>
 
