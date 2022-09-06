@@ -38,3 +38,36 @@
     color:orange;
   }
 }
+
+.searcher {
+
+  .form-control {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  ul {
+    a {
+      text-decoration: none;
+      color: black
+    }
+
+    border-left: solid #dee2e6 1px;
+    border-right: solid #dee2e6 1px;
+    border-bottom: solid #dee2e6 1px;
+    border-radius: 2px;
+    list-style-type: none;
+    padding-left: 0px;
+
+    li {
+
+      padding-left: 10px;
+
+      &:hover {
+        background-color: lightgrey;
+      }
+    }
+
+  }
+}
