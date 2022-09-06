@@ -2,7 +2,7 @@
   <h3 class="text-center">Demande de remplacement</h3>
 
 
- <%= simple_form_for [:schools, @school], data: { controller: 'my-nested-form' } do |f| %>
+  <%= simple_form_for [:schools, @school], data: { controller: 'my-nested-form' } do |f| %>
 
     <div class="d-none" data-my-nested-form-target="assId"><%= @school.assignments.map(&:id).compact.last.to_i + 2 %></div>
     <div class="card nestedform">
@@ -20,9 +20,9 @@
 
                 <%= a.input :date, as: :date, :order => [:day, :month, :year], input_html: {value: Date.today}, label:"Date du remplacement" %>
               </div>
-<%#                 <button type="button" data-action="nested-form#remove">Supprimer</button>  %>
+                <%# <button type="button" data-action="nested-form#remove">Supprimer</button>  %>
                 <%#= a.hidden_field :_destroy %>
-                <hr>
+              <hr>
             <% end %>
           <% end %>
       </div>
@@ -33,28 +33,27 @@
       <%= render "schools/schools/assignment_form", f: f %>
     <% end %>
 
-<%#= render "schools/schools/assignment_form", f: f %>
-<%#= render "schools/schools/assignment_form", f: f %>
-  <div data-my-nested-form-target="list"></div>
+    <div data-my-nested-form-target="list"></div>
     <button type="button" data-action="click->my-nested-form#add" class="btn btn-primary">Autre demande</button>
       <%# <div> %>
     <%= f.button :submit, "Valider", class:"btn btn-primary" %>
       <%# </div> %>
   <% end %>
 
-<div class="choicelist">
-  <ul class="d-flex justify-content-evenly align-items-center" id="bullet">
-    <li class="">
-      <%= link_to "Statut", class: "btn btn-success" %>
-    </li>
-    <li class="">
-      <%= link_to"Statistiques", class: "btn btn-success" %>
-    </li>
-    <%# <li class="">
-      <%= link_to "Historique", class: "btn btn-success" %>
-    <%# </li> %>
-    <%# <li class=""> %>
-      <%# <%= link_to "Demande anticipée", class: "btn btn-success" %>
-    <%# </li> %>
-  </ul>
+  <div class="choicelist">
+    <ul class="d-flex justify-content-evenly align-items-center" id="bullet">
+      <li class="">
+        <%= link_to "Statut", class: "btn btn-success" %>
+      </li>
+      <li class="">
+        <%= link_to"Statistiques", class: "btn btn-success" %>
+      </li>
+      <%# <li class="">
+        <%= link_to "Historique", class: "btn btn-success" %>
+      <%# </li> %>
+      <%# <li class=""> %>
+        <%# <%= link_to "Demande anticipée", class: "btn btn-success" %>
+      <%# </li> %>
+    </ul>
+  </div>
 </div>
