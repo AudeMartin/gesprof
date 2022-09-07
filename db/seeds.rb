@@ -95,11 +95,11 @@ list2 = JSON.parse(schools_serialized2)
 
 # DAILY SEEDING
 
-# Assignment.where(date: Date.today).destroy_all
-# puts "Destroyed assignments for today"
+Assignment.where(date: Date.today).destroy_all
+puts "Destroyed assignments for today"
 
-# @areas = Area.all
-# @areas.each do |area|
+@areas = Area.all
+@areas.each do |area|
 #   # puts "Start seeding teachers for #{area.name}"
 #   # 20.times do
 #   #   name = Faker::Name.name
@@ -110,14 +110,14 @@ list2 = JSON.parse(schools_serialized2)
 #   # end
 #   # puts "Ended seeding teachers for #{area.name}"
 
-#   puts "Start seeding assignments for #{area.name}"
-#   rand(15..35).times do
-#     school = School.where(area: area).sample
-#     teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
-#     Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)
-#   end
-#   puts "Ended seeding assignments for #{area.name}"
-# end
+  puts "Start seeding assignments for #{area.name}"
+  rand(15..35).times do
+    school = School.where(area: area).sample
+    teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
+    Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)
+  end
+  puts "Ended seeding assignments for #{area.name}"
+end
 
 # seed test
 
@@ -152,32 +152,32 @@ list2 = JSON.parse(schools_serialized2)
 # seed heroku
 
 area = Area.find(7)
-# start_date = Date.parse("05-09-2021")
-# end_date = Date.parse("30-06-2022")
-# (start_date..end_date).each_with_index do |date, index|
-#   Assignment.where(date: date).destroy_all
-#   puts "Destroyed assignments for #{date}"
-#   if (index % 7 != 0) && (index % 6 != 0)
-#     x = rand(15..35)
-#     puts "Seed #{x} assignments for #{area.name} at #{date}"
-#     if x <= 20
-#       x.times do
-#         school = School.where(area: area).sample
-#         Assignment.create!(school: school, date: date, progress: 2)
-#       end
-#     else
-#       20.times do
-#         school = School.where(area: area).sample
-#         Assignment.create!(school: school, date: date, progress: 2)
-#       end
-#       (x-20).times do
-#         school = School.where(area: area).sample
-#         Assignment.create!(school: school, date: date, progress: 3)
-#       end
-#     end
-#     puts "Ended seed of #{x} assignments for #{area.name} at #{date}"
-#   end
-# end
+start_date = Date.parse("05-09-2021")
+end_date = Date.parse("30-06-2022")
+(start_date..end_date).each_with_index do |date, index|
+  Assignment.where(date: date).destroy_all
+  puts "Destroyed assignments for #{date}"
+  if (index % 7 != 0) && (index % 6 != 0)
+    x = rand(15..35)
+    puts "Seed #{x} assignments for #{area.name} at #{date}"
+    if x <= 20
+      x.times do
+        school = School.where(area: area).sample
+        Assignment.create!(school: school, date: date, progress: 2)
+      end
+    else
+      20.times do
+        school = School.where(area: area).sample
+        Assignment.create!(school: school, date: date, progress: 2)
+      end
+      (x-20).times do
+        school = School.where(area: area).sample
+        Assignment.create!(school: school, date: date, progress: 3)
+      end
+    end
+    puts "Ended seed of #{x} assignments for #{area.name} at #{date}"
+  end
+end
 
 sch = area.schools
 sch.each do |s|
