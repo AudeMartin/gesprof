@@ -9,4 +9,8 @@ class Teacher < ApplicationRecord
     assigned_ids = Assignment.daily.not_availables.map(&:teacher_id)
     where.not(id: assigned_ids)
   end
+
+  def daily_available?(teacher)
+    Teacher.daily_availables.includes?(teacher)
+  end
 end
