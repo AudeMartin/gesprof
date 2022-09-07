@@ -22,4 +22,38 @@ class School < ApplicationRecord
   def absences
     Assignment.daily_for(self).count
   end
+
+  def assigns_pending
+    assignments.where(
+      date: Date.today, progress: "pending"
+    )
+  end
+
+  def today_assigns
+    assignments.where(
+      date: Date.today
+    )
+  end
+
+  def rank(type = 'current')
+    if type == 'init'
+      case init_ratio
+      when init_ratio <= 10
+        "low"
+      when init_ratio > 10 && init_ratio <= 20
+        "medium"
+      else
+        "high"
+      end
+    else
+      case ratio
+      when ratio <= 10
+        "low"
+      when ratio > 10 && ratio <= 20
+        "medium"
+      else
+        "high"
+      end
+    end
+  end
 end

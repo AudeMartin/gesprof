@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Répartition...</title>
+   <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dmbijjsrp/image/upload/v1661851157/DiversDev/GP_LogoLight_chvts0.png">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+  <style>
+  body { margin: 0; padding: 0; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    mapboxgl.accessToken = ENV['MAPBOX_API_KEY'];
+    const map = new mapboxgl.Map({
+    container: 'map',
+    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [0, 0],
+    zoom: 2
+    });
+
+    // Add a new Marker.
+    const marker = new mapboxgl.Marker({
+    color: '#F84C4C' // color it red
+    });
+
+    // Define the animation.
+    function animateMarker(timestamp) {
+    const radius = 20;
+
+    /*
+    Update the data to a new position
+    based on the animation timestamp.
+    The divisor in the expression `timestamp / 1000`
+    controls the animation speed.
+    */
+    marker.setLngLat([
+    Math.cos(timestamp / 1000) * radius,
+    Math.sin(timestamp / 1000) * radius
+    ]);
+
+    /*
+    Ensure the marker is added to the map.
+    This is safe to call if it's already added.
+    */
+    marker.addTo(map);
+
+    // Request the next frame of the animation.
+    requestAnimationFrame(animateMarker);
+    }
+
+    // Start the animation.
+    requestAnimationFrame(animateMarker);
+  </script>
+
+</body>
+</html>
+<%# <iframe src="https://giphy.com/embed/hCiQVo1dzVwPu" width="480" height="288" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> %>
