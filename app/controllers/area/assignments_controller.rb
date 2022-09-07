@@ -20,7 +20,7 @@ class Area::AssignmentsController < ApplicationController
         render json: {
           teacher: @assignment.teacher,
           ratio: @assignment.school.ratio,
-          rank: @assignment.school.rank
+          rank: @assignment.school.rank(@assignment.school.ratio)
         }
       }
     end

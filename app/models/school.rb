@@ -35,25 +35,14 @@ class School < ApplicationRecord
     )
   end
 
-  def rank(type = 'current')
-    if type == 'init'
-      case init_ratio
-      when (init_ratio * 100) <= 10
-        "low"
-      when (init_ratio * 100) > 10 && (init_ratio * 100) <= 20
-        "medium"
-      else
-        "high"
-      end
+  def rank(ratio)
+    to_round_ratio = ratio * 100
+    if to_round_ratio <= 10
+      "low"
+    elsif to_round_ratio > 10 && to_round_ratio <= 20
+      "medium"
     else
-      case ratio
-      when ratio <= 10
-        "low"
-      when ratio > 10 && ratio <= 20
-        "medium"
-      else
-        "high"
-      end
+      "high"
     end
   end
 end
