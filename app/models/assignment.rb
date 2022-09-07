@@ -26,7 +26,11 @@ class Assignment < ApplicationRecord
     school_ref = School.near([self.school.latitude, self.school.longitude], 100, units: :km)
                        .where(area: self.school.area).where.not(teachers: nil)
                        .joins(:teachers).where(teachers: { id: Teacher.daily_availables }).first
-    self.teacher = school_ref.teachers.sample
+    teach_of_day = []
+    school_ref.teachers.each do |teacher|
+      teach_of_day << teacher if teacher.assignement.daily.nil?
+    end
+    self.teacher = teach_of_day.sample
     self.progress = 2
     self.send_token
     save
