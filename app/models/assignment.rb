@@ -8,9 +8,9 @@ class Assignment < ApplicationRecord
 
   enum progress: {
     pending: 1,
-    validé: 2,
-    refusé: 3,
-    archivé: 4
+    validated: 2,
+    refused: 3,
+    archived: 4
   }
 
   scope :daily, -> { where(date: Date.today) }
