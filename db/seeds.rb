@@ -95,29 +95,29 @@ list2 = JSON.parse(schools_serialized2)
 
 # DAILY SEEDING
 
-Assignment.where(date: Date.today).destroy_all
-puts "Destroyed assignments for today"
+# Assignment.where(date: Date.today).destroy_all
+# puts "Destroyed assignments for today"
 
-@areas = Area.all
-@areas.each do |area|
-  # puts "Start seeding teachers for #{area.name}"
-  # 20.times do
-  #   name = Faker::Name.name
-  #   school = School.where(area: area).sample
-  #   email = Faker::Internet.email
-  #   phone_number = Faker::PhoneNumber.cell_phone_in_e164
-  #   Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
-  # end
-  # puts "Ended seeding teachers for #{area.name}"
+# @areas = Area.all
+# @areas.each do |area|
+#   # puts "Start seeding teachers for #{area.name}"
+#   # 20.times do
+#   #   name = Faker::Name.name
+#   #   school = School.where(area: area).sample
+#   #   email = Faker::Internet.email
+#   #   phone_number = Faker::PhoneNumber.cell_phone_in_e164
+#   #   Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
+#   # end
+#   # puts "Ended seeding teachers for #{area.name}"
 
-  puts "Start seeding assignments for #{area.name}"
-  rand(15..35).times do
-    school = School.where(area: area).sample
-    teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
-    Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)
-  end
-  puts "Ended seeding assignments for #{area.name}"
-end
+#   puts "Start seeding assignments for #{area.name}"
+#   rand(15..35).times do
+#     school = School.where(area: area).sample
+#     teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
+#     Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)
+#   end
+#   puts "Ended seeding assignments for #{area.name}"
+# end
 
 # seed test
 
@@ -151,7 +151,7 @@ end
 
 # seed heroku
 
-# area = Area.find(7)
+area = Area.find(7)
 # start_date = Date.parse("05-09-2021")
 # end_date = Date.parse("30-06-2022")
 # (start_date..end_date).each_with_index do |date, index|
@@ -179,19 +179,19 @@ end
 #   end
 # end
 
-# sch = area.schools
-# sch.each do |s|
-#   s.teachers.destroy_all
-# end
-# puts "nb of teachers for #{area.name}: #{area.teachers.size} "
-# puts "Start seeding teachers for #{area.name}"
-# names = ["Anne-Cécile Mechin", "Baptiste Josse", "Benjamin Liet", "Charles Pernet", "Christopher Tavares", "Florent Braure", "Florian Carriere", "Humbert Monnot", "Jonathan Serafini", "Julie Raynal", "Kevin Abergel", "Madhi Lamriben", "Marc Delesalle", "Marc-Antoine Baguet", "Marceau Tassin", "Melanie Couronne", "Rayane Nordine", "Romain Jumeau", "Sylvain Galtier", "Valentine Ecrepont"]
-# names.each do |teacher|
-#     name = teacher
-#     school = School.where(area: area).sample
-#     email = Faker::Internet.email
-#     phone_number = Faker::PhoneNumber.cell_phone_in_e164
-#     Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
-#   end
-#   puts "Ended seeding teachers for #{area.name}"
-# puts "nb of teachers for #{area.name}: #{area.teachers.size} "
+sch = area.schools
+sch.each do |s|
+  s.teachers.destroy_all
+end
+puts "nb of teachers for #{area.name}: #{area.teachers.size} "
+puts "Start seeding teachers for #{area.name}"
+names = ["Anne-Cécile Mechin", "Baptiste Josse", "Benjamin Liet", "Charles Pernet", "Christopher Tavares", "Florent Braure", "Florian Carriere", "Humbert Monnot", "Jonathan Serafini", "Julie Raynal", "Kevin Abergel", "Madhi Lamriben", "Marc Delesalle", "Marc-Antoine Baguet", "Marceau Tassin", "Melanie Couronne", "Rayane Nordine", "Romain Jumeau", "Sylvain Galtier", "Valentine Ecrepont"]
+names.each do |teacher|
+    name = teacher
+    school = School.where(area: area).sample
+    email = "michaud.louis.lm@gmail.com"
+    phone_number = Faker::PhoneNumber.cell_phone_in_e164
+    Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
+  end
+  puts "Ended seeding teachers for #{area.name}"
+puts "nb of teachers for #{area.name}: #{area.teachers.size} "
