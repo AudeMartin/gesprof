@@ -4,14 +4,16 @@
   <div class="">
     <ul class="bg-light text-center">
       <% @assignments.each do |a| %>
-        <% if a.progress == "pending" %>
-          Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement en attente.
-        <% elsif a.progress == "validated" %>
-          Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement acceptée.
-        <% elsif a.progress == "refused" %>
-          Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement refusée.
-        <%end%>
-        <br>
+        <% if a.date >= Date.today %>
+          <% if a.progress == "pending" %>
+            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement en attente.
+          <% elsif a.progress == "validated" %>
+            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement acceptée.
+          <% elsif a.progress == "refused" %>
+            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement refusée.
+          <%end%>
+          <br>
+        <% end %>
       <% end %>
     </ul>
   </div>
