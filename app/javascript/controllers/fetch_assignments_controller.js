@@ -5,6 +5,10 @@ import Swal from "sweetalert2"
 export default class extends Controller {
   static targets = ['form','teacher','data' ];
 
+  /**
+   *
+   * @param {*} e
+   */
   new_assignment(e){
 
         e.preventDefault()
@@ -54,14 +58,14 @@ export default class extends Controller {
         }).then((result) => {
           if(result.isConfirmed) {
             Swal.fire({
-              title:'Modifier !',
+              title:'Modifié !',
               text:`
               ${result.value.teacher.name} se rendra à cette école ce jour\n
               ${result.value.teacher.email} | ${result.value.teacher.phone_number}
               `,
               icon: 'success'
             })
-            document.querySelector('#ratio').innerHTML = `${Math.floor(result.value.ratio*100)}%`
+            this.#updatedRatio(result.value.rank, result.value.ratio)
           } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -115,19 +119,26 @@ export default class extends Controller {
 
               if(result.isConfirmed){
                 Swal.fire({
-                  title:'Modifier',
+                  title:'Modifié',
                   text: content,
                   icon:'success',
                   timer:3000
                 })
-                document.querySelector('#ratio').innerHTML = `${Math.floor(result.value.ratio*100)}%`
+                this.#updatedRatio(result.value.rank, result.value.ratio)
               }else{
                 this.formTarget.reset()
               }
             })
           }
+          this.styleForm()
     }
 
+    /**
+     *
+     * @param {integer} teacher
+     * @param {array} assignments
+     * @returns
+     */
     #isAssigned(teacher, assignments){
       let result = {
         isAssigned : false,
@@ -135,13 +146,21 @@ export default class extends Controller {
       }
 
       assignments.forEach((assignment)=>{
-       if(assignment.teacher_id === parseInt(teacher))
+       if(assignment.teacher_id === parseInt(teacher)){
           result.isAssigned = true
           result.schoolID = assignment.school_id
+       }
+
       })
       return result
     }
 
+    /**
+     *
+     * @param {array} schools
+     * @param {integer} id
+     * @returns
+     */
     #getSchool(schools, id){
       let result = {}
       schools.forEach((school)=>{
@@ -152,8 +171,12 @@ export default class extends Controller {
       return result;
     }
 
-    styleForm(e){
-      const selected = parseInt(e.currentTarget.value)
+    /**
+     *
+     * @param {*} e
+     */
+    styleForm(e = null){
+      const selected = e ? parseInt(e.currentTarget.value) : this.teacherTarget.value
       const teachersIds = JSON.parse(this.dataTarget.dataset.teachersAssigned).map(teacher => teacher.id)
       const teacher = this.teacherTarget
 
@@ -165,5 +188,17 @@ export default class extends Controller {
         teacher.classList.add('is-valid')
       }
 
+    }
+
+    /**
+     *
+     * @param {string} rank
+     * @param {integer} ratio
+     */
+    #updatedRatio(rank, ratio){
+      const currentRatio = document.querySelector('#ratio');
+      currentRatio.innerHTML = `${Math.floor(ratio*100)}%`
+      currentRatio.classList.remove('low','medium','high')
+      currentRatio.classList.add(rank)
     }
 }
