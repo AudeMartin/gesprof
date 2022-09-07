@@ -151,47 +151,47 @@ end
 
 # seed heroku
 
-area = Area.find(7)
-start_date = Date.parse("05-09-2021")
-end_date = Date.parse("30-06-2022")
-(start_date..end_date).each_with_index do |date, index|
-  Assignment.where(date: date).destroy_all
-  puts "Destroyed assignments for #{date}"
-  if (index % 7 != 0) && (index % 6 != 0)
-    x = rand(15..35)
-    puts "Seed #{x} assignments for #{area.name} at #{date}"
-    if x <= 20
-      x.times do
-        school = School.where(area: area).sample
-        Assignment.create!(school: school, date: date, progress: 2)
-      end
-    else
-      20.times do
-        school = School.where(area: area).sample
-        Assignment.create!(school: school, date: date, progress: 2)
-      end
-      (x-20).times do
-        school = School.where(area: area).sample
-        Assignment.create!(school: school, date: date, progress: 3)
-      end
-    end
-    puts "Ended seed of #{x} assignments for #{area.name} at #{date}"
-  end
-end
+# area = Area.find(7)
+# start_date = Date.parse("05-09-2021")
+# end_date = Date.parse("30-06-2022")
+# (start_date..end_date).each_with_index do |date, index|
+#   Assignment.where(date: date).destroy_all
+#   puts "Destroyed assignments for #{date}"
+#   if (index % 7 != 0) && (index % 6 != 0)
+#     x = rand(15..35)
+#     puts "Seed #{x} assignments for #{area.name} at #{date}"
+#     if x <= 20
+#       x.times do
+#         school = School.where(area: area).sample
+#         Assignment.create!(school: school, date: date, progress: 2)
+#       end
+#     else
+#       20.times do
+#         school = School.where(area: area).sample
+#         Assignment.create!(school: school, date: date, progress: 2)
+#       end
+#       (x-20).times do
+#         school = School.where(area: area).sample
+#         Assignment.create!(school: school, date: date, progress: 3)
+#       end
+#     end
+#     puts "Ended seed of #{x} assignments for #{area.name} at #{date}"
+#   end
+# end
 
-sch = area.schools
-sch.each do |s|
-  s.teachers.destroy_all
-end
-puts "nb of teachers for #{area.name}: #{area.teachers.size} "
-puts "Start seeding teachers for #{area.name}"
-names = ["Anne-Cécile Mechin", "Baptiste Josse", "Benjamin Liet", "Charles Pernet", "Christopher Tavares", "Florent Braure", "Florian Carriere", "Humbert Monnot", "Jonathan Serafini", "Julie Raynal", "Kevin Abergel", "Madhi Lamriben", "Marc Delesalle", "Marc-Antoine Baguet", "Marceau Tassin", "Melanie Couronne", "Rayane Nordine", "Romain Jumeau", "Sylvain Galtier", "Valentine Ecrepont"]
-names.each do |teacher|
-    name = teacher
-    school = School.where(area: area).sample
-    email = "michaud.louis.lm@gmail.com"
-    phone_number = Faker::PhoneNumber.cell_phone_in_e164
-    Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
-  end
-  puts "Ended seeding teachers for #{area.name}"
-puts "nb of teachers for #{area.name}: #{area.teachers.size} "
+# sch = area.schools
+# sch.each do |s|
+#   s.teachers.destroy_all
+# end
+# puts "nb of teachers for #{area.name}: #{area.teachers.size} "
+# puts "Start seeding teachers for #{area.name}"
+# names = ["Anne-Cécile Mechin", "Baptiste Josse", "Benjamin Liet", "Charles Pernet", "Christopher Tavares", "Florent Braure", "Florian Carriere", "Humbert Monnot", "Jonathan Serafini", "Julie Raynal", "Kevin Abergel", "Madhi Lamriben", "Marc Delesalle", "Marc-Antoine Baguet", "Marceau Tassin", "Melanie Couronne", "Rayane Nordine", "Romain Jumeau", "Sylvain Galtier", "Valentine Ecrepont"]
+# names.each do |teacher|
+#     name = teacher
+#     school = School.where(area: area).sample
+#     email = "michaud.louis.lm@gmail.com"
+#     phone_number = Faker::PhoneNumber.cell_phone_in_e164
+#     Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
+#   end
+#   puts "Ended seeding teachers for #{area.name}"
+# puts "nb of teachers for #{area.name}: #{area.teachers.size} "
