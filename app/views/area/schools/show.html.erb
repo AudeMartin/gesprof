@@ -71,15 +71,15 @@
         <%= column_chart [
           {
             name: "Validées",
-            data: @school.assignments.where(progress: [2,4]).group_by_month(:date).count
+            data: @school.assignments.where(progress: [2,4]).group_by_month(:date, format: "%b %Y").count
           },
           {
             name: "Refusées",
-            data: @school.assignments.where(progress: 3).group_by_month(:date).count
+            data: @school.assignments.where(progress: 3).group_by_month(:date, format: "%b %Y").count
           },
           {
             name: "En cours",
-            data: @school.assignments.where(progress: 1).group_by_month(:date).count
+            data: @school.assignments.where(progress: 1).group_by_month(:date, format: "%b %Y").count
           }
         ], stacked: true
         %>
