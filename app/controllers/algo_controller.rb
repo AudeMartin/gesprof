@@ -13,7 +13,7 @@ class AlgoController < ApplicationController
     assignments = Assignment.where(id: assignment_ids)
     assignments.assign_all
     assignments.each do |assignment|
-      TeacherMailer.with(teacher: assignment.teacher).teacher_email.deliver_now if assignment.teacher.present?
+      TeacherMailer.with(teacher: assignment.teacher).teacher_email.deliver_now if assignment.teacher.any?
     end
     #Assignment.archive_old
     redirect_back_or_to root_path
