@@ -95,6 +95,9 @@ list2 = JSON.parse(schools_serialized2)
 
 # DAILY SEEDING
 
+Assignment.where(date: Date.today).destroy_all
+puts "Destroyed assignments for today"
+
 @areas = Area.all
 @areas.each do |area|
   # puts "Start seeding teachers for #{area.name}"
@@ -116,17 +119,62 @@ list2 = JSON.parse(schools_serialized2)
   puts "Ended seeding assignments for #{area.name}"
 end
 
+# seed test
 
-area = Area.find(31)
+# area = Area.find(26)
+# start_date = Date.parse("05-09-2021")
+# end_date = Date.parse("30-06-2022")
+# (start_date..end_date).each_with_index do |date, index|
+#   Assignment.where(date: date).destroy_all
+#   puts "Destroyed assignments for #{date}"
+#   if (index % 7 != 0) && (index % 6 != 0)
+#     x = rand(15..35)
+#     puts "Seed #{x} assignments for #{area.name} at #{date}"
+#     if x <= 20
+#       x.times do
+#         school = School.where(area: area).sample
+#         Assignment.create!(school: school, date: date, progress: 2)
+#       end
+#     else
+#       20.times do
+#         school = School.where(area: area).sample
+#         Assignment.create!(school: school, date: date, progress: 2)
+#       end
+#       (x-20).times do
+#         school = School.where(area: area).sample
+#         Assignment.create!(school: school, date: date, progress: 3)
+#       end
+#     end
+#     puts "Ended seed of #{x} assignments for #{area.name} at #{date}"
+#   end
+# end
+
+# seed heroku
+
+area = Area.find(7)
 start_date = Date.parse("05-09-2021")
 end_date = Date.parse("30-06-2022")
-puts "Start seeding assignments for #{area.name}"
 (start_date..end_date).each_with_index do |date, index|
+  Assignment.where(date: date).destroy_all
+  puts "Destroyed assignments for #{date}"
   if (index % 7 != 0) && (index % 6 != 0)
-    rand(15..35).times do
-      school = School.where(area: area).sample
-      Assignment.create!(school: school, date: date, progress: 1)
+    x = rand(15..35)
+    puts "Seed #{x} assignments for #{area.name} at #{date}"
+    if x <= 20
+      x.times do
+        school = School.where(area: area).sample
+        Assignment.create!(school: school, date: date, progress: 2)
+      end
+    else
+      20.times do
+        school = School.where(area: area).sample
+        Assignment.create!(school: school, date: date, progress: 2)
+      end
+      (x-20).times do
+        school = School.where(area: area).sample
+        Assignment.create!(school: school, date: date, progress: 3)
+      end
     end
+    puts "Ended seed of #{x} assignments for #{area.name} at #{date}"
   end
 end
-puts "Ended seeding assignments for #{area.name}"
