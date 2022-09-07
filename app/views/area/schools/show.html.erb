@@ -70,12 +70,16 @@
         <% end %>
         <%= column_chart [
           {
-            name: "Total",
-            data: @school.assignments.where(progress: [1,2,4]).group_by_month(:date).count
+            name: "Validées",
+            data: @school.assignments.where(progress: [2,4]).group_by_month(:date).count
           },
           {
-            name: "Non-assigned",
+            name: "Refusées",
             data: @school.assignments.where(progress: 3).group_by_month(:date).count
+          },
+          {
+            name: "En cours",
+            data: @school.assignments.where(progress: 1).group_by_month(:date).count
           }
         ], stacked: true
         %>
