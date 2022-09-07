@@ -1,5 +1,5 @@
 class Assignment < ApplicationRecord
-  after_create :define_pending
+  #after_create :define_pending
   belongs_to :school
   belongs_to :teacher, optional: true
 
