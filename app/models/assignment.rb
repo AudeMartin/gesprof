@@ -29,7 +29,7 @@ class Assignment < ApplicationRecord
                        .joins(:teachers).where(teachers: { id: Teacher.daily_availables }).first
     teach_of_day = []
     school_ref.teachers.each do |teacher|
-      teach_of_day << teacher if teacher.assignement.daily.nil?
+      teach_of_day << teacher if daily_available?(teacher)
     end
     self.teacher = teach_of_day.sample
     self.progress = 2

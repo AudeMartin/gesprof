@@ -25,6 +25,9 @@ application.register("map", MapController)
 import MapanimController from "./mapanim_controller"
 application.register("mapanim", MapanimController)
 
+import MapanimatedController from "./mapanimated_controller"
+application.register("mapanimated", MapanimatedController)
+
 import MyNestedFormController from "./my_nested_form_controller"
 application.register("my-nested-form", MyNestedFormController)
 
