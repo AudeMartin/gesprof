@@ -53,6 +53,14 @@ class Assignment < ApplicationRecord
     )
   end
 
+  def self.school_validated_assign(school)
+    Assignment.where(
+      date: Date.today,
+      progress: "validated",
+      school_id: school
+    )
+  end
+
   def self.teachers_assigned(current_user)
     Assignment.includes(:school).where(
       school: current_user.area.schools,

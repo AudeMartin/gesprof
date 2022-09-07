@@ -22,12 +22,14 @@ class Area::SchoolsController < ApplicationController
   def show
     @assignments_pending = @school.assigns_pending
     @assignments_requests = @school.today_assigns
+    @assignments_validated = Assignment.validated(current_user)
+    @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
 
     @teachers_assigned_ids = Assignment.teachers_assigned(current_user).map(&:teacher_id)
     @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
-    @assignments_validated = Assignment.validated(current_user)
-    @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
+
     @schools_filled = School.where(id: @assignments_confirmed_schools_ids)
+    @school_validated_assign = Assignment.school_validated_assign(@school.id)
   end
 
   private

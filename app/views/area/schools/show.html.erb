@@ -37,36 +37,21 @@
   <div class="row text-center py-5">
     <div class="col-10 offset-1">
         <% if @assignments_requests.size.positive? %>
-            <% @assignments_requests.each do |assignment| %>
-            <div data-controller="fetch-assignments"
-            data-action="submit->fetch-assignments#new_assignment"
-            data-fetch-assignments-target="data"
-            data-teachers-assigned="<%=@teachers_assigned.to_json%>"
-            data-validated-assign="<%=@assignments_validated.to_json%>"
-            data-schools-filled="<%=@schools_filled.to_json%>">
-                <%= simple_form_for([:area, @school, assignment],
-                wrapper: :horizontal_form,
-                html: { data:{fetch_assignments_target:'form'}, class: "row row-cols-lg-auto justify-content-center py-2" },
-                wrapper_mappings: {
-                  boolean: :inline_boolean,
-                  select: :horizontal_select
-                }) do |f| %>
-                  <%= f.association :teacher,label:'Enseignant',
-                  label_html:{class:'font-weight-bold'},
-                  collection: @school.area.teachers,
-                  input_html:{default_value:assignment.teacher&.name,
-                  class:"s-style",
-                  data:{fetch_assignments_target:'teacher', action: 'change->fetch-assignments#styleForm'}}%>
-                  <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
-                <% end %>
-            </div>
-          <% end %>
+            <%= render 'area/schools/message_status',
+            assignments_requests:@assignments_requests,
+            school_validated_assign: @school_validated_assign
+             %>
+            <%= render "area/schools/form_assignments",
+            teachers_assigned: @teachers_assigned,
+            assignments_validated: @assignments_validated,
+            assignments_requests: @assignments_requests,
+            schools_filled: @schools_filled,
+            school: @school
+            %>
         <% else %>
-          <div class="bg-light border p-2">
-            <h4>
-              Aucun remplaçant n'a pu être affecté à cette école
-            </h4>
-          </div>
+          <%= render 'area/schools/message_status',
+            assignments_requests:@assignments_requests
+             %>
         <% end %>
         <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
