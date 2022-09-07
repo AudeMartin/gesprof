@@ -1,4 +1,5 @@
 class Assignment < ApplicationRecord
+  after_create :define_pending
   belongs_to :school
   belongs_to :teacher, optional: true
 
@@ -50,11 +51,31 @@ class Assignment < ApplicationRecord
     end
   end
 
+  def self.validated(current_user)
+    Assignment.includes(:school).where(
+      date: Date.today,
+      progress: "validated",
+      school: current_user.area.schools
+    )
+  end
+
+  def self.teachers_assigned(current_user)
+    Assignment.includes(:school).where(
+      school: current_user.area.schools,
+      progress: 2,
+      date: Date.today
+    )
+  end
+
   private
 
   def send_token
     if self.token.blank?
       self.token = SecureRandom.urlsafe_base64.to_s
     end
+  end
+
+  def define_pending
+    pending!
   end
 end

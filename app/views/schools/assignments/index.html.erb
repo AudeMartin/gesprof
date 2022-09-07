@@ -1,0 +1,20 @@
+<div class="container" data-controller="assignments">
+  <h3 class="text-center">Statut de vos demandes</h3>
+  <br>
+  <div class="">
+    <ul class="bg-light text-center">
+      <% @assignments.each do |a| %>
+        <% if a.date >= Date.today %>
+          <% if a.progress == "pending" %>
+            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement en attente.
+          <% elsif a.progress == "validated" %>
+            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement acceptée.
+          <% elsif a.progress == "refused" %>
+            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement refusée.
+          <%end%>
+          <br>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

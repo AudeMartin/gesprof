@@ -15,13 +15,13 @@
           <li class="list-group-item">
              <h5>
               <b>Taux d'absence initial =>&nbsp;</b>
-              <span class="<%= @initial_ratio <= 10 ? 'text-green': @initial_ratio > 10 && @initial_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @initial_ratio %>%</span>
+              <span class="<%=@school.rank('init')%>"><%= to_percentage(@school, 'init') %>%</span>
             </h5>
           </li>
           <li class="list-group-item">
             <h5>
               <b>Taux d'absence actuel =>&nbsp;</b>
-                <span class="<%= @new_ratio <= 10 ? 'text-green': @new_ratio > 10 && @new_ratio <= 20 ? 'text-orange': 'text-red' %>"><%= @new_ratio %>%</span>
+                <span id="ratio"class="<%=@school.rank%>"><%=to_percentage(@school) %>%</span>
             </h5>
           </li>
         </ul>
@@ -54,9 +54,9 @@
                   <%= f.association :teacher,label:'Enseignant',
                   label_html:{class:'font-weight-bold'},
                   collection: @school.area.teachers,
-                  input_html:{default_value:assignment.teacher&.name, class:'s-style',
-                  data:{fetch_assignments_target:'teacher'}}%>
-                  <%# <%= f.association :school, label:'École', collection: @schools_area_requests, input_html:{default_value: assignment.school.name }}%>
+                  input_html:{default_value:assignment.teacher&.name,
+                  class:"s-style",
+                  data:{fetch_assignments_target:'teacher', action: 'change->fetch-assignments#styleForm'}}%>
                   <%= f.button :submit,'Réaffecter', class: "btn btn-primary h-100"%>
                 <% end %>
             </div>
@@ -68,6 +68,17 @@
             </h4>
           </div>
         <% end %>
+        <%= column_chart [
+          {
+            name: "Total",
+            data: @school.assignments.where(progress: [1,2,4]).group_by_month(:date).count
+          },
+          {
+            name: "Non-assigned",
+            data: @school.assignments.where(progress: 3).group_by_month(:date).count
+          }
+        ], stacked: true
+        %>
         <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
   </div>
 </div>
