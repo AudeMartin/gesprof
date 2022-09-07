@@ -10,7 +10,7 @@ class Teacher < ApplicationRecord
     where.not(id: assigned_ids)
   end
 
-  def daily_available?(teacher)
-    Teacher.daily_availables.includes?(teacher)
+  def daily_available?
+    Teacher.daily_availables.includes?(self)
   end
 end
