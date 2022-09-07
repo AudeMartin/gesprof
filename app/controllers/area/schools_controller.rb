@@ -23,12 +23,8 @@ class Area::SchoolsController < ApplicationController
     @assignments_pending = @school.assigns_pending
     @assignments_requests = @school.today_assigns
 
-    @initial_ratio = (@assignments_requests.size.fdiv(@school.classes_number) * 100).round(2)
-    @new_ratio = (@assignments_pending.size.fdiv(@school.classes_number) * 100).round(2)
-
     @teachers_assigned_ids = Assignment.teachers_assigned(current_user).map(&:teacher_id)
     @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
-
     @assignments_validated = Assignment.validated(current_user)
     @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
     @schools_filled = School.where(id: @assignments_confirmed_schools_ids)

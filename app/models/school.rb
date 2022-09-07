@@ -38,9 +38,9 @@ class School < ApplicationRecord
   def rank(type = 'current')
     if type == 'init'
       case init_ratio
-      when init_ratio <= 10
+      when (init_ratio * 100) <= 10
         "low"
-      when init_ratio > 10 && init_ratio <= 20
+      when (init_ratio * 100) > 10 && (init_ratio * 100) <= 20
         "medium"
       else
         "high"

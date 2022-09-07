@@ -135,9 +135,12 @@ export default class extends Controller {
       }
 
       assignments.forEach((assignment)=>{
-       if(assignment.teacher_id === parseInt(teacher))
+       if(assignment.teacher_id === parseInt(teacher)){
           result.isAssigned = true
           result.schoolID = assignment.school_id
+          console.log(assignment.school_id)
+       }
+
       })
       return result
     }
