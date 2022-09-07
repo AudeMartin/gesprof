@@ -1,5 +1,5 @@
 class TeacherMailer < ApplicationMailer
-  default from: 'noreply@gesprof.space'
+  default from: 'admin@gesprof.space'
 
   def teacher_email
     @teacher = params[:teacher]

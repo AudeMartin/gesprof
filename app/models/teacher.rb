@@ -11,6 +11,6 @@ class Teacher < ApplicationRecord
   end
 
   def daily_available?
-    Teacher.daily_availables.includes?(self)
+    Teacher.daily_availables.include?(self)
   end
 end

@@ -4,18 +4,20 @@ class AlgoController < ApplicationController
     to_assigns = []
     @schools.each do |school|
       if school.assignments.present?
-        school.assignments.each do |assignement|
-          to_assigns << assignement
+        school.assignments.each do |assignment|
+          to_assigns << assignment if assignment.date == Date.today
         end
       end
     end
     assignment_ids = to_assigns.map(&:id)
     assignments = Assignment.where(id: assignment_ids)
     assignments.assign_all
+
     # assignments.each do |assignment|
     #   TeacherMailer.with(teacher: assignment.teacher).teacher_email.deliver_now if assignment.teacher.present?
     # end
     Assignment.archive_old
+    
     redirect_back_or_to root_path
   end
 
