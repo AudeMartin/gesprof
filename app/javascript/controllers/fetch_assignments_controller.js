@@ -115,7 +115,7 @@ export default class extends Controller {
 
               if(result.isConfirmed){
                 Swal.fire({
-                  title:'Modifier',
+                  title:'Modifié',
                   text: content,
                   icon:'success',
                   timer:3000
@@ -126,6 +126,7 @@ export default class extends Controller {
               }
             })
           }
+          this.styleForm()
     }
 
     #isAssigned(teacher, assignments){
@@ -138,7 +139,6 @@ export default class extends Controller {
        if(assignment.teacher_id === parseInt(teacher)){
           result.isAssigned = true
           result.schoolID = assignment.school_id
-          console.log(assignment.school_id)
        }
 
       })
@@ -155,8 +155,8 @@ export default class extends Controller {
       return result;
     }
 
-    styleForm(e){
-      const selected = parseInt(e.currentTarget.value)
+    styleForm(e = null){
+      const selected = e ? parseInt(e.currentTarget.value) : this.teacherTarget.value
       const teachersIds = JSON.parse(this.dataTarget.dataset.teachersAssigned).map(teacher => teacher.id)
       const teacher = this.teacherTarget
 
