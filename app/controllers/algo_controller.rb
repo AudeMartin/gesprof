@@ -20,7 +20,7 @@ class AlgoController < ApplicationController
   end
 
   def anim
-    render :layout => false
+    # render :layout => false
 
   end
 end
