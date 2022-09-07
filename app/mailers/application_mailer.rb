@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "noreply@gesprof.fr"
+  default from: "admin@gesprof.fr"
   layout "mailer"
 end
