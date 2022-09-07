@@ -1,10 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from 'mapbox-gl';
 
+// Connects to data-controller="mapanimated"
 export default class extends Controller {
   static values = {
     apiKey: String,
-    marker: Object
+    markers: Array
   }
 
   connect() {

@@ -16,16 +16,23 @@ application.register("fetch-assignments", FetchAssignmentsController)
 import FilterDashboardController from "./filter_dashboard_controller"
 application.register("filter-dashboard", FilterDashboardController)
 
+import FlatpickrController from "./flatpickr_controller"
+application.register("flatpickr", FlatpickrController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 
+import MapanimController from "./mapanim_controller"
+application.register("mapanim", MapanimController)
+
+import MapanimatedController from "./mapanimated_controller"
+application.register("mapanimated", MapanimatedController)
+
 import MyNestedFormController from "./my_nested_form_controller"
 application.register("my-nested-form", MyNestedFormController)
-
 
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)
 
 import TableRowController from "./table_row_controller"
 application.register("table-row", TableRowController)
-

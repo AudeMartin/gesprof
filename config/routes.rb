@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   end
 
   get '/assign', to: 'algo#assign'
+  get '/anim', to: 'algo#anim'
 end
