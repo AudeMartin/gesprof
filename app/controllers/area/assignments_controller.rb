@@ -9,6 +9,7 @@ class Area::AssignmentsController < ApplicationController
     if old_assign.present?
       old_assign.pending!
       old_assign.teacher = nil
+      old_assign.progress = 3
       old_assign.save
     end
 

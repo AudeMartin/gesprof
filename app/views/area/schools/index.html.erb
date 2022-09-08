@@ -5,7 +5,7 @@
         <% @parsed_schools = School.where(area: current_user.area).pluck(:name, :id).sort %>
         <%= form_tag(area_schools_path(@parsed_schools), method: :get, class: "form-inline") do %>
           <div class="form-search"  data-filter-dashboard-target="form" data-schools="<%= @parsed_schools.to_json %>", data-action = "keyup->filter-dashboard#searchIndex">
-          <%= text_field_tag :name, nil, autocomplete: :off, class: "form-control search-input", placeholder: "Cherchez une école...", data: {filter_dashboard_target: "input"}%>
+          <%= text_field_tag :name, nil, autocomplete: :off, class: "form-control search-input", placeholder: "Chercher une école...", data: {filter_dashboard_target: "input"}%>
           <%# <%= submit_tag "Recherche", class: "btn btn-primary button-home" %>
           </div>
         <% end %>
