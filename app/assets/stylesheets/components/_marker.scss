@@ -1,0 +1,23 @@
+.marker-school1 {
+  background-image: asset-url('ecole1.png');
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.marker-school2 {
+  background-image: asset-url('ecole.png');
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.marker-teacher {
+  background-image: asset-url('prof.png');
+  background-size: contain;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
