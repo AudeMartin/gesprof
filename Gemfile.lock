@@ -92,6 +92,7 @@ GEM
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    byebug (11.1.3)
     capybara (3.37.1)
       addressable
       matrix
@@ -106,11 +107,9 @@ GEM
     cloudinary (1.23.0)
       aws_cf_signer
       rest-client (>= 2.0.0)
+    coderay (1.1.3)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
-    debug (1.6.2)
-      irb (>= 1.3.6)
-      reline (>= 0.3.1)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -139,9 +138,6 @@ GEM
       domain_name (~> 0.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    io-console (0.5.11)
-    irb (1.4.1)
-      reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -193,6 +189,12 @@ GEM
     postmark-rails (0.22.1)
       actionmailer (>= 3.0.0)
       postmark (>= 1.21.3, < 2.0)
+    pry (0.14.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     public_suffix (5.0.0)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -228,8 +230,6 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.5.0)
-    reline (0.3.1)
-      io-console (~> 0.5)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -305,7 +305,6 @@ DEPENDENCIES
   capybara
   chartkick
   cloudinary
-  debug
   devise
   dotenv-rails
   faker!
@@ -317,6 +316,7 @@ DEPENDENCIES
   letter_opener
   pg (~> 1.1)
   postmark-rails
+  pry-byebug (~> 3.3)
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)
   sassc-rails
