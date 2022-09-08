@@ -208,6 +208,7 @@ array.map do |school|
   school.save
 end
 
+# Assignment.where(area_id: area.id, date: Date.today).delete_all
 area.assignments.where(date: Date.today).destroy_all
 
 puts "Start seeding assignments for #{area.name}"
