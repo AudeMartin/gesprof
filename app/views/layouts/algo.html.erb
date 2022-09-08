@@ -8,14 +8,14 @@
     <%= csp_meta_tag %>
 
     <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dmbijjsrp/image/upload/v1661851157/DiversDev/GP_LogoLight_chvts0.png">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;400&family=Nunito:ital,wght@0,200;0,400;1,200;1,400&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
-    <the-script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></the-script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js" defer></script>
   </head>
   <body>
     <%= yield %>
