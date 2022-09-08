@@ -23,10 +23,10 @@ class AlgoController < ApplicationController
   def anim
     @schools = current_user.area.schools
     @end_markers = @schools.select { |school|
-      school.assignments.any?
+      school.assignments.daily.any?
       }.map { |school| { school_id: school.id, lat: school.latitude, lng: school.longitude } }
     @start_markers = []
-    @taken_school_ids = @end_markers.map { |el| el[:school_id]}
+    @taken_school_ids = @end_markers.map { |el| el[:school_id] }
     @end_markers.each do |marker|
       school = @schools.where.not(id: @taken_school_ids).sample
       @start_markers << { school_id: marker[:school_id], lat: school.latitude, lng: school.longitude }
