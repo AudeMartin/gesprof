@@ -1,8 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from 'mapbox-gl';
-var n = 0.0
+var n = -0.001
 var interval
 var markArray = []
+var checkArray = []
 // Connects to data-controller="mapanimated"
 export default class extends Controller {
   static values = {
@@ -44,30 +45,38 @@ export default class extends Controller {
   }
 
   #animateMarker() {
-    n += 0.0001
+    n += 0.005
+    console.log("refresh4")
+    markArray.forEach(element => { element.remove() });
+    markArray = []
+    checkArray = []
+    const isFalse = (currentValue) => currentValue == false ;
     this.startMarkersValue.forEach((start_marker) => {
       const end_marker = this.endMarkersValue.find(em => em.school_id == start_marker.school_id)
-      if (Math.abs(end_marker.lat - start_marker.lat) > n ) {
-        if ((end_marker.lat - start_marker.lat) > 0){
+      let has_moved = false
+      if (Math.abs(end_marker.lat - start_marker.lat) > n) {
+        has_moved = true
+        if (end_marker.lat > start_marker.lat){
           start_marker.lat += n}
         else {
           start_marker.lat -= n}
       }
-      if (Math.abs(end_marker.lng - start_marker.lng) > n ) {
-        if ((end_marker.lng - start_marker.lng) > 0){
+      if (Math.abs(end_marker.lng - start_marker.lng) > n) {
+        has_moved = true
+        if (end_marker.lng > start_marker.lng){
           start_marker.lng += n}
         else {
           start_marker.lng -= n}
       }
-      if ((Math.abs(end_marker.lat - start_marker.lat) > n) && (Math.abs(end_marker.lng - start_marker.lng) > n)) {
-        clearInterval(interval)
-      }
-      else {
-        markArray.forEach(element => { element.remove() });
+      checkArray.push(has_moved)
+      if (has_moved) {
         this.marker = new mapboxgl.Marker({color: '#F84C4C'}) //rouge
           .setLngLat([ start_marker.lng, start_marker.lat ])
           .addTo(this.map)
         markArray.push(this.marker)}
+    })
+    if (checkArray.every(isFalse)) {
+      clearInterval(interval)
     }
   }
 }

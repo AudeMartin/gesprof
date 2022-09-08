@@ -27,7 +27,7 @@ class AlgoController < ApplicationController
     }.map { |school| { school_id: school.id, lat: school.latitude, lng: school.longitude } }
     @start_markers = []
     @end_markers.each do |marker|
-      school = @schools.where(assignments_id = nil).sample
+      school = @schools.sample
       @start_markers << { school_id: marker[:school_id], lat: school.latitude, lng: school.longitude }
     end
   end
