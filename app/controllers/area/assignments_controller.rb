@@ -5,16 +5,10 @@ class Area::AssignmentsController < ApplicationController
   end
 
   def update
-    old_assign = Assignment.find_by(teacher_id: params["assignment"]["teacher_id"])
-    # byebug
-    if old_assign.present?
-      old_assign.teacher_id = nil
-      old_assign.progress = 3
-      old_assign.save
-    end
-    # byebug
+    old_assigns = Assignment.where(teacher_id: params[:assignment][:teacher_id]).daily
+    old_assigns.update_all(teacher_id: nil, progress: 3)
 
-    @assignment.update_columns(progress: params[:assignment][:teacher_id].empty? ? 1 : 2)
+    @assignment.progress = params[:assignment][:teacher_id].empty? ? 1 : 2
     @assignment.update(assignment_params)
     respond_to do |format|
       format.html { redirect_to area_school_path(params[:school_id]) }
