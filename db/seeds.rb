@@ -267,7 +267,7 @@ Assignment.create!(school: s12, date: Date.today, teacher_message: tm6, area_mes
 s13 = School.find_by(name: "Ecole Maternelle Alphonse Dupeux")
 Assignment.create!(school: s13, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
-s14 = School.find_by(name: "Ecole Maternelle Cité de la Benauge")
+s14 = School.find_by(name: "Ecole Maternelle Argonne")
 Assignment.create!(school: s14, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
 s15 = School.find_by(name: "Ecole Maternelle Beck")
@@ -276,7 +276,7 @@ Assignment.create!(school: s15, date: Date.today, teacher_message: tm6, area_mes
 s16 = School.find_by(name: "Ecole Maternelle Béchade")
 Assignment.create!(school: s16, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
-s17 = School.find_by(name: "Ecole Élementaire du Vieux Bordeaux")
+s17 = School.find_by(name: "Ecole Elementaire Barbey")
 Assignment.create!(school: s17, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
 s18 = School.find_by(name: "Ecole Élementaire Thiers")
