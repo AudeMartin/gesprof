@@ -42,9 +42,11 @@ class Assignment < ApplicationRecord
       to_assign = ordered_by_priority.first
       to_assign.assign_one_teacher
     end
-    daily_availables.each do |a|
-      a.progress = 3
-      a.save
+    if daily_availables.present?
+      daily_availables.each do |a|
+        a.progress = 3
+        a.save
+      end
     end
   end
 
