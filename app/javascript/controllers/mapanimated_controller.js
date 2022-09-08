@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from 'mapbox-gl';
-var n = -0.001
+var n = -0.0045
 var interval
 var markArray = []
 var checkArray = []
@@ -22,7 +22,7 @@ export default class extends Controller {
     this.#addStartMarkersToMap()
     this.#addEndMarkersToMap()
     this.#fitMapToMarkers();
-    interval = setInterval(this.#animateMarker.bind(this), 250);
+    interval = setInterval(this.#animateMarker.bind(this), 150);
   }
   #addStartMarkersToMap() {
     this.startMarkersValue.forEach((marker) => {
@@ -41,11 +41,12 @@ export default class extends Controller {
   #fitMapToMarkers() {
     const bounds = new mapboxgl.LngLatBounds()
     this.endMarkersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
+    this.startMarkersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
     this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 })
   }
 
   #animateMarker() {
-    n += 0.005
+    n += 0.0045
     console.log("refresh4")
     markArray.forEach(element => { element.remove() });
     markArray = []
@@ -70,6 +71,7 @@ export default class extends Controller {
       }
       checkArray.push(has_moved)
       if (has_moved) {
+        // console.log(start_marker.lat)
         this.marker = new mapboxgl.Marker({color: '#F84C4C'}) //rouge
           .setLngLat([ start_marker.lng, start_marker.lat ])
           .addTo(this.map)
