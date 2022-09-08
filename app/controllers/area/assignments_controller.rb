@@ -25,6 +25,7 @@ class Area::AssignmentsController < ApplicationController
         }
       }
     end
+    TeacherMailer.with(teacher: @assignment.teacher).reassign_email.deliver_now
   end
 
   private
