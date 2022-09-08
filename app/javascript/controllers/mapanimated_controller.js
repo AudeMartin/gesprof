@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from 'mapbox-gl';
-var n = -0.0020
+var n = -1
 var interval
 var markArray = []
 var checkArray = []
@@ -14,7 +14,6 @@ export default class extends Controller {
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
-    console.log("Markers1")
     this.map = new mapboxgl.Map({
       container: this.element,
       style: "mapbox://styles/mapbox/streets-v10"
@@ -52,45 +51,33 @@ export default class extends Controller {
   }
 
   #animateMarker() {
-    n += 0.0020
+    n += 1
     markArray.forEach(element => { element.remove() });
     markArray = []
-    checkArray = []
-    const isFalse = (currentValue) => currentValue == false ;
     this.startMarkersValue.forEach((start_marker) => {
       const end_marker = this.endMarkersValue.find(em => em.school_id == start_marker.school_id)
-      let has_moved = false
-      if (Math.abs(end_marker.lat - start_marker.lat) > n) {
-        has_moved = true
-        if (end_marker.lat > start_marker.lat){
-          start_marker.lat += n}
-        else {
-          start_marker.lat -= n}
-      }
+      const a = (Math.abs(end_marker.lat - start_marker.lat) / 40.0)
+      const b = (Math.abs(end_marker.lng - start_marker.lng) / 40.0)
+
+      if (end_marker.lat > start_marker.lat){
+        start_marker.lat += n*a}
       else {
-        start_marker.lat = end_marker.lat
+        start_marker.lat -= n*a
       }
-      if (Math.abs(end_marker.lng - start_marker.lng) > n) {
-        has_moved = true
-        if (end_marker.lng > start_marker.lng){
-          start_marker.lng += n}
-        else {
-          start_marker.lng -= n}
-      }
+      if (end_marker.lng > start_marker.lng){
+        start_marker.lng += n*b}
       else {
-        start_marker.lng = end_marker.lng
+        start_marker.lng -= n*b}
+
+      const customMarker = document.createElement("div")
+      customMarker.className = "marker marker-teacher"
+      this.marker = new mapboxgl.Marker(customMarker)
+        .setLngLat([ start_marker.lng, start_marker.lat ])
+        .addTo(this.map)
+      markArray.push(this.marker)
+    })
+    if (n == 40) {
+        clearInterval(interval)
       }
-      checkArray.push(has_moved)
-      if (has_moved) {
-        const customMarker = document.createElement("div")
-        customMarker.className = "marker marker-teacher"
-        this.marker = new mapboxgl.Marker(customMarker)
-          .setLngLat([ start_marker.lng, start_marker.lat ])
-          .addTo(this.map)
-        markArray.push(this.marker)}
-      })
-      if (checkArray.every(isFalse)) {
-          clearInterval(interval)
-        }
   }
 }
