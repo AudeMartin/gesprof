@@ -221,7 +221,7 @@ tm1 = "Remplacement pour une classe de CP: pensez à amener des crayons de coule
 tm2 = "Remplacement pour une classe de CM1: sortie piscine prévue"
 tm3 = "Classe de CM1/CM2: 10 CM1 et 13 CM2"
 tm4 = "Parking au niveau du 120 rue Héron"
-tm5 = "Classe de CE2 avec AESH absente ce jour là"
+tm5 = "Classe de CE2 avec AESH absent ce jour là"
 tm6 = "Appelez moi au 05.56.36.00.00 à votre arrivée"
 
 s1 = School.find_by(name: "Ecole Élementaire Anatole France")
