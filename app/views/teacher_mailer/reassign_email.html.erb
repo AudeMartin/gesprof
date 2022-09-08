@@ -4,9 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body class="justify-content-center">
+    <h4>ANNULE ET REMPLACE LE PRÉCÉDENT MESSAGE</h4>
     <p><strong>Bonjour <%= @teacher.name %> !</strong></p>
     <p>
-      Votre affectation du jour est : <%= @teacher.assignments.last.school.name %>.<br>
+      Votre nouvelle affectation du jour est : <%= @teacher.assignments.last.school.name %>.<br>
     </p>
     <p>
       Adresse : <%= @teacher.assignments.last.school.address %>
@@ -17,6 +18,6 @@
 
     <p>Bonne journée !</p>
 
-  <img src="../../assets/images/GPLogo_BackBlanc.png" alt="GesProf">
+    <img src="../../assets/images/GPLogo_BackBlanc.png" alt="GesProf">
   </body>
 </html>

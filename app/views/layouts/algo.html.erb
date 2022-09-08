@@ -15,7 +15,6 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js" defer></script>
   </head>
   <body>
     <%= yield %>
@@ -25,5 +24,6 @@
       <div class="d-inline">Développé par Claude Martinot, Louis Michaud, Kévin Sarrazin & Yann Deret Le Berre</div>
       </div>
     </footer>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
   </body>
 </html>

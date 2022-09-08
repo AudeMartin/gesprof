@@ -5,13 +5,8 @@ class Area::AssignmentsController < ApplicationController
   end
 
   def update
-    old_assign = Assignment.find_by(teacher_id: params["assignment"]["teacher_id"])
-    if old_assign.present?
-      old_assign.teacher_id = nil
-      old_assign.save
-    end
-    progress = params["assignment"]["teacher_id"].empty? ? 1 : 2
-    @assignment.update_column(:progress, progress)
+    old_assigns = Assignment.where(teacher_id: params[:assignment][:teacher_id]).daily
+    old_assigns.update_all(teacher_id: nil, progress: 3)
 
     @assignment.update(assignment_params)
     respond_to do |format|
@@ -24,6 +19,7 @@ class Area::AssignmentsController < ApplicationController
         }
       }
     end
+    TeacherMailer.with(teacher: @assignment.teacher).reassign_email.deliver_now
   end
 
   private

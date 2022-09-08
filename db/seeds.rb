@@ -95,29 +95,29 @@ list2 = JSON.parse(schools_serialized2)
 
 # DAILY SEEDING
 
-Assignment.where(date: Date.today).destroy_all
-puts "Destroyed assignments for today"
+# Assignment.where(date: Date.today).destroy_all
+# puts "Destroyed assignments for today"
 
-@areas = Area.all
-@areas.each do |area|
-  # puts "Start seeding teachers for #{area.name}"
-  # 20.times do
-  #   name = Faker::Name.name
-  #   school = School.where(area: area).sample
-  #   email = Faker::Internet.email
-  #   phone_number = Faker::PhoneNumber.cell_phone_in_e164
-  #   Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
-  # end
-  # puts "Ended seeding teachers for #{area.name}"
+# @areas = Area.all
+# @areas.each do |area|
+# #   # puts "Start seeding teachers for #{area.name}"
+# #   # 20.times do
+# #   #   name = Faker::Name.name
+# #   #   school = School.where(area: area).sample
+# #   #   email = Faker::Internet.email
+# #   #   phone_number = Faker::PhoneNumber.cell_phone_in_e164
+# #   #   Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
+# #   # end
+# #   # puts "Ended seeding teachers for #{area.name}"
 
-  puts "Start seeding assignments for #{area.name}"
-  rand(15..35).times do
-    school = School.where(area: area).sample
-    teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
-    Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)
-  end
-  puts "Ended seeding assignments for #{area.name}"
-end
+#   puts "Start seeding assignments for #{area.name}"
+#   rand(15..35).times do
+#     school = School.where(area: area).sample
+#     teacher_message = Faker::Lorem.paragraph(sentence_count: 2)
+#     Assignment.create!(school: school, date: Date.today, teacher_message: teacher_message, area_message: teacher_message, progress: 1)
+#   end
+#   puts "Ended seeding assignments for #{area.name}"
+# end
 
 # seed test
 
@@ -189,9 +189,104 @@ end
 # names.each do |teacher|
 #     name = teacher
 #     school = School.where(area: area).sample
-#     email = Faker::Internet.email
+#     email = "michaud.louis.lm@gmail.com"
 #     phone_number = Faker::PhoneNumber.cell_phone_in_e164
 #     Teacher.create!(name: name, school: school, email: email, phone_number: phone_number)
 #   end
 #   puts "Ended seeding teachers for #{area.name}"
 # puts "nb of teachers for #{area.name}: #{area.teachers.size} "
+
+
+area = Area.find_by(name: "Circonscription d'inspection du 1er degré de Bordeaux Centre")
+array = School.where(area: area)
+array.map do |school|
+  new_array = []
+  school.name.split.each do |w|
+    new_array << w.capitalize
+  end
+  school.name = new_array.join(' ')
+  school.save
+end
+
+# Assignment.where(area_id: area.id, date: Date.today).delete_all
+area.assignments.where(date: Date.today).destroy_all
+
+puts "Start seeding assignments for #{area.name}"
+#messages
+am1 = "Deux absences aujourd'hui: un CP et un CM1"
+am2 = "Absence sur mon CM1/CM2 - je peux rebasculer les CM1 dans l'autre classe de CM1 et les CM2 dans l'autre classe de CM2"
+am3 = "Epidémie de COVID au sein de l'école: 4 enseignants absents"
+am4 = "Absence dans ma classe de CE2 avec AESH absent ce jour là"
+am5 = "Absence imprévue d'un membre de mon corps enseignant"
+tm1 = "Remplacement pour une classe de CP: pensez à amener des crayons de couleur"
+tm2 = "Remplacement pour une classe de CM1: sortie piscine prévue"
+tm3 = "Classe de CM1/CM2: 10 CM1 et 13 CM2"
+tm4 = "Parking au niveau du 120 rue Héron"
+tm5 = "Classe de CE2 avec AESH absent ce jour là"
+tm6 = "Appelez moi au 05.56.36.00.00 à votre arrivée"
+
+s1 = School.find_by(name: "Ecole Élementaire Anatole France")
+Assignment.create!(school: s1, date: Date.today, teacher_message: tm1, area_message: am1, progress: 1)
+Assignment.create!(school: s1, date: Date.today, teacher_message: tm2, area_message: am1, progress: 1)
+
+s2 = School.find_by(name: "Ecole Primaire Billie Holiday")
+Assignment.create!(school: s2, date: Date.today, teacher_message: tm3, area_message: am2, progress: 1)
+
+s3 = School.find_by(name: "Ecole Élémentaire Alphonse Dupeux")
+Assignment.create!(school: s3, date: Date.today, teacher_message: tm4, area_message: am3, progress: 1)
+Assignment.create!(school: s3, date: Date.today, teacher_message: tm4, area_message: am3, progress: 1)
+Assignment.create!(school: s3, date: Date.today, teacher_message: tm4, area_message: am3, progress: 1)
+Assignment.create!(school: s3, date: Date.today, teacher_message: tm4, area_message: am3, progress: 1)
+
+s4 = School.find_by(name: "Ecole Élementaire Paul Bert")
+Assignment.create!(school: s4, date: Date.today, teacher_message: tm5, area_message: am4, progress: 1)
+
+s5 = School.find_by(name: "Ecole Maternelle A. Thomas")
+Assignment.create!(school: s5, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s6 = School.find_by(name: "Ecole Maternelle Carles Vernet")
+Assignment.create!(school: s6, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s7 = School.find_by(name: "Ecole Maternelle Laboye")
+Assignment.create!(school: s7, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s8 = School.find_by(name: "Ecole Maternelle Montgolfier")
+Assignment.create!(school: s8, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s9 = School.find_by(name: "Ecole Maternelle Thiers")
+Assignment.create!(school: s9, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s10 = School.find_by(name: "Ecole Élementaire Deyries")
+Assignment.create!(school: s10, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s11 = School.find_by(name: "Ecole Élementaire André Meunier")
+Assignment.create!(school: s11, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s12 = School.find_by(name: "Ecole Maternelle Schweitzer")
+Assignment.create!(school: s12, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s13 = School.find_by(name: "Ecole Maternelle Alphonse Dupeux")
+Assignment.create!(school: s13, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s14 = School.find_by(name: "Ecole Maternelle Argonne")
+Assignment.create!(school: s14, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s15 = School.find_by(name: "Ecole Maternelle Beck")
+Assignment.create!(school: s15, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s16 = School.find_by(name: "Ecole Maternelle Béchade")
+Assignment.create!(school: s16, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s17 = School.find_by(name: "Ecole Elementaire Barbey")
+Assignment.create!(school: s17, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s18 = School.find_by(name: "Ecole Élementaire Thiers")
+Assignment.create!(school: s18, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s19 = School.find_by(name: "Ecole Primaire Franc Sanson")
+Assignment.create!(school: s19, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+s20 = School.find_by(name: "Ecole Élementaire Montaud")
+Assignment.create!(school: s20, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
+
+puts "Ended seeding assignments for #{area.name}"

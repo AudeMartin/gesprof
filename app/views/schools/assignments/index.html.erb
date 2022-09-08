@@ -1,20 +1,38 @@
 <div class="container" data-controller="assignments">
   <h3 class="text-center">Statut de vos demandes</h3>
   <br>
-  <div class="">
-    <ul class="bg-light text-center">
+  <div class="row">
+    <div class="col-10 offset-1">
+      <ul class="">
       <% @assignments.each do |a| %>
         <% if a.date >= Date.today %>
-          <% if a.progress == "pending" %>
-            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement en attente.
-          <% elsif a.progress == "validated" %>
-            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement acceptée.
-          <% elsif a.progress == "refused" %>
-            Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> est actuellement refusée.
-          <%end%>
-          <br>
+          <div class="card-product">
+            <%= image_tag "GP LogoLight.png" %>
+            <div class="card-product-infos">
+                <% if a.progress == "pending" %>
+                  <h2> Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> <span class="pendingstatus">est actuellement en attente.</span> </h2>
+                  <p> <strong> Message au gestionnaire :</strong> <%= a.area_message %> </p>
+                  <p> <strong> Message au remplaçant :</strong> <%= a.teacher_message %> </p>
+                <% elsif a.progress == "validated" %>
+                  <h2> Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> <span class="acceptstatus">est acceptée.</span> </h2>
+                  <p> <strong> Message au gestionnaire :</strong> <%= a.area_message %> </p>
+                  <p> <strong> Message au remplaçant :</strong> <%= a.teacher_message %> </p>
+                <% elsif a.progress == "refused" %>
+                  <h2> Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> <span class="refusstatus">est refusée.</span> </h2>
+                  <p> <strong> Message au gestionnaire :</strong> <%= a.area_message %> </p>
+                  <p> <strong> Message au remplaçant :</strong> <%= a.teacher_message %> </p>
+                <%end%>
+                <br>
+            </div>
+          </div>
         <% end %>
       <% end %>
-    </ul>
+      </ul>
+      <div class="d-flex justify-content-center">
+        <%= link_to "Retour", edit_schools_school_path(current_user.school), class: "btn btn-primary" %>
+      </div>
+      <br>
+      <br>
+    </div>
   </div>
 </div>
