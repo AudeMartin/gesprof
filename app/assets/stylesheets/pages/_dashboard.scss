@@ -25,6 +25,7 @@
   tbody>tr {
     &:hover {
       background-color: #60b2f023;
+      cursor: pointer;
 
       th > a {
         color: whitesmoke !important;
