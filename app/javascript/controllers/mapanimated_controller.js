@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from 'mapbox-gl';
-
+var n = 0.0
+var interval
+var markArray = []
 // Connects to data-controller="mapanimated"
 export default class extends Controller {
   static values = {
@@ -19,11 +21,9 @@ export default class extends Controller {
     this.#addStartMarkersToMap()
     this.#addEndMarkersToMap()
     this.#fitMapToMarkers();
-    setInterval(this.#animateMarker.bind(this), 1000);
+    interval = setInterval(this.#animateMarker.bind(this), 250);
   }
   #addStartMarkersToMap() {
-    console.log("bleu")
-    console.log(this.startMarkersValue)
     this.startMarkersValue.forEach((marker) => {
       new mapboxgl.Marker()//bleu
         .setLngLat([ marker.lng, marker.lat ])
@@ -44,22 +44,30 @@ export default class extends Controller {
   }
 
   #animateMarker() {
-    // if ((Math.abs(start_marker.lat - end_marker.lat) > 0.011) && (Math.abs(start_marker.lng - end_marker.lng)) > 0.011) {
-      console.log("rougeHELL")
+    n += 0.0001
     this.startMarkersValue.forEach((start_marker) => {
       const end_marker = this.endMarkersValue.find(em => em.school_id == start_marker.school_id)
-      if (Math.abs(start_marker.lat - end_marker.lat) > 0.011) {
-        start_marker.lat = [end_marker.lat - (Math.abs(end_marker.lat - start_marker.lat) + 0.01) ]}
-      if (Math.abs(start_marker.lng - end_marker.lng) > 0.011)  {
-        start_marker.lng = [end_marker.lng - (Math.abs(end_marker.lng - start_marker.lng) + 0.01) ]}
-
-      });
-
-    this.startMarkersValue.forEach((marker) => {
-      new mapboxgl.Marker({color: '#F84C4C'}) //rouge
-        .setLngLat([ marker.lng, marker.lat ])
-        .addTo(this.map)
-      });
-    //requestAnimationFrame(this.#animateMarker);
+      if (Math.abs(end_marker.lat - start_marker.lat) > n ) {
+        if ((end_marker.lat - start_marker.lat) > 0){
+          start_marker.lat += n}
+        else {
+          start_marker.lat -= n}
+      }
+      if (Math.abs(end_marker.lng - start_marker.lng) > n ) {
+        if ((end_marker.lng - start_marker.lng) > 0){
+          start_marker.lng += n}
+        else {
+          start_marker.lng -= n}
+      }
+      if ((Math.abs(end_marker.lat - start_marker.lat) > n) && (Math.abs(end_marker.lng - start_marker.lng) > n)) {
+        clearInterval(interval)
+      }
+      else {
+        markArray.forEach(element => { element.remove() });
+        this.marker = new mapboxgl.Marker({color: '#F84C4C'}) //rouge
+          .setLngLat([ start_marker.lng, start_marker.lat ])
+          .addTo(this.map)
+        markArray.push(this.marker)}
+    }
   }
 }
