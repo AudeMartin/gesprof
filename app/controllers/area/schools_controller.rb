@@ -22,16 +22,16 @@ class Area::SchoolsController < ApplicationController
   def show
     @assignments_pending = @school.assigns_pending
     @assignments_requests = @school.today_assigns
-
-    @initial_ratio = (@assignments_requests.size.fdiv(@school.classes_number) * 100).round(2)
-    @new_ratio = (@assignments_pending.size.fdiv(@school.classes_number) * 100).round(2)
+    @assignments_validated = Assignment.validated(current_user)
+    @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
 
     @teachers_assigned_ids = Assignment.teachers_assigned(current_user).map(&:teacher_id)
     @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
 
-    @assignments_validated = Assignment.validated(current_user)
-    @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
     @schools_filled = School.where(id: @assignments_confirmed_schools_ids)
+    @school_validated_assign = Assignment.school_validated_assign(@school.id)
+
+    @area_teachers = status(@school.area)
   end
 
   private
@@ -54,4 +54,33 @@ class Area::SchoolsController < ApplicationController
   def set_school
     @school = School.find(params[:id])
   end
+
+  def status(area)
+  area.teachers.map do |teacher|
+    assignment = teacher.assignments.where(date: Date.today).first
+    if assignment
+      icon = '<i class="fa-solid fa-do-not-enter"></i>'
+      # icon = '<i class="fa-solid fa-do-not-enter"></i>'
+    else
+      icon = '<i class="fa-thin fa-calendar-check"></i>'
+      # icon = '<i class="fa-thin fa-calendar-check"></i>'
+    end
+    "#{teacher.name} - #{icon.html_safe}"
+    end
+  end
+
+
 end
+
+
+
+# def status(area)
+#   area.teachers.map do |teacher|
+#     assignment = teacher.assignments.where(date: Date.today).first
+#     if assignment
+#       teacher.name = "#{teacher.name} - affecté à #{assignment.school.name}"
+#     else
+#       teacher.name = "#{teacher.name} - disponible"
+#     end
+#   end
+# end

@@ -1,0 +1,21 @@
+<% if @assignments_requests.size.positive? %>
+  <% if @assignments_requests.size > @school_validated_assign.size %>
+    <div class="bg-info border p-2 message">
+      <h4>
+        Nous n'avons pas pu satisfaire la demande.
+      </h4>
+    </div>
+  <% else %>
+    <div class="bg-success border p-2 message">
+      <h4>
+        Nous avons pu pourvoir à toutes les absences 🥳
+      </h4>
+    </div>
+  <% end %>
+<% else %>
+  <div class="bg-light border p-2 message">
+    <h4>
+      Aucune demande n'a été effectuée par cet établissement.
+    </h4>
+  </div>
+<% end %>
