@@ -22,6 +22,9 @@ application.register("flatpickr", FlatpickrController)
 import MapController from "./map_controller"
 application.register("map", MapController)
 
+import MapSchoolShowController from "./map_school_show_controller"
+application.register("map-school-show", MapSchoolShowController)
+
 import MapanimController from "./mapanim_controller"
 application.register("mapanim", MapanimController)
 
@@ -30,6 +33,9 @@ application.register("mapanimated", MapanimatedController)
 
 import MyNestedFormController from "./my_nested_form_controller"
 application.register("my-nested-form", MyNestedFormController)
+
+import ShowSchoolDashboardController from "./show_school_dashboard_controller"
+application.register("show-school-dashboard", ShowSchoolDashboardController)
 
 import SortDashboardController from "./sort_dashboard_controller"
 application.register("sort-dashboard", SortDashboardController)

@@ -38,40 +38,37 @@
     color:green;
   }
 
-}
 
-.message {
-  h4 {
-    margin-bottom: 0;
+ .message {
+    margin-bottom: 10px;
+    h4 {
+      margin-bottom: 0;
+    }
   }
 
-  margin-bottom: 10px;
-}
+  #chart-1 {
+    padding-top: 3rem;
+  }
 
-#chart-1 {
-  padding-top: 3rem;
-}
+  .searcher {
 
-.searcher {
-
-  .form-control {
-    &:focus {
-      box-shadow: none;
-    }
+    .form-control {
+      &:focus {
+        box-shadow: none;
+      }
   }
 
   ul {
-    a {
-      text-decoration: none;
-      color: black
-    }
-
     border-left: solid #dee2e6 1px;
     border-right: solid #dee2e6 1px;
     border-bottom: solid #dee2e6 1px;
     border-radius: 2px;
     list-style-type: none;
     padding-left: 0px;
+    a {
+      text-decoration: none;
+      color: black
+    }
 
     li {
 
@@ -83,4 +80,12 @@
     }
 
   }
+ }
+
+ .nav-tabs{
+  .tab{
+    color:white!important;
+    background-color: RGB(163, 183, 230)!important;
+  }
+ }
 }

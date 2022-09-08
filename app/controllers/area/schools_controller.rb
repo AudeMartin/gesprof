@@ -30,6 +30,9 @@ class Area::SchoolsController < ApplicationController
 
     @schools_filled = School.where(id: @assignments_confirmed_schools_ids)
     @school_validated_assign = Assignment.school_validated_assign(@school.id)
+    @schools = current_user.area.schools
+
+    @markers = @schools.select { |school| school.assignments.any? }.map { |school| { school_id: school.id, lat: school.latitude, lng: school.longitude } }
   end
 
   private
