@@ -215,13 +215,13 @@ puts "Start seeding assignments for #{area.name}"
 am1 = "Deux absences aujourd'hui: un CP et un CM1"
 am2 = "Absence sur mon CM1/CM2 - je peux rebasculer les CM1 dans l'autre classe de CM1 et les CM2 dans l'autre classe de CM2"
 am3 = "Epidémie de COVID au sein de l'école: 4 enseignants absents"
-am4 = "Absence dans ma classe de CE2 avec AESH absente ce jour là"
+am4 = "Absence dans ma classe de CE2 avec AESH absent ce jour là"
 am5 = "Absence imprévue d'un membre de mon corps enseignant"
 tm1 = "Remplacement pour une classe de CP: pensez à amener des crayons de couleur"
 tm2 = "Remplacement pour une classe de CM1: sortie piscine prévue"
 tm3 = "Classe de CM1/CM2: 10 CM1 et 13 CM2"
 tm4 = "Parking au niveau du 120 rue Héron"
-tm5 = "Classe de CE2 avec AESH absente ce jour là"
+tm5 = "Classe de CE2 avec AESH absent ce jour là"
 tm6 = "Appelez moi au 05.56.36.00.00 à votre arrivée"
 
 s1 = School.find_by(name: "Ecole Élementaire Anatole France")
@@ -267,7 +267,7 @@ Assignment.create!(school: s12, date: Date.today, teacher_message: tm6, area_mes
 s13 = School.find_by(name: "Ecole Maternelle Alphonse Dupeux")
 Assignment.create!(school: s13, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
-s14 = School.find_by(name: "Ecole Maternelle Cité de la Benauge")
+s14 = School.find_by(name: "Ecole Maternelle Argonne")
 Assignment.create!(school: s14, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
 s15 = School.find_by(name: "Ecole Maternelle Beck")
@@ -276,7 +276,7 @@ Assignment.create!(school: s15, date: Date.today, teacher_message: tm6, area_mes
 s16 = School.find_by(name: "Ecole Maternelle Béchade")
 Assignment.create!(school: s16, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
-s17 = School.find_by(name: "Ecole Élementaire du Vieux Bordeaux")
+s17 = School.find_by(name: "Ecole Elementaire Barbey")
 Assignment.create!(school: s17, date: Date.today, teacher_message: tm6, area_message: am5, progress: 1)
 
 s18 = School.find_by(name: "Ecole Élementaire Thiers")

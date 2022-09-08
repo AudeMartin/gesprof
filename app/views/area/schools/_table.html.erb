@@ -1,11 +1,21 @@
 <table class="table table-striped table-hover text-center" data-toggle="table" data-filter-dashboard-target="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col" class="bdr-tl-5"><%= link_to "Ecole", :sort => "name", schools: @schools.map(&:id) %></th>
-      <th scope="col"><%= link_to "Absences", :sort => "absences", schools: @schools.map(&:id) %></th>
-      <th scope="col"><%= link_to "Taux d'absence initial", :sort => "initial_rate", schools: @schools.map(&:id) %></th>
-      <th scope="col"><%= link_to "Affectations", :sort => "assignments", schools: @schools.map(&:id) %></th>
-      <th scope="col"><%= link_to "Taux d'absence actuel", :sort => "current_rate", schools: @schools.map(&:id) %></th>
+      <th scope="col" class="bdr-tl-5"><%= link_to :sort => "name", schools: @schools.map(&:id) do %>
+        Ecole <i class="fa-solid fa-sort-down"></i>
+      <% end %></th>
+      <th scope="col"><%= link_to :sort => "absences", schools: @schools.map(&:id) do %>
+      Absences <i class="fa-solid fa-sort-down"></i>
+      <% end %></th>
+      <th scope="col"><%= link_to :sort => "initial_rate", schools: @schools.map(&:id) do %>
+      Taux d'absence initial <i class="fa-solid fa-sort-down"></i>
+      <% end %></th>
+      <th scope="col"><%= link_to :sort => "assignments", schools: @schools.map(&:id) do %>
+      Affectations <i class="fa-solid fa-sort-down"></i>
+      <% end %></th>
+      <th scope="col"><%= link_to :sort => "current_rate", schools: @schools.map(&:id) do %>
+      Taux d'absence actuel <i class="fa-solid fa-sort-down"></i>
+      <% end %></th>
       <th scope="col" class="bdr-tr-5"></th>
     </tr>
   </thead>
