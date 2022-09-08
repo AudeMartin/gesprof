@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import mapboxgl from 'mapbox-gl';
-var n = -0.0035
+var n = -0.0020
 var interval
 var markArray = []
 var checkArray = []
@@ -14,7 +14,7 @@ export default class extends Controller {
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
-
+    console.log("Markers1")
     this.map = new mapboxgl.Map({
       container: this.element,
       style: "mapbox://styles/mapbox/streets-v10"
@@ -22,18 +22,24 @@ export default class extends Controller {
     this.#addStartMarkersToMap()
     this.#addEndMarkersToMap()
     this.#fitMapToMarkers();
-    interval = setInterval(this.#animateMarker.bind(this), 150);
+    interval = setInterval(this.#animateMarker.bind(this), 200);
   }
   #addStartMarkersToMap() {
     this.startMarkersValue.forEach((marker) => {
-      new mapboxgl.Marker()//bleu
+      const customMarker = document.createElement("div")
+      customMarker.className = "marker marker-school1"
+      this.marker = new mapboxgl.Marker(customMarker)
+      new mapboxgl.Marker(customMarker)
         .setLngLat([ marker.lng, marker.lat ])
         .addTo(this.map)
     })
   }
   #addEndMarkersToMap() {
     this.endMarkersValue.forEach((marker) => {
-      new mapboxgl.Marker({color: '#5df84c'}) //vert
+      const customMarker = document.createElement("div")
+      customMarker.className = "marker marker-school2"
+      this.marker = new mapboxgl.Marker(customMarker)
+      new mapboxgl.Marker(customMarker)
         .setLngLat([ marker.lng, marker.lat ])
         .addTo(this.map)
     })
@@ -46,7 +52,7 @@ export default class extends Controller {
   }
 
   #animateMarker() {
-    n += 0.0035
+    n += 0.0020
     markArray.forEach(element => { element.remove() });
     markArray = []
     checkArray = []
@@ -76,7 +82,9 @@ export default class extends Controller {
       }
       checkArray.push(has_moved)
       if (has_moved) {
-        this.marker = new mapboxgl.Marker({color: '#F84C4C'}) //rouge
+        const customMarker = document.createElement("div")
+        customMarker.className = "marker marker-teacher"
+        this.marker = new mapboxgl.Marker(customMarker)
           .setLngLat([ start_marker.lng, start_marker.lat ])
           .addTo(this.map)
         markArray.push(this.marker)}
