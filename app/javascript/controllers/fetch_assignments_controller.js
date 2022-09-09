@@ -30,7 +30,7 @@ export default class extends Controller {
           text: `
           ${teacherSelected} est déjà affecté\n
           à ${school.name}\n
-          situé ${school.address}\n
+          située ${school.address}\n
           `,
           icon: 'warning',
           showCancelButton: true,
@@ -73,7 +73,7 @@ export default class extends Controller {
             this.formTarget.reset()
             Swal.fire({
              title: 'Annulé',
-             text: 'L\'affectation n\a pas était modifié.',
+             text: 'L\'affectation n\a pas était modifiée.',
              icon: 'error',
             })
           }
@@ -114,7 +114,7 @@ export default class extends Controller {
                 ${result.value.teacher.email} | ${result.value.teacher.phone_number}
                 `
               }else{
-                content ='Affectation annulé'
+                content ='Affectation annulée'
               }
 
               if(result.isConfirmed){
