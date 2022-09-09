@@ -13,10 +13,10 @@
     </p>
     <p>Message de la direction : <%= @teacher.assignments.last.teacher_message %> </p><br>
 
-    Voir le détail : <%= area_assignment_teacher_url(@teacher.assignments.last, @teacher, token: @teacher.assignments.last.token) %>
+    <a href="<%= area_assignment_teacher_url(@teacher.assignments.last, @teacher, token: @teacher.assignments.last.token) %>">Voir le détail</a>
 
     <p>Bonne journée !</p>
 
-  <img src="../../assets/images/GPLogo_BackBlanc.png" alt="GesProf">
+  <p>Votre gestionnaire</p>
   </body>
 </html>

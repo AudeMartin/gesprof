@@ -7,7 +7,7 @@
       <% @assignments.each do |a| %>
         <% if a.date >= Date.today %>
           <div class="card-product">
-            <%= image_tag "GP LogoLight.png" %>
+            <%= image_tag "GPLogoLight.png" %>
             <div class="card-product-infos">
                 <% if a.progress == "pending" %>
                   <h2> Votre demande pour le <%= a.date.day %>/<%= a.date.month %>/<%= a.date.year %> <span class="pendingstatus">est actuellement en attente.</span> </h2>
