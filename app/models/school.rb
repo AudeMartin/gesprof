@@ -10,7 +10,6 @@ class School < ApplicationRecord
 
   geocoded_by :address
   accepts_nested_attributes_for :assignments, reject_if: :all_blank, allow_destroy: true
-
   def ratio
     Assignment.daily_availables_for(self).count.fdiv(classes_number)
   end

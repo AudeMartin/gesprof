@@ -29,14 +29,18 @@ class Area::SchoolsController < ApplicationController
 
     @teachers_assigned_ids = Assignment.teachers_assigned(current_user).map(&:teacher_id)
     @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
+    @area_teachers = status(@school.area)
 
-    @markers = @schools.geocoded.map do |school| {
+    @schools_teachers_any = Teacher.teacher_present(current_user)
+
+    @marker_school = @school
+    @markers = @schools_teachers_any.map do |school| {
+      id: school.id,
       latitude: school.latitude,
       longitude: school.longitude,
       info_window: render_to_string(partial: "info_window", locals: { school: school })
     }
     end
-    @area_teachers = status(@school.area)
   end
 
   private

@@ -14,14 +14,14 @@ export default class extends Controller {
 
     tab.classList.add('active','tab')
 
-    if(tab.id === 'charts'){
-      chartsTab.classList.remove('d-none')
-      mapTab.classList.add('d-none')
-      mapBtn.classList.remove('active','tab')
-    }else{
+    if(tab.id === 'map'){
       mapTab.classList.remove('d-none')
       chartsTab.classList.add('d-none')
       chartsBtn.classList.remove('active','tab')
+    }else{
+      chartsTab.classList.remove('d-none')
+      mapTab.classList.add('d-none')
+      mapBtn.classList.remove('active','tab')
     }
   }
 }

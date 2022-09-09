@@ -9,6 +9,7 @@ class Area::AssignmentsController < ApplicationController
     old_assigns.update_all(teacher_id: nil, progress: 3)
 
     @assignment.update(assignment_params)
+    TeacherMailer.with(teacher: @assignment.teacher).reassign_email.deliver_now
     respond_to do |format|
       format.html { redirect_to area_school_path(params[:school_id]) }
       format.json {
@@ -19,7 +20,6 @@ class Area::AssignmentsController < ApplicationController
         }
       }
     end
-    TeacherMailer.with(teacher: @assignment.teacher).reassign_email.deliver_now
   end
 
   private

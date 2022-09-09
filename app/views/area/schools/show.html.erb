@@ -56,17 +56,17 @@
         <div data-controller="show-school-dashboard" >
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <button id="charts" data-action="click->show-school-dashboard#switchTab" type="button" class="nav-link active tab">Statistiques</>
+              <button id="map" data-action="click->show-school-dashboard#switchTab" type="button" class="nav-link active tab">Carte des enseignants</button>
             </li>
             <li class="nav-item">
-              <button id="map" data-action="click->show-school-dashboard#switchTab" type="button" class="nav-link">Carte des enseignants</button>
+              <button id="charts" data-action="click->show-school-dashboard#switchTab" type="button" class="nav-link">Statistiques</>
             </li>
           </ul>
-          <div data-show-school-dashboard-target='charts'>
-            <%= render 'area/schools/charts', school: @school %>
+          <div data-show-school-dashboard-target='map'>
+            <%= render 'area/schools/map_school_show', markers:@markers, marker_school: @marker_school %>
           </div>
-          <div class="d-none" data-show-school-dashboard-target='map'>
-            <%= render 'area/schools/map_school_show', markers:@markers %>
+          <div class="d-none" data-show-school-dashboard-target='charts'>
+            <%= render 'area/schools/charts', school: @school %>
           </div>
         </div>
         <%= link_to 'Tableau de bord', area_schools_path, class:"btn btn-primary mt-5" %>
