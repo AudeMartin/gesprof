@@ -12,9 +12,9 @@ class AlgoController < ApplicationController
     assignment_ids = to_assigns.map(&:id)
     assignments = Assignment.where(id: assignment_ids)
     assignments.assign_all
-    # assignments.each do |assignment|
-    #   TeacherMailer.with(teacher: assignment.teacher).teacher_email.deliver_now if assignment.teacher.present?
-    # end
+    assignments.each do |assignment|
+      TeacherMailer.with(teacher: assignment.teacher).teacher_email.deliver_now if assignment.teacher.present?
+    end
     #Assignment.archive_old
 
     redirect_back_or_to root_path
