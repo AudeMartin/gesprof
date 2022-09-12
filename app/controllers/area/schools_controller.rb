@@ -1,5 +1,3 @@
-require 'json'
-
 class Area::SchoolsController < ApplicationController
   before_action :set_school, if: :user_signed_in?, only: %i[show]
 
@@ -25,13 +23,24 @@ class Area::SchoolsController < ApplicationController
     @assignments_validated = Assignment.validated(current_user)
     @assignments_confirmed_schools_ids = @assignments_validated.map(&:school_id)
 
-    @teachers_assigned_ids = Assignment.teachers_assigned(current_user).map(&:teacher_id)
-    @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
-
     @schools_filled = School.where(id: @assignments_confirmed_schools_ids)
     @school_validated_assign = Assignment.school_validated_assign(@school.id)
+    @schools = current_user.area.schools
 
+    @teachers_assigned_ids = Assignment.teachers_assigned(current_user).map(&:teacher_id)
+    @teachers_assigned = Teacher.where(id: @teachers_assigned_ids)
     @area_teachers = status(@school.area)
+
+    @schools_teachers_any = Teacher.teacher_present(current_user)
+
+    @marker_school = @school
+    @markers = @schools_teachers_any.map do |school| {
+      id: school.id,
+      latitude: school.latitude,
+      longitude: school.longitude,
+      info_window: render_to_string(partial: "info_window", locals: { school: school })
+    }
+    end
   end
 
   private

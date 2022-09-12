@@ -13,4 +13,8 @@ class Teacher < ApplicationRecord
   def daily_available?
     Teacher.daily_availables.include?(self)
   end
+
+  def self.teacher_present(current_user)
+    School.where(area: current_user.area).select { |school| school.teachers.present? }
+  end
 end

@@ -1,0 +1,11 @@
+<div class="mapbox card rounded">
+  <div class="card-header p-0">
+  <%= image_tag asset_url('GPLogoSansBack.png'), class:'w-50' %>
+  <% teacher = school.area.teachers.select{|teacher| teacher.school_id === school.id} %>
+    <h6><%= teacher.first.name %></h6>
+  </div>
+  <div class="card-subtitle text-center p-1">
+    <p class="m-0"><strong>Tel:</strong>&nbsp;<%= teacher.first.phone_number %></p>
+    <p><strong>Adresse:</strong>&nbsp;<%= school.address %></p>
+  </div>
+</div>
